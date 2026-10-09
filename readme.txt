@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,6 +98,10 @@ Not yet. On a multisite network it stays hidden and changes nothing.
 
 If a session is open, your plugins are put back first. Then Plugin Detective removes its own settings and activity log.
 
+= How do updates work? =
+
+This plugin is not distributed on the WordPress.org repository, so it checks its own GitHub releases instead. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update, the same as any WordPress.org plugin. The only outbound request this adds is the periodic check against GitHub for a newer release; nothing about your site's content, users, or configuration is sent.
+
 == Screenshots ==
 
 1. Tools > Plugin Detective, with the emergency bookmark and activity log.
@@ -107,6 +111,9 @@ If a session is open, your plugins are put back first. Then Plugin Detective rem
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 2.1.0 - 2026-10-09 =
+* New: Checks for updates against this plugin's GitHub releases, the same way WordPress checks wordpress.org for everything else. Works once the `hackrepair/hackrepair-plugin-detective` repository is public; while it's private, this quietly does nothing.
 
 = 2.0.0 - 2026-10-08 =
 * New: First release from Jim Walker, The Hack Repair Guy. Rebuilt from the ground up; no earlier code, artwork, or copy carried forward.
@@ -131,6 +138,9 @@ If a session is open, your plugins are put back first. Then Plugin Detective rem
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
 
 == Upgrade Notice ==
+
+= 2.1.0 =
+Adds GitHub-based update checks. No action needed; updates start appearing automatically once the plugin's repository is public.
 
 = 2.0.0 =
 First release from The Hack Repair Guy. Rebuilt from scratch with two-factor support, a safety net for switched-off plugins, and an activity log. Deactivate the older Plugin Detective plugin after installing.

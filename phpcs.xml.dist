@@ -6,6 +6,8 @@
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/dist/*</exclude-pattern>
+	<!-- Vendored third-party library (Plugin Update Checker by Janis Elsts, MIT licensed); not our code to re-style. -->
+	<exclude-pattern>*/plugin-update-checker/*</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
 	<arg value="sp"/>

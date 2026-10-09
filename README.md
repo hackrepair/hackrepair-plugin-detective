@@ -203,7 +203,9 @@ hackrepair-plugin-detective/
 │   ├── class-hrpd-admin.php          Tools page, admin bar link, safety notice
 │   ├── class-hrpd-case.php           Case storage, plugin switching, restore
 │   ├── class-hrpd-detective.php      Search logic (no WordPress calls)
-│   └── class-hrpd-log.php            Activity log
+│   ├── class-hrpd-log.php            Activity log
+│   └── class-hrpd-updater.php        Points WordPress at this plugin's GitHub releases
+├── plugin-update-checker/            Vendored third-party library (see Standards below)
 ├── troubleshoot/
 │   ├── index.php                     Standalone troubleshooter page
 │   ├── api.php                       Standalone JSON API
@@ -223,8 +225,9 @@ hackrepair-plugin-detective/
 
 - WordPress Coding Standards and PHPCompatibilityWP (`testVersion 7.4-`) with zero violations: `phpcs`
 - PHP 7.4 floor, PHP 8.3 style where 7.4 allows it
-- No build step, no external assets, no outside network calls
+- No build step, no external assets or tracking in the troubleshooter UI
 - All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
+- Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts) — that's the only outside network call this plugin makes, and it's WordPress's own update mechanism, not telemetry
 
 ### Verified in 2.0.0
 
