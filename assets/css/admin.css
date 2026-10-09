@@ -1,0 +1,31 @@
+/* HackRepair Plugin Detective admin screen.
+ * Follows the HackRepair Post Update Email Notifier admin style. */
+.hrpd-wrap{--hrpd-accent:#b34700;--hrpd-accent2:#e53935;--hrpd-bg:#fff7f0;--hrpd-card:#fff;--hrpd-border:#ffd7b3;--hrpd-muted:#50575e;max-width:1000px;padding-bottom:40px}
+.hrpd-head{display:flex;align-items:center;gap:14px;margin:12px 0 18px}
+.hrpd-head h1{margin:0;padding:0;font-size:24px}
+.hrpd-byline{margin:2px 0 0;color:var(--hrpd-muted)}
+.hrpd-section{background:linear-gradient(90deg,#fff3e6,#fff);border:1px solid var(--hrpd-border);border-left:6px solid var(--hrpd-accent2);border-radius:10px 10px 0 0;padding:12px 16px;margin:22px 0 0;font-size:16px}
+.hrpd-card{background:var(--hrpd-card);border:1px solid var(--hrpd-border);border-top:0;border-left:6px solid var(--hrpd-accent);border-radius:0 0 10px 10px;padding:12px 18px;box-shadow:0 2px 6px rgba(0,0,0,.03)}
+.hrpd-card p{font-size:14px;line-height:1.6;max-width:72ch}
+.hrpd-wrap .button-primary{background:var(--hrpd-accent);border-color:var(--hrpd-accent);color:#fff}
+.hrpd-wrap .button-primary:hover,.hrpd-wrap .button-primary:focus{background:#9a3c00;border-color:#9a3c00;color:#fff}
+.hrpd-wrap .button:focus-visible,.hrpd-wrap a:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px;box-shadow:none}
+.hrpd-muted{color:var(--hrpd-muted)}
+.hrpd-chip{display:inline-flex;align-items:center;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;background:#eef2f7;color:#3c434a;margin-right:6px}
+.hrpd-chip--ok{background:#e7f7ec;color:#1e6b2a}
+.hrpd-chip--warn{background:#fff1d6;color:#7a4b00}
+.hrpd-callout{margin:12px 0;padding:10px 14px;border-left:6px solid #46b450;border-radius:6px;background:linear-gradient(135deg,#e6ffed,#fff)}
+.hrpd-callout--warning{border-left-color:#dba617;background:linear-gradient(135deg,#fff7e6,#fff)}
+.hrpd-callout p{margin:6px 0}
+.hrpd-inline-form{display:inline-block;margin:6px 0}
+.hrpd-log{margin-top:8px}
+.hrpd-log td,.hrpd-log th{font-size:13px}
+.hrpd-help{display:flex;align-items:center;gap:14px;margin-top:24px;padding:12px 16px;border:1px dashed var(--hrpd-border);border-radius:10px;background:var(--hrpd-bg)}
+.hrpd-mascot{flex:none;object-fit:contain}
+.hrpd-help p{margin:0}
+.hrpd-notice__actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.hrpd-notice__actions .hrpd-inline-form{margin:0}
+@media (max-width:782px){.hrpd-log th:nth-child(4),.hrpd-log td:nth-child(4){display:none}}
+.hrpd-notice{border-left-color:#dba617}
+.hrpd-notice .button-primary{background:#b34700;border-color:#b34700;color:#fff}
+.hrpd-notice .button-primary:hover,.hrpd-notice .button-primary:focus{background:#9a3c00;border-color:#9a3c00;color:#fff}
