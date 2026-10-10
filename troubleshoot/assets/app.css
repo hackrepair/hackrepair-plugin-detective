@@ -140,8 +140,10 @@ a:hover { color: var(--hrpd-accent-hover); }
 
 .hrpd-checklist { list-style: none; margin: 12px 0; padding: 0; columns: 2 280px; column-gap: 24px; }
 .hrpd-checklist li { break-inside: avoid; margin: 0 0 6px; }
-.hrpd-check { display: flex; align-items: center; gap: 10px; min-height: 36px; cursor: pointer; }
-.hrpd-check input { width: 18px; height: 18px; accent-color: var(--hrpd-accent); }
+.hrpd-check { display: flex; align-items: flex-start; gap: 10px; min-height: 36px; padding: 6px 0; cursor: pointer; }
+.hrpd-check input { flex: none; width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--hrpd-accent); }
+.hrpd-check span:first-of-type { min-width: 0; overflow-wrap: anywhere; }
+.hrpd-check .hrpd-muted { flex: none; margin-left: auto; padding-left: 8px; white-space: nowrap; }
 
 .hrpd-list { margin: 6px 0 12px; padding-left: 20px; }
 .hrpd-list li { margin: 3px 0; }

@@ -396,9 +396,14 @@
 						} );
 						run( 'start_case', { required: required }, setOverview );
 					}, 'primary' ),
-					stopButton(),
+					// Nothing has been switched off yet, so cancelling needs no confirmation.
+					button( S.cancelSetup, function () {
+						run( 'abandon', {}, function ( data ) {
+							setOverview( data );
+							state.finished = 'cancelled';
+						} );
+					}, 'link' ),
 				] ),
-				confirmBox(),
 			] ),
 		];
 	}
@@ -547,7 +552,7 @@
 	function viewDone() {
 		return [
 			card( S.doneTitle, [
-				para( state.finished === 'kept' ? S.doneKept : S.doneRestored ),
+				para( state.finished === 'kept' ? S.doneKept : ( state.finished === 'cancelled' ? S.doneCancelled : S.doneRestored ) ),
 				h( 'div', { class: 'hrpd-actions' }, [
 					button( S.startAgain, function () {
 						state.finished = null;
@@ -578,7 +583,7 @@
 		nav.textContent = '';
 		const o = state.overview;
 		if ( o && o.user && o.user.name ) {
-			nav.appendChild( h( 'span', { class: 'hrpd-top__user', text: o.user.name } ) );
+			nav.appendChild( h( 'span', { class: 'hrpd-top__user', text: fmt( S.signedInAs, o.user.name ) } ) );
 		}
 		nav.appendChild( h( 'a', { href: boot.toolsUrl, text: S.backToWp } ) );
 		if ( state.signedIn && o && o.user && o.user.source === 'troubleshooter' ) {

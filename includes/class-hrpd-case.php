@@ -217,6 +217,17 @@ final class HRPD_Case {
 			return array( 'done' => true );
 		}
 
+		// Testing never started, so no plugin was switched. Close the case
+		// without rewriting the plugin list or recording a result.
+		if ( self::STATUS_SETUP === $record['status'] ) {
+			delete_option( self::OPTION );
+			HRPD_Log::add( 'case_closed', 'Case cancelled before testing. No plugins were changed.' );
+			return array(
+				'done'     => true,
+				'kept_off' => false,
+			);
+		}
+
 		$keep_culprit_off = 'keep' === $mode
 			&& self::STATUS_SOLVED === $record['status']
 			&& HRPD_Detective::RESULT_CULPRIT === ( $record['result']['result'] ?? '' );

@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -112,6 +112,14 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 == Changelog ==
 
+= 2.1.1 - 2026-10-10 =
+* Tweak: Step 2 now says plainly that a ticked plugin stays on and can't be checked, so a plugin you tick can't be found as the cause.
+* Tweak: Step 2 warning now says switched-off plugins are off for everyone visiting your site, security and spam protection included, until you finish or stop. It no longer promises "a few minutes."
+* Tweak: Step 2 has a plain "Cancel" instead of "Stop and put everything back," since nothing has been switched off yet. Cancelling changes nothing and doesn't touch your plugin list.
+* Tweak: Plugin list in Step 2 is now in A-to-Z order.
+* Tweak: The name in the top corner now reads "Signed in as ..." so it isn't mistaken for a product name.
+* Fix: Long plugin names in Step 2 no longer squash the checkbox or push the version number out of line.
+
 = 2.1.0 - 2026-10-09 =
 * New: Checks for updates against this plugin's GitHub releases, the same way WordPress checks wordpress.org for everything else. Works once the `hackrepair/hackrepair-plugin-detective` repository is public; while it's private, this quietly does nothing.
 
@@ -138,6 +146,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
 
 == Upgrade Notice ==
+
+= 2.1.1 =
+Clearer Step 2 wording and warning, a real Cancel button, and an A-to-Z plugin list. No settings changes.
 
 = 2.1.0 =
 Adds GitHub-based update checks. No action needed; updates start appearing automatically once the plugin's repository is public.

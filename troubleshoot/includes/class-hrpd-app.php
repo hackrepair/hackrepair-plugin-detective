@@ -291,12 +291,21 @@ final class HRPD_App {
 			return $out;
 		};
 
+		// Step 2 lists every candidate; show them A to Z by name, not by folder.
+		$candidates = $names( (array) $record['candidates'] );
+		usort(
+			$candidates,
+			static function ( array $a, array $b ): int {
+				return strnatcasecmp( $a['name'], $b['name'] );
+			}
+		);
+
 		$view = array(
 			'id'         => $record['id'],
 			'status'     => $record['status'],
 			'url'        => $record['url'],
 			'openedAt'   => (int) $record['opened_at'],
-			'candidates' => $names( (array) $record['candidates'] ),
+			'candidates' => $candidates,
 			'required'   => $names( (array) $record['required'] ),
 			'answers'    => count( (array) $record['clues'] ),
 			'step'       => null,

@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.0.0-b34700?style=flat-square" alt="Version 2.0.0">
+  <img src="https://img.shields.io/badge/version-2.1.1-b34700?style=flat-square" alt="Version 2.1.1">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1-21759b?style=flat-square" alt="Tested up to WordPress 7.1">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -229,15 +229,16 @@ hackrepair-plugin-detective/
 - All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
 - Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts) — that's the only outside network call this plugin makes, and it's WordPress's own update mechanism, not telemetry
 
-### Verified in 2.0.0
+### Verified in 2.1.1
 
 | Check | Result |
 |---|---|
-| API end-to-end (login, 2FA, lockout, search, undo, restore, maintenance) | 46 / 46 |
-| Browser walkthrough (desktop and phone) | 13 / 13 |
+| API end-to-end (login, 2FA, lockout, search, undo, restore, maintenance, cancel at Step 2) | 52 / 52 |
+| Browser walkthrough (desktop and phone) | 22 / 22, no JavaScript errors |
 | White-screen recovery (crashing plugin, site and wp-admin returning 500) | Found in 7 checks, site back to 200 |
-| `php -l` on PHP 7.4.33 and 8.3 | Clean |
-| PHPCS (WordPress + PHPCompatibilityWP) | 0 errors, 0 warnings |
+| `php -l` on PHP 8.3 | Clean |
+
+PHP 7.4 lint and PHPCS (WordPress + PHPCompatibilityWP) were clean on 2.1.0 and are re-run before each release.
 
 ## Changelog
 

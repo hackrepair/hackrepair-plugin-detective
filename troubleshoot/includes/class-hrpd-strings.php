@@ -30,6 +30,8 @@ final class HRPD_Strings {
 			'byline'            => __( 'by Jim Walker, The Hack Repair Guy', 'hackrepair-plugin-detective' ),
 			'backToWp'          => __( 'Back to WordPress', 'hackrepair-plugin-detective' ),
 			'signOut'           => __( 'Sign out', 'hackrepair-plugin-detective' ),
+			/* translators: %1$s: the signed-in user's display name. */
+			'signedInAs'        => __( 'Signed in as %1$s', 'hackrepair-plugin-detective' ),
 			'working'           => __( 'One moment…', 'hackrepair-plugin-detective' ),
 			'errorGeneric'      => __( 'Something went sideways. Reload the page and try again.', 'hackrepair-plugin-detective' ),
 			'helpTitle'         => __( 'Still stuck?', 'hackrepair-plugin-detective' ),
@@ -86,9 +88,10 @@ final class HRPD_Strings {
 
 			// Step 2: must stay on.
 			'requiredTitle'     => __( 'Step 2: Anything that has to stay on?', 'hackrepair-plugin-detective' ),
-			'requiredText'      => __( 'Tick any plugin your site can\'t run without, like the page builder the broken page is built with, or WooCommerce on a store. Ticked plugins stay on the whole time. If you\'re not sure, leave everything unticked.', 'hackrepair-plugin-detective' ),
-			'requiredSecurity'  => __( 'Heads up: while we test, unticked plugins (including security plugins) are switched off for a few minutes. Keep the session short and finish it when you\'re done.', 'hackrepair-plugin-detective' ),
+			'requiredText'      => __( 'Tick only the plugins your site truly can\'t run without, like the page builder this page was built with, or WooCommerce on a store. Ticked plugins stay on the whole time, which also means Plugin Detective can\'t check them. If you\'re not sure, leave everything unticked.', 'hackrepair-plugin-detective' ),
+			'requiredSecurity'  => __( 'Heads up: these changes are live for everyone visiting your site, not just you. Unticked plugins, including security and spam protection, stay off until you finish or stop. Most sessions take a few minutes, so keep it short.', 'hackrepair-plugin-detective' ),
 			'startTesting'      => __( 'Start testing', 'hackrepair-plugin-detective' ),
+			'cancelSetup'       => __( 'Cancel', 'hackrepair-plugin-detective' ),
 
 			// Step 3: testing.
 			/* translators: round number. */
@@ -139,6 +142,7 @@ final class HRPD_Strings {
 			'doneTitle'         => __( 'All done', 'hackrepair-plugin-detective' ),
 			'doneKept'          => __( 'The problem plugin stays switched off. Everything else is back on.', 'hackrepair-plugin-detective' ),
 			'doneRestored'      => __( 'Every plugin is back the way it was before we started.', 'hackrepair-plugin-detective' ),
+			'doneCancelled'     => __( 'Cancelled. We hadn\'t switched anything off, so nothing was changed.', 'hackrepair-plugin-detective' ),
 			'checkSite'         => __( 'Your site right now', 'hackrepair-plugin-detective' ),
 
 			// Last result labels.
