@@ -167,23 +167,3 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * Security: Every change requires an administrator who can manage plugins, plus a per-session token. Only installed plugins can be switched on.
 * Security: Problem-page addresses are limited to your own site.
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
-
-== Upgrade Notice ==
-
-= 2.2.0 =
-Adds a proper "View details" window on the Plugins screen. No settings changes.
-
-= 2.1.3 =
-Text changes only (credit note and description). No settings changes.
-
-= 2.1.2 =
-Name change only (now THRG Plugin Detective). No settings changes.
-
-= 2.1.1 =
-Clearer Step 2 wording and warning, a real Cancel button, and an A-to-Z plugin list. No settings changes.
-
-= 2.1.0 =
-Adds GitHub-based update checks. No action needed; updates start appearing automatically once the plugin's repository is public.
-
-= 2.0.0 =
-First release from The Hack Repair Guy. Rebuilt from scratch with two-factor support, a safety net for switched-off plugins, and an activity log. Deactivate the older Plugin Detective plugin after installing.
