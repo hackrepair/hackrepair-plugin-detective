@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THRG Plugin Detective: find the plugin that broke your site</title>
+<meta name="description" content="Find the plugin that broke your WordPress site in a few quick checks, even when wp-admin is down. By THRG (The Hack Repair Guy).">
+<link rel="icon" href="img/hackrepair-heart-64.png">
+<meta property="og:title" content="THRG Plugin Detective">
+<meta property="og:description" content="Find the plugin that broke your site in a few quick checks, even when wp-admin is down.">
+<meta property="og:image" content="img/hackrepair-heart.png">
+<style>
+:root{
+  --accent:#b34700;--accent-hover:#9a3c00;--bg:#fff7f0;--card:#fff;--border:#ffd7b3;
+  --text:#1f2937;--muted:#50575e;--good:#1e6b2a;--focus:#1d4ed8;
+}
+@media (prefers-color-scheme:dark){
+  :root{--accent:#ff9a55;--accent-hover:#ffb27c;--bg:#17120e;--card:#211a14;--border:#4a3626;--text:#f3ece6;--muted:#b9aea3;--good:#7fd48f;--focus:#8ab4ff}
+  .btn--primary{color:#17120e}
+  .shot{filter:brightness(.92)}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--accent)}a:hover{color:var(--accent-hover)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
+.brand img{width:36px;height:36px}
+nav a{margin-left:18px;font-size:15px;text-decoration:none}
+nav a:hover{text-decoration:underline}
+.hero{text-align:center;padding:36px 0 28px}
+.hero img.mascot{width:132px;height:132px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.15;margin:12px 0 10px}
+.lede{font-size:clamp(18px,2.4vw,22px);max-width:34ch;margin:0 auto 22px;color:var(--muted)}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:46px;padding:10px 22px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid transparent}
+.btn--primary{background:var(--accent);color:#fff}
+.btn--primary:hover{background:var(--accent-hover);color:#fff}
+.btn--secondary{background:var(--card);color:var(--text);border-color:var(--border)}
+.btn--secondary:hover{border-color:var(--accent);color:var(--text)}
+@media (prefers-color-scheme:dark){.btn--primary:hover{color:#17120e}}
+.video{margin:34px auto 10px;max-width:880px}
+.video .frame{position:relative;aspect-ratio:16/9;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#000;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video p{text-align:center;color:var(--muted);font-size:14px;margin:8px 0 0}
+section{padding:34px 0}
+h2{font-size:clamp(24px,3.4vw,30px);margin:0 0 14px;line-height:1.25}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--border);border-left:6px solid var(--accent);border-radius:10px;padding:16px 20px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 18px 14px 58px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700}
+@media (prefers-color-scheme:dark){.steps li::before{color:#17120e}}
+table{border-collapse:collapse;margin:12px 0;background:var(--card)}
+th,td{border:1px solid var(--border);padding:8px 16px;text-align:center}
+.shot{width:100%;height:auto;border:1px solid var(--border);border-radius:10px;display:block}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.shots figure{margin:0}.shots figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+code{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:1px 6px;font-size:.92em;overflow-wrap:anywhere}
+.callout{background:var(--card);border:1px dashed var(--border);border-radius:10px;padding:16px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.callout img{width:64px;height:64px}
+.callout p{margin:0;flex:1 1 260px}
+footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted);font-size:15px;text-align:center}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top"><img src="img/hackrepair-heart-64.png" alt="">THRG Plugin Detective</a>
+    <nav aria-label="Page"><a href="#how">How it works</a><a href="#safe">Safety</a><a href="#install">Install</a><a href="#faq">FAQ</a></nav>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <img class="mascot" src="img/hackrepair-heart.png" alt="THRG heart-and-wrench mascot">
+      <h1>Find the plugin that broke your site.</h1>
+      <p class="lede">In a few quick checks, even when wp-admin is down.</p>
+      <div class="btns">
+        <a class="btn btn--primary" href="https://github.com/hackrepair/hackrepair-plugin-detective/releases/latest">Download the latest release</a>
+        <a class="btn btn--secondary" href="https://github.com/hackrepair/hackrepair-plugin-detective">View on GitHub</a>
+      </div>
+    </div>
+
+    <div class="video">
+      <div class="frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/_KOPSGil8fs" title="THRG Plugin Detective In Action" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <p>THRG Plugin Detective In Action (1:45) &middot; <a href="https://www.youtube.com/watch?v=_KOPSGil8fs">Watch on YouTube</a></p>
+    </div>
+
+    <section>
+      <h2>Goodbye, whack-a-mole</h2>
+      <p>Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.</p>
+      <p><strong>Plugin Detective does it in halves.</strong> You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks. When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off.</p>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li><strong>Show it the problem.</strong> Click "Troubleshoot" in the admin bar on the broken page, or start from Tools &gt; Plugin Detective.</li>
+        <li><strong>Mark what must stay on.</strong> Tick only the plugins your site can't run without, like WooCommerce or your page builder. Ticked plugins stay on the whole time, which also means they can't be checked.</li>
+        <li><strong>Answer "Problem's gone" or "Still broken."</strong> It switches plugins off in halves and narrows the suspects each round.</li>
+        <li><strong>Found it.</strong> The problem plugin stays off, everything else comes back on, and you check your site before deciding what to do.</li>
+      </ol>
+      <table>
+        <thead><tr><th>Active plugins</th><th>Usually</th><th>At most</th></tr></thead>
+        <tbody>
+          <tr><td>10</td><td>4&ndash;5 checks</td><td>6</td></tr>
+          <tr><td>20</td><td>5&ndash;6 checks</td><td>7</td></tr>
+          <tr><td>40</td><td>6&ndash;7 checks</td><td>8</td></tr>
+          <tr><td>64</td><td>7&ndash;8 checks</td><td>8</td></tr>
+        </tbody>
+      </table>
+      <div class="shots">
+        <figure><img class="shot" src="img/testing-round.png" alt="A testing round asking: is the problem still there?" loading="lazy"><figcaption>Each round: is the problem still there?</figcaption></figure>
+        <figure><img class="shot" src="img/found-it.png" alt="The result screen naming the plugin that caused the problem" loading="lazy"><figcaption>Found it. The culprit stays off while you check your site.</figcaption></figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Works when your site doesn't</h2>
+      <div class="grid">
+        <div class="card"><h3>Emergency recovery link</h3><p>The troubleshooter runs without loading any plugins or your theme. White screen, "critical error," or a locked-out wp-admin: it still opens. You'll find the address under Tools &gt; Plugin Detective. Bookmark it.</p></div>
+        <div class="card"><h3>Stuck in maintenance mode?</h3><p>If an interrupted update left visitors on "Briefly unavailable for scheduled maintenance," the troubleshooter can remove the leftover file for you, after asking first.</p></div>
+        <div class="card"><h3>Undo my last answer</h3><p>Clicked the wrong button? Undo it and carry on.</p></div>
+      </div>
+    </section>
+
+    <section id="safe">
+      <h2>Built with security in mind</h2>
+      <div class="grid">
+        <div class="card"><h3>Real logins, real 2FA</h3><p>Already logged in to wp-admin? No second login. Otherwise it uses WordPress's normal password check and enforces two-factor codes for HackGuard Security and the Two Factor plugin.</p></div>
+        <div class="card"><h3>Locked down</h3><p>Every change needs an administrator who can manage plugins plus a per-session token. An address is locked out for 15 minutes after 5 failed tries.</p></div>
+        <div class="card"><h3>Nothing leaves your server</h3><p>No outside fonts, scripts or tracking. The only outside request is the periodic check for a newer release on GitHub.</p></div>
+        <div class="card"><h3>A safety net</h3><p>While a session is open, wp-admin shows how many plugins are off with a one-click "Put my plugins back."</p></div>
+      </div>
+      <p style="margin-top:16px"><strong>One thing to know:</strong> while you test, unticked plugins, including security and spam protection, are off for everyone visiting your site until you finish or stop. Keep sessions short.</p>
+    </section>
+
+    <section id="install">
+      <h2>Install</h2>
+      <ol class="steps">
+        <li>Download <code>hackrepair-plugin-detective.X.Y.Z.zip</code> from the <a href="https://github.com/hackrepair/hackrepair-plugin-detective/releases/latest">latest release</a>.</li>
+        <li>In WordPress, go to Plugins &gt; Add New &gt; Upload Plugin, upload the ZIP, and activate it.</li>
+        <li>Go to Tools &gt; Plugin Detective and bookmark the emergency address.</li>
+      </ol>
+      <p>If your site is already down, upload the <code>hackrepair-plugin-detective</code> folder with your host's file manager or FTP. You don't need to activate it. Go straight to <code>/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/</code> on your site and sign in.</p>
+      <p>Requires WordPress 6.9.4+ and PHP 7.4+. Tested up to WordPress 7.1. Not for multisite yet.</p>
+    </section>
+
+    <section id="faq">
+      <h2>Questions</h2>
+      <div class="grid">
+        <div class="card"><h3>Is it safe to switch my plugins off?</h3><p>Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched.</p></div>
+        <div class="card"><h3>"It's not one of your plugins."</h3><p>The problem was still there with the plugins off. Look at your theme, caching, must-use plugins, or something on the site that shouldn't be there. A hacked site can look a lot like a plugin conflict.</p></div>
+        <div class="card"><h3>Do updates work?</h3><p>Yes. It checks its own GitHub releases and offers one-click updates on the Plugins screen.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="callout">
+        <img src="img/hackrepair-heart-64.png" alt="">
+        <p><strong>Still stuck?</strong> A hacked site can look a lot like a plugin conflict. <a href="https://hackrepair.com/">The Hack Repair Guy can help.</a></p>
+        <a class="btn btn--secondary" href="https://hackrepair.com/">hackrepair.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>THRG Plugin Detective &middot; By Jim Walker, The Hack Repair Guy &middot; <a href="https://hackrepair.com/">hackrepair.com</a> &middot; GPLv2 or later</p>
+    <p><a href="https://github.com/hackrepair/hackrepair-plugin-detective">GitHub</a> &middot; <a href="https://github.com/hackrepair/hackrepair-plugin-detective/releases">Releases</a> &middot; <a href="https://hackrepair.com/donations/buy-jim-a-coffee">Buy Jim a coffee</a></p>
+  </footer>
+</div>
+</body>
+</html>
