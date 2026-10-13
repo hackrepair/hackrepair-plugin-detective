@@ -1,4 +1,4 @@
-# HackRepair Plugin Detective
+# THRG Plugin Detective
 # Many hardened sites block every PHP file inside wp-content/plugins/.
 # The troubleshooter must still open when the site is broken, so this
 # re-allows ONLY its two entry points. Both require an administrator

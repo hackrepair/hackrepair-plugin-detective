@@ -1,5 +1,5 @@
 /**
- * HackRepair Plugin Detective troubleshooter.
+ * THRG Plugin Detective troubleshooter.
  *
  * Plain JavaScript, no build step, no outside libraries. All text comes from
  * the server (translatable). Site data is only ever inserted as text, never

@@ -1,4 +1,4 @@
-=== HackRepair Plugin Detective ===
+=== THRG Plugin Detective ===
 Contributors: hackrepair, tvcnet
 Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug

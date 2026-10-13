@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/img/hackrepair-heart.png" alt="HackRepair Plugin Detective" width="120" height="120">
+  <img src="assets/img/hackrepair-heart.png" alt="THRG Plugin Detective" width="120" height="120">
 </p>
 
-<h1 align="center">HackRepair Plugin Detective</h1>
+<h1 align="center">THRG Plugin Detective</h1>
 
 <p align="center">
   <strong>Find the plugin that broke your site in a few quick checks, even when wp-admin is down.</strong><br>
