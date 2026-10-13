@@ -12,7 +12,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/version-2.2.0-b34700?style=flat-square" alt="Version 2.2.0">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
-  <img src="https://img.shields.io/badge/tested%20up%20to-7.1-21759b?style=flat-square" alt="Tested up to WordPress 7.1">
+  <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
   <img src="https://img.shields.io/badge/license-GPLv2%2B-2e7d32?style=flat-square" alt="License GPLv2 or later">
   <img src="https://img.shields.io/badge/PHPCS-WordPress%20%E2%9C%93-2e7d32?style=flat-square" alt="WordPress Coding Standards passing">
@@ -152,7 +152,7 @@ define( 'HRPD_REQUIRE_WP_LOGIN', true );
 
 | | Minimum | Tested |
 |---|---|---|
-| WordPress | 6.9.4 | 7.1 |
+| WordPress | 6.9.4 | 7.1.3 |
 | PHP | 7.4 | 7.4, 8.2, 8.3 |
 | Web server | Apache, LiteSpeed, or Nginx | Apache 2.4 |
 | Install type | Single site | Multisite not supported yet |

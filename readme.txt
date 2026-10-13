@@ -3,7 +3,7 @@ Contributors: hackrepair, tvcnet
 Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
-Tested up to: 7.1
+Tested up to: 7.1.3
 Requires PHP: 7.4
 Stable tag: 2.2.0
 License: GPLv2 or later
