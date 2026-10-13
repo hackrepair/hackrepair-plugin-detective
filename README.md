@@ -245,6 +245,19 @@ hackrepair-plugin-detective/
 
 PHP 7.4 lint and PHPCS (WordPress + PHPCompatibilityWP) were clean on 2.1.0 and are re-run before each release.
 
+## Credit
+
+The idea for THRG Plugin Detective came from [Plugin Detective – Troubleshooting Conflicts](https://wordpress.org/plugins/plugin-detective/) by NSquared. Thank you to Natalie MacLees and team for showing how handy a guided, halving search can be.
+
+This is an independent rebuild with new code, design, and copy, and it isn't affiliated with or endorsed by NSquared. What it adds:
+
+- Two-factor enforcement on the troubleshooter's own login, plus rate limiting and an activity log
+- A wp-admin safety notice with a one-click "Put my plugins back"
+- A plain warning that plugins switched off during a session are off for everyone visiting your site
+- Works on hardened hosts that block PHP inside the plugins folder
+- The problem plugin stays off and everything else comes back on, so you can check your site before deciding
+- No outside fonts, scripts, or tracking; updates come from this plugin's own GitHub releases
+
 ## Changelog
 
 See the **Changelog** section of [`readme.txt`](readme.txt).
