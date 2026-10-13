@@ -19,6 +19,11 @@
 </p>
 
 <p align="center">
+  <strong>▶ Watch it in action (1:45)</strong><br>
+  <a href="https://www.youtube.com/watch?v=_KOPSGil8fs"><img src="https://img.youtube.com/vi/_KOPSGil8fs/hqdefault.jpg" alt="THRG Plugin Detective In Action: watch on YouTube" width="480"></a>
+</p>
+
+<p align="center">
   <a href="#how-it-works">How it works</a> ·
   <a href="#features">Features</a> ·
   <a href="#screenshots">Screenshots</a> ·
