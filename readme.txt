@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.1.3
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 == Changelog ==
 
+= 2.2.0 - 2026-10-13 =
+* New: The "View details" window on the Plugins screen now has a banner, an icon, and the full description, installation steps, FAQ, and changelog. It works from the plugin's own readme, so it also works while the GitHub repository is private.
+
 = 2.1.3 - 2026-10-13 =
 * Tweak: Added a credit note for the plugin that inspired this one, and a short list of what this build adds.
 * Tweak: Plugin description now reads "By THRG (The Hack Repair Guy)."
@@ -166,6 +169,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+Adds a proper "View details" window on the Plugins screen. No settings changes.
 
 = 2.1.3 =
 Text changes only (credit note and description). No settings changes.
