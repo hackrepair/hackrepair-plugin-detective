@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,10 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 == Changelog ==
 
+= 2.1.3 - 2026-10-13 =
+* Tweak: Added a credit note for the plugin that inspired this one, and a short list of what this build adds.
+* Tweak: Plugin description now reads "By THRG (The Hack Repair Guy)."
+
 = 2.1.2 - 2026-10-12 =
 * Tweak: Renamed to THRG Plugin Detective. Same plugin, same folder, same settings; only the name shown on the Plugins screen changes.
 
@@ -162,6 +166,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
 
 == Upgrade Notice ==
+
+= 2.1.3 =
+Text changes only (credit note and description). No settings changes.
 
 = 2.1.2 =
 Name change only (now THRG Plugin Detective). No settings changes.

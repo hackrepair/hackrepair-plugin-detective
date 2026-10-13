@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.1.2-b34700?style=flat-square" alt="Version 2.1.2">
+  <img src="https://img.shields.io/badge/version-2.1.3-b34700?style=flat-square" alt="Version 2.1.3">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1-21759b?style=flat-square" alt="Tested up to WordPress 7.1">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -234,7 +234,7 @@ hackrepair-plugin-detective/
 - All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
 - Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts) — that's the only outside network call this plugin makes, and it's WordPress's own update mechanism, not telemetry
 
-### Verified in 2.1.1 (2.1.2 is a name-only change)
+### Verified in 2.1.1 (2.1.2 and 2.1.3 are text-only changes)
 
 | Check | Result |
 |---|---|
