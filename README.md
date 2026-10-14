@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/img/hackrepair-heart.png" alt="THRG Plugin Detective" width="120" height="120">
+  <img src="assets/img/hackrepair-heart.png" alt="The Hack Repair Guy's Plugin Detective" width="120" height="120">
 </p>
 
-<h1 align="center">THRG Plugin Detective</h1>
+<h1 align="center">The Hack Repair Guy's Plugin Detective</h1>
 
 <p align="center">
   <strong>Find the plugin that broke your site in a few quick checks, even when wp-admin is down.</strong><br>
@@ -247,7 +247,7 @@ PHP 7.4 lint and PHPCS (WordPress + PHPCompatibilityWP) were clean on 2.1.0 and 
 
 ## Credit
 
-The idea for THRG Plugin Detective came from [Plugin Detective – Troubleshooting Conflicts](https://wordpress.org/plugins/plugin-detective/) by NSquared. Thank you to Natalie MacLees and team for showing how handy a guided, halving search can be.
+The idea for The Hack Repair Guy's Plugin Detective came from [Plugin Detective – Troubleshooting Conflicts](https://wordpress.org/plugins/plugin-detective/) by NSquared. Thank you to Natalie MacLees and team for showing how handy a guided, halving search can be.
 
 This is an independent rebuild with new code, design, and copy, and it isn't affiliated with or endorsed by NSquared. What it adds:
 

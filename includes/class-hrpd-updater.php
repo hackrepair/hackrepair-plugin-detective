@@ -176,7 +176,7 @@ final class HRPD_Updater {
 
 		$info = new \stdClass();
 
-		$info->name         = 'THRG Plugin Detective';
+		$info->name         = "The Hack Repair Guy's Plugin Detective";
 		$info->slug         = 'hackrepair-plugin-detective';
 		$info->version      = HRPD_VERSION;
 		$info->author       = '<a href="https://hackrepair.com/">Jim Walker, The Hack Repair Guy</a>';

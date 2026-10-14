@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="THRG Plugin Detective">
+<ruleset name="The Hack Repair Guy's Plugin Detective">
 	<description>WordPress Coding Standards plus PHP 7.4+ compatibility.</description>
 
 	<file>.</file>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       THRG Plugin Detective
+ * Plugin Name:       The Hack Repair Guy's Plugin Detective
  * Plugin URI:        https://hackrepair.com/
  * Description:       Find the plugin that broke your site in a few quick checks, even when wp-admin is down. Clears stuck maintenance mode too. By THRG (The Hack Repair Guy).
  * Version:           2.2.0

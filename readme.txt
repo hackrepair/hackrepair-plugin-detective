@@ -1,4 +1,4 @@
-=== THRG Plugin Detective ===
+=== The Hack Repair Guy's Plugin Detective ===
 Contributors: hackrepair, tvcnet
 Donate link: https://hackrepair.com/donations/buy-jim-a-coffee
 Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
@@ -47,7 +47,7 @@ While a session is open, a notice in wp-admin tells you how many plugins are swi
 
 = Credit where it's due =
 
-The idea for THRG Plugin Detective came from [Plugin Detective – Troubleshooting Conflicts](https://wordpress.org/plugins/plugin-detective/) by NSquared. Thank you to Natalie MacLees and team for showing how handy a guided, halving search can be.
+The idea for The Hack Repair Guy's Plugin Detective came from [Plugin Detective – Troubleshooting Conflicts](https://wordpress.org/plugins/plugin-detective/) by NSquared. Thank you to Natalie MacLees and team for showing how handy a guided, halving search can be.
 
 This is an independent rebuild with new code, design, and copy, and it isn't affiliated with or endorsed by NSquared. What it adds:
 
