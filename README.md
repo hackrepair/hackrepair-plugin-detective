@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2.2.1-b34700?style=flat-square" alt="Version 2.2.1">
+  <img src="https://img.shields.io/badge/version-3.0.0-b34700?style=flat-square" alt="Version 3.0.0">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -78,6 +78,15 @@ flowchart LR
 - Mark plugins your site can't run without (a page builder, WooCommerce) so they stay on the whole time
 - Plain-English results: the plugin that did it, "it's not a plugin," or "it takes more than one plugin"
 
+**Background check on the plugin it finds** (new in 3.0.0)
+- Is there a newer version? Has wordpress.org closed it? Has it gone two years without an update?
+- Known security holes in the version you have, how serious they are, and whether updating fixes them, with links to the details
+- Data from wordpress.org and [WPVulnerability](https://www.wpvulnerability.com/) (free, CC0, gathers CVE, Wordfence, Patchstack and WPScan). Only the plugin's folder name is sent; answers are cached for 12 hours
+
+**Case report you can send** (new in 3.0.0)
+- Plain-English summary: the problem page, the result, how many checks it took, what was left switched off, the background check, other active plugins, and WordPress, PHP and theme versions
+- Copy or download as a `.txt`; the last report also stays on the Tools page
+
 **Works when your site doesn't**
 - Standalone troubleshooter that never loads plugins, must-use plugins, or the theme
 - Opens during a white screen, a "critical error," or when wp-admin won't load
@@ -135,6 +144,7 @@ Plugin Detective switches plugins on a live site, so it's built to be hard to mi
 | **Plugin switching** | Only installed plugins can be switched on. The original list is backed up first, and every way out restores it. |
 | **Page** | Strict Content-Security-Policy, `X-Frame-Options: DENY`, no external fonts, scripts, or tracking. |
 | **Hardened hosts** | Works on sites that block PHP under `wp-content/plugins/`. A small `troubleshoot/.htaccess` re-allows only `index.php` and `api.php`; everything else stays blocked. |
+| **Background check** | Runs only after a problem plugin is found, only for that plugin, and only sends its folder name. Every result is shown as text, never HTML. Turn it off with `HRPD_NO_BACKGROUND_CHECK`. |
 | **Boot** | Uses WordPress's own `SHORTINIT` startup and a short list of core files. Plugin and theme code never runs in the troubleshooter. |
 
 ### wp-config.php settings
@@ -142,6 +152,7 @@ Plugin Detective switches plugins on a live site, so it's built to be hard to mi
 | Constant | Effect |
 |---|---|
 | `HRPD_REQUIRE_WP_LOGIN` | Turns off the troubleshooter's own login. Only people already logged in to wp-admin can use it. |
+| `HRPD_NO_BACKGROUND_CHECK` | Turns off the background check, so the plugin never contacts wordpress.org or WPVulnerability. |
 | `HRPD_EMERGENCY_PASSWORD_LOGIN` | Accepts a password without a 2FA code. Only for a real emergency when your 2FA plugin is what's broken. Remove it as soon as you're back in. |
 
 ```php
@@ -232,9 +243,18 @@ hackrepair-plugin-detective/
 - PHP 7.4 floor, PHP 8.3 style where 7.4 allows it
 - No build step, no external assets or tracking in the troubleshooter UI
 - All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
-- Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts) — that's the only outside network call this plugin makes, and it's WordPress's own update mechanism, not telemetry
+- Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts). The only other outside calls are the background check on a found plugin (wordpress.org and WPVulnerability, plugin folder name only). No telemetry
 
-### Verified in 2.1.1 (2.1.2 and 2.1.3 are text-only; 2.2.0 adds the details window and banners; 2.2.1 is the rename)
+### Verified in 3.0.0
+
+| Check | Result |
+|---|---|
+| Background check and case report logic (version ranges, live lookups, closed and missing plugins, report text) | 33 / 33 |
+| Background check from the lightweight troubleshooter boot (HTTP loaded on demand) | Pass |
+| Browser click-through: find a plugin with known holes, background card, report copy/download, keep off, Tools page report | 16 / 16 |
+| API end-to-end (unchanged suite) | 52 / 52 |
+
+### Verified in 2.1.1
 
 | Check | Result |
 |---|---|
@@ -256,6 +276,7 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 - A plain warning that plugins switched off during a session are off for everyone visiting your site
 - Works on hardened hosts that block PHP inside the plugins folder
 - The problem plugin stays off and everything else comes back on, so you can check your site before deciding
+- A background check on the plugin it finds, including known security holes, and a case report you can send
 - No outside fonts, scripts, or tracking; updates come from this plugin's own GitHub releases
 
 ## Changelog
