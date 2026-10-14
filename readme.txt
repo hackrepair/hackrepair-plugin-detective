@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 2.2.1
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,21 @@ Something stopped working after an update or a new plugin. The usual advice is t
 **Plugin Detective does it in halves.** You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks.
 
 When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off.
+
+= A background check on the plugin it finds =
+
+Finding the plugin is half the story. Plugin Detective then looks it up for you:
+
+* Is there a newer version? An update is often the fix.
+* Has wordpress.org closed it? Then it won't get updates, and it's time to replace it.
+* Has it gone more than two years without an update?
+* Does the version you have carry **known security holes**? You'll see how many, how serious, and whether updating fixes them, with links to the details.
+
+A plugin that breaks your site and has a known security hole is worth taking seriously.
+
+= A case report you can send =
+
+At the end, you get a plain-English report: what the problem was, which plugin caused it, the background check, what was left switched off, and the WordPress, PHP and theme details a developer will ask for. Copy it or download it, then send it to the plugin's developer, your web person, or The Hack Repair Guy. The last report also stays on the Tools page.
 
 = Works when your site doesn't =
 
@@ -37,7 +52,7 @@ If an update got interrupted and visitors see "Briefly unavailable for scheduled
 * The troubleshooter's own login uses WordPress's normal password check, gives one generic error for every failure, and locks an address out for 15 minutes after 5 failed tries.
 * Two-factor login is enforced. If your account uses HackGuard Security or the Two Factor plugin, you'll be asked for your authenticator or recovery code. If it uses a 2FA plugin the troubleshooter can't check, you'll be sent to wp-admin instead, so 2FA is never skipped.
 * Every change requires an administrator who can manage plugins, plus a per-session security token.
-* No outside fonts, scripts, or tracking. Nothing leaves your server.
+* No outside fonts, scripts, or tracking. The only outside lookups are the background check described under "External services" below.
 * An activity log on the Tools page shows every session, plugin change, and troubleshooter sign-in.
 * Works on hardened sites that block PHP inside the plugins folder: a small `.htaccess` in the troubleshooter folder re-allows only its two entry points (both require an administrator login). Everything else stays blocked.
 
@@ -56,6 +71,8 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 * A plain warning that plugins switched off during a session are off for everyone visiting your site.
 * Works on hardened hosts that block PHP inside the plugins folder.
 * The problem plugin stays off and everything else comes back on, so you can check your site before deciding.
+* A background check on the plugin it finds: newer version, closed on wordpress.org, and known security holes.
+* A case report you can copy or download and send to a developer.
 * No outside fonts, scripts, or tracking. Updates come from this plugin's own GitHub releases.
 
 == Installation ==
@@ -69,9 +86,27 @@ If your site is already down, upload the folder with your host's file manager or
 = Settings for wp-config.php (optional) =
 
 * `define( 'HRPD_REQUIRE_WP_LOGIN', true );` turns off the troubleshooter's own login. Only people already logged in to wp-admin can use it.
+* `define( 'HRPD_NO_BACKGROUND_CHECK', true );` turns off the background check, so the plugin never contacts wordpress.org or WPVulnerability.
 * `define( 'HRPD_EMERGENCY_PASSWORD_LOGIN', true );` lets the troubleshooter accept a password without a two-factor code. Only for a real emergency when your 2FA plugin is what's broken. Remove it as soon as you're back in.
 
+== External services ==
+
+When the troubleshooter finds a problem plugin, it runs a background check on that one plugin. It sends only the plugin's folder name (for example `svg-support`). No site address, user, or other data is sent, and answers are kept for 12 hours so the same plugin isn't looked up again and again.
+
+* **wordpress.org Plugin Directory API** (`api.wordpress.org`): the newest version, when it was last updated, and whether it has been closed. The same service WordPress itself uses to check for plugin updates. [Terms](https://wordpress.org/about/privacy/)
+* **WPVulnerability** (`www.wpvulnerability.net`): known security problems, gathered from CVE, Wordfence, Patchstack, WPScan and others. Free, no account, data released under CC0. [Terms and license](https://www.wpvulnerability.com/license/)
+
+Turn the background check off with `define( 'HRPD_NO_BACKGROUND_CHECK', true );` in wp-config.php.
+
 == Frequently Asked Questions ==
+
+= Where does the security information come from? =
+
+From WPVulnerability, a free public database that pulls together reports from CVE, Wordfence, Patchstack, WPScan and others. It lists problems by plugin and version, so Plugin Detective only shows the ones that affect the version you have. If a premium or custom plugin happens to share a folder name with a different plugin, the results may not match; the links let you check.
+
+= What's in the case report? =
+
+The problem page, the result, how many checks it took, what was left switched off, the background check, your other active plugins and their versions, and your WordPress, PHP and theme versions. It doesn't include passwords or anything from your database. It does include your site address and plugin list, so only send it to people you trust.
 
 = How do I use it? =
 
@@ -124,6 +159,12 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 2.3.0 - 2026-10-14 =
+* New: Background check on the plugin it finds. Shows whether a newer version is out, whether wordpress.org has closed it, whether it's gone two years without an update, and any known security holes in the version you have, with how serious they are and whether updating fixes them.
+* New: Case report. A plain-English summary of the session, the background check, and your site details, ready to copy or download and send to a developer. The last report also stays on the Tools page.
+* New: `HRPD_NO_BACKGROUND_CHECK` setting for wp-config.php to turn the background check off.
+* Tweak: The "View details" window now has a Screenshots tab.
 
 = 2.2.1 - 2026-10-14 =
 * Tweak: Renamed to The Hack Repair Guy's Plugin Detective. Same plugin, same folder, same settings.

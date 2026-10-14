@@ -214,3 +214,17 @@ a:hover { color: var(--hrpd-accent-hover); }
 @media (prefers-reduced-motion: reduce) {
 	.hrpd-spinner { animation: none; }
 }
+
+/* Background check and case report (2.3.0). */
+.hrpd-card--bad { border-left-color: #d63638; }
+.hrpd-bg__lines { list-style: none; margin: 0 0 12px; padding: 0; }
+.hrpd-bg__line { position: relative; padding: 4px 0 4px 26px; }
+.hrpd-bg__line::before { position: absolute; left: 0; top: 4px; width: 18px; height: 18px; border-radius: 50%; font-size: 12px; font-weight: 700; line-height: 18px; text-align: center; color: #fff; content: "i"; background: #72777c; }
+.hrpd-bg__line--ok::before { content: "\2713"; background: #46b450; }
+.hrpd-bg__line--warn::before { content: "!"; background: #dba617; }
+.hrpd-bg__line--bad::before { content: "!"; background: #d63638; }
+.hrpd-bg__items a { word-break: break-word; }
+.hrpd-report-wrap { margin: 8px 0; }
+.hrpd-report-wrap summary { cursor: pointer; color: var(--hrpd-accent, #b54a00); }
+.hrpd-report { max-height: 420px; overflow: auto; margin: 8px 0 0; padding: 12px; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; word-break: break-word; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; }
+.hrpd-offscreen { position: fixed; top: -1000px; left: -1000px; width: 1px; height: 1px; opacity: 0; }

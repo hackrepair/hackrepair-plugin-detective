@@ -153,6 +153,24 @@ final class HRPD_Strings {
 			'resultMixed'       => __( 'answers didn\'t add up', 'hackrepair-plugin-detective' ),
 			'resultAbandoned'   => __( 'stopped early, plugins put back', 'hackrepair-plugin-detective' ),
 
+			// Background check.
+			/* translators: plugin name. */
+			'bgTitle'           => __( 'Background check: %1$s', 'hackrepair-plugin-detective' ),
+			'bgLoading'         => __( 'Checking this plugin\'s background with wordpress.org and a security vulnerability database…', 'hackrepair-plugin-detective' ),
+			'bgFailed'          => __( 'I couldn\'t run the background check from this server. You can look the plugin up on wordpress.org yourself.', 'hackrepair-plugin-detective' ),
+			'bgKnownHoles'      => __( 'Known security holes in your version:', 'hackrepair-plugin-detective' ),
+			'bgPluginPage'      => __( 'See it on wordpress.org', 'hackrepair-plugin-detective' ),
+			'bgBadNews'         => __( 'A plugin with known security holes is worth taking seriously. If you think your site may already have been hit, The Hack Repair Guy can check it.', 'hackrepair-plugin-detective' ),
+
+			// Case report.
+			'reportTitle'       => __( 'Your case report', 'hackrepair-plugin-detective' ),
+			'reportIntro'       => __( 'A plain-English summary of what we found, with the site details a developer will ask for. Send it to the plugin\'s developer, your web person, or The Hack Repair Guy.', 'hackrepair-plugin-detective' ),
+			'reportCopy'        => __( 'Copy report', 'hackrepair-plugin-detective' ),
+			'reportCopied'      => __( 'Copied', 'hackrepair-plugin-detective' ),
+			'reportDownload'    => __( 'Download (.txt)', 'hackrepair-plugin-detective' ),
+			'reportShow'        => __( 'Show the report', 'hackrepair-plugin-detective' ),
+			'reportPrivacy'     => __( 'It includes your site address and plugin list, so only send it to people you trust.', 'hackrepair-plugin-detective' ),
+
 			// Confirmations.
 			'confirmAbandon'    => __( 'Put every plugin back the way it was and end this session?', 'hackrepair-plugin-detective' ),
 			'confirmYes'        => __( 'Yes, put them back', 'hackrepair-plugin-detective' ),

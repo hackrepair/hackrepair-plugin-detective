@@ -95,6 +95,47 @@ function hrpd_core_files(): array {
 	);
 }
 
+/**
+ * Core files for WordPress's HTTP API, loaded only when the troubleshooter
+ * needs to go online (the background check on a problem plugin).
+ *
+ * @return string[] Paths relative to wp-includes/.
+ */
+function hrpd_http_files(): array {
+	return array(
+		'class-wp-http.php',
+		'class-wp-http-streams.php',
+		'class-wp-http-curl.php',
+		'class-wp-http-proxy.php',
+		'class-wp-http-cookie.php',
+		'class-wp-http-encoding.php',
+		'class-wp-http-response.php',
+		'class-wp-http-requests-response.php',
+		'class-wp-http-requests-hooks.php',
+	);
+}
+
+/**
+ * Load WordPress's HTTP API on demand.
+ *
+ * @return bool False when a file is missing (the caller skips going online).
+ */
+function hrpd_load_http(): bool {
+	if ( class_exists( 'WP_Http', false ) ) {
+		return true;
+	}
+	foreach ( hrpd_http_files() as $file ) {
+		$path = ABSPATH . WPINC . '/' . $file;
+		if ( ! is_file( $path ) ) {
+			return false;
+		}
+	}
+	foreach ( hrpd_http_files() as $file ) {
+		require_once ABSPATH . WPINC . '/' . $file;
+	}
+	return class_exists( 'WP_Http', false ) && function_exists( 'wp_remote_get' );
+}
+
 $hrpd_wp_root = hrpd_find_wp_root();
 if ( '' === $hrpd_wp_root ) {
 	hrpd_boot_fail( 'WordPress could not be found above the plugin folder. Use the Plugin Detective link in wp-admin under Tools instead.' );
@@ -192,6 +233,8 @@ if ( is_multisite() ) {
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-log.php';
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-detective.php';
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-case.php';
+require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-background.php';
+require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-report.php';
 require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-totp.php';
 require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-session.php';
 require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-login.php';

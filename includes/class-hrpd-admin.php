@@ -120,6 +120,15 @@ final class HRPD_Admin {
 		}
 
 		wp_enqueue_style( 'hrpd-admin', HRPD_URL . 'assets/css/admin.css', array(), self::asset_version( 'assets/css/admin.css' ) );
+
+		if ( 'tools_page_' . self::PAGE_SLUG === $hook_suffix ) {
+			wp_enqueue_script( 'hrpd-admin', HRPD_URL . 'assets/js/admin.js', array(), self::asset_version( 'assets/js/admin.js' ), true );
+			wp_localize_script(
+				'hrpd-admin',
+				'hrpdAdmin',
+				array( 'copied' => __( 'Copied', 'hackrepair-plugin-detective' ) )
+			);
+		}
 	}
 
 	/**
@@ -237,6 +246,17 @@ final class HRPD_Admin {
 						);
 						?>
 					</p>
+					<?php if ( ! empty( $last['report'] ) && is_string( $last['report'] ) ) : ?>
+						<details class="hrpd-report-wrap">
+							<summary><?php esc_html_e( 'Case report from that session', 'hackrepair-plugin-detective' ); ?></summary>
+							<p><?php esc_html_e( 'A plain-English summary of what was found, with the site details a developer will ask for. Send it to the plugin\'s developer, your web person, or The Hack Repair Guy. It includes your site address and plugin list, so only send it to people you trust.', 'hackrepair-plugin-detective' ); ?></p>
+							<textarea id="hrpd-report-text" class="large-text code hrpd-report" rows="16" readonly><?php echo esc_textarea( $last['report'] ); ?></textarea>
+							<p>
+								<button type="button" class="button" data-hrpd-copy="hrpd-report-text"><?php esc_html_e( 'Copy report', 'hackrepair-plugin-detective' ); ?></button>
+								<a class="button" download="<?php echo esc_attr( 'plugin-detective-report-' . gmdate( 'Y-m-d', (int) $last['closed_at'] ) . '.txt' ); ?>" href="<?php echo esc_attr( 'data:text/plain;charset=utf-8,' . rawurlencode( $last['report'] ) ); ?>"><?php esc_html_e( 'Download (.txt)', 'hackrepair-plugin-detective' ); ?></a>
+							</p>
+						</details>
+					<?php endif; ?>
 				<?php endif; ?>
 			</div>
 

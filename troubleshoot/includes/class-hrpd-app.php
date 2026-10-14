@@ -21,7 +21,7 @@ final class HRPD_App {
 	/**
 	 * Actions that need a signed-in user and the CSRF token.
 	 */
-	private const PRIVATE_ACTIONS = array( 'logout', 'overview', 'open_case', 'start_case', 'answer', 'undo', 'finish', 'abandon', 'remove_maintenance' );
+	private const PRIVATE_ACTIONS = array( 'logout', 'overview', 'open_case', 'start_case', 'answer', 'undo', 'finish', 'abandon', 'remove_maintenance', 'background' );
 
 	/**
 	 * Largest request body accepted, in bytes.
@@ -204,6 +204,9 @@ final class HRPD_App {
 
 			case 'remove_maintenance':
 				return self::remove_maintenance();
+
+			case 'background':
+				return self::background();
 		}
 
 		return new WP_Error( 'hrpd_unknown_action', __( 'Unknown request.', 'hackrepair-plugin-detective' ) );
@@ -331,10 +334,74 @@ final class HRPD_App {
 				'result'     => (string) $record['result']['result'],
 				'culprit'    => '' !== $culprit ? self::plugin_info( $culprit, $installed ) : null,
 				'lastBroken' => $names( (array) ( $record['result']['last_broken'] ?? array() ) ),
+				'report'     => HRPD_Report::build( $record, $installed, HRPD_Report::OUTCOME_PENDING ),
+				'checkable'  => '' !== $culprit && HRPD_Background::enabled() && '' !== HRPD_Background::slug( $culprit ),
 			);
 		}
 
 		return $view;
+	}
+
+	/**
+	 * Background check on the plugin the open case found, plus the refreshed report.
+	 *
+	 * Uses the case on file, never a plugin named by the browser.
+	 *
+	 * @return array<string, mixed>|WP_Error
+	 */
+	private static function background() {
+		$record = HRPD_Case::get();
+		if ( ! $record || HRPD_Case::STATUS_SOLVED !== $record['status'] ||
+			HRPD_Detective::RESULT_CULPRIT !== ( $record['result']['result'] ?? '' ) ) {
+			return new WP_Error( 'hrpd_no_culprit', __( 'There\'s no problem plugin to check right now.', 'hackrepair-plugin-detective' ) );
+		}
+
+		$installed = HRPD_Case::installed_plugins();
+		$culprit   = (string) $record['result']['culprit'];
+		if ( ! isset( $installed[ $culprit ] ) ) {
+			return new WP_Error( 'hrpd_no_culprit', __( 'There\'s no problem plugin to check right now.', 'hackrepair-plugin-detective' ) );
+		}
+
+		if ( HRPD_Background::enabled() && null === HRPD_Background::cached( $culprit, $installed[ $culprit ] ) && ! hrpd_load_http() ) {
+			$bg = array(
+				'status'  => 'ok',
+				'summary' => HRPD_Background::summarize(
+					array(
+						'wporg' => array( 'state' => 'error' ),
+						'vulns' => array( 'state' => 'error' ),
+					)
+				),
+			);
+		} else {
+			$bg = HRPD_Background::run( $culprit, $installed[ $culprit ] );
+		}
+
+		return array(
+			'caseId'     => $record['id'],
+			'background' => self::background_view( $bg ),
+			'report'     => HRPD_Report::build( $record, $installed, HRPD_Report::OUTCOME_PENDING ),
+		);
+	}
+
+	/**
+	 * The parts of a background check the screen needs.
+	 *
+	 * @param array<string, mixed> $bg Background check result.
+	 * @return array<string, mixed>
+	 */
+	private static function background_view( array $bg ): array {
+		if ( 'off' === ( $bg['status'] ?? '' ) ) {
+			return array( 'status' => 'off' );
+		}
+		$summary = (array) ( $bg['summary'] ?? array() );
+		return array(
+			'status' => 'ok',
+			'tone'   => (string) ( $summary['tone'] ?? 'ok' ),
+			'lines'  => array_values( (array) ( $summary['lines'] ?? array() ) ),
+			'items'  => array_values( (array) ( $summary['items'] ?? array() ) ),
+			'credit' => (string) ( $summary['credit'] ?? '' ),
+			'link'   => (string) ( $bg['wporg']['link'] ?? '' ),
+		);
 	}
 
 	/**

@@ -29,3 +29,4 @@
 .hrpd-notice{border-left-color:#dba617}
 .hrpd-notice .button-primary{background:#b34700;border-color:#b34700;color:#fff}
 .hrpd-notice .button-primary:hover,.hrpd-notice .button-primary:focus{background:#9a3c00;border-color:#9a3c00;color:#fff}
+.hrpd-report-wrap{margin:8px 0 4px}.hrpd-report-wrap summary{cursor:pointer;color:var(--hrpd-accent);font-weight:600}textarea.hrpd-report{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f6f7f7}

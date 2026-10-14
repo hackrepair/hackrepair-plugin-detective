@@ -33,6 +33,8 @@
 		confirming: false,
 		finished: null,
 		restoreFlow: !! boot.restore,
+		bg: null,
+		report: null,
 	};
 
 	/* ---------- helpers ---------- */
@@ -476,6 +478,165 @@
 		];
 	}
 
+	/* ---------- background check and case report ---------- */
+
+	function toneClass( tone ) {
+		return { ok: 'ok', warn: 'warning', bad: 'bad', info: '' }[ tone ] || '';
+	}
+
+	function fillBackground( box, name ) {
+		const bg = state.bg || {};
+		box.textContent = '';
+		box.className = 'hrpd-card hrpd-bg';
+		box.appendChild( h( 'h2', { class: 'hrpd-card__title', text: fmt( S.bgTitle, name ) } ) );
+
+		if ( bg.loading ) {
+			box.appendChild( h( 'p', { class: 'hrpd-status hrpd-muted', role: 'status' }, [ h( 'span', { class: 'hrpd-spinner', 'aria-hidden': 'true' } ), S.bgLoading ] ) );
+			return;
+		}
+
+		const data = bg.data;
+		if ( bg.failed || ! data || data.status !== 'ok' ) {
+			box.appendChild( para( S.bgFailed, 'hrpd-muted' ) );
+			return;
+		}
+
+		const tone = toneClass( data.tone );
+		if ( tone ) {
+			box.classList.add( 'hrpd-card--' + tone );
+		}
+
+		box.appendChild( h( 'ul', { class: 'hrpd-bg__lines' }, ( data.lines || [] ).map( function ( line ) {
+			return h( 'li', { class: 'hrpd-bg__line hrpd-bg__line--' + line.tone, text: line.text } );
+		} ) ) );
+
+		if ( ( data.items || [] ).length ) {
+			box.appendChild( h( 'h3', { text: S.bgKnownHoles } ) );
+			box.appendChild( h( 'ul', { class: 'hrpd-list hrpd-bg__items' }, data.items.map( function ( item ) {
+				const label = item.severity ? item.title + ' (' + item.severity + ')' : item.title;
+				return h( 'li', {}, item.link ? h( 'a', { href: item.link, target: '_blank', rel: 'noopener noreferrer', text: label } ) : label );
+			} ) ) );
+		}
+
+		if ( data.tone === 'bad' ) {
+			box.appendChild( h( 'p', {}, [
+				document.createTextNode( S.bgBadNews + ' ' ),
+				h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', text: S.helpLink } ),
+			] ) );
+		}
+
+		const foot = [ document.createTextNode( data.credit || '' ) ];
+		if ( data.link ) {
+			foot.push( document.createTextNode( ' ' ), h( 'a', { href: data.link, target: '_blank', rel: 'noopener noreferrer', text: S.bgPluginPage } ) );
+		}
+		box.appendChild( h( 'p', { class: 'hrpd-muted hrpd-small' }, foot ) );
+	}
+
+	function backgroundCard( c ) {
+		const r = c.result || {};
+		if ( ! r.checkable || ! r.culprit ) {
+			return null;
+		}
+		const box = h( 'section', { id: 'hrpd-bg' } );
+		if ( ! state.bg || state.bg.caseId !== c.id ) {
+			state.bg = { caseId: c.id, loading: true };
+			api( 'background', {} )
+				.then( function ( data ) {
+					state.bg = { caseId: c.id, data: data.background };
+					state.report = { caseId: c.id, text: data.report };
+				} )
+				.catch( function () {
+					state.bg = { caseId: c.id, failed: true };
+				} )
+				.then( function () {
+					const live = document.getElementById( 'hrpd-bg' );
+					if ( live ) {
+						fillBackground( live, r.culprit.name );
+					}
+					const pre = document.getElementById( 'hrpd-report-text' );
+					if ( pre && state.report && state.report.caseId === c.id ) {
+						pre.textContent = state.report.text;
+					}
+				} );
+		}
+		fillBackground( box, r.culprit.name );
+		return box;
+	}
+
+	function copyText( text, btn ) {
+		const done = function () {
+			const before = btn.textContent;
+			btn.textContent = S.reportCopied;
+			setTimeout( function () {
+				btn.textContent = before;
+			}, 2000 );
+		};
+		if ( navigator.clipboard && window.isSecureContext ) {
+			navigator.clipboard.writeText( text ).then( done, function () {
+				copyFallback( text );
+				done();
+			} );
+			return;
+		}
+		copyFallback( text );
+		done();
+	}
+
+	function copyFallback( text ) {
+		const area = h( 'textarea', { class: 'hrpd-offscreen', readonly: true } );
+		area.value = text;
+		document.body.appendChild( area );
+		area.select();
+		try {
+			document.execCommand( 'copy' );
+		} catch ( e ) {
+			// Nothing else to try; the report is still shown on screen.
+		}
+		document.body.removeChild( area );
+	}
+
+	function downloadText( text ) {
+		const blob = new Blob( [ text ], { type: 'text/plain;charset=utf-8' } );
+		const url = URL.createObjectURL( blob );
+		const a = h( 'a', { href: url, download: 'plugin-detective-report-' + new Date().toISOString().slice( 0, 10 ) + '.txt' } );
+		document.body.appendChild( a );
+		a.click();
+		document.body.removeChild( a );
+		setTimeout( function () {
+			URL.revokeObjectURL( url );
+		}, 1000 );
+	}
+
+	function reportCard( getText ) {
+		if ( ! getText() ) {
+			return null;
+		}
+		const pre = h( 'pre', { id: 'hrpd-report-text', class: 'hrpd-report', text: getText() } );
+		const copy = button( S.reportCopy, function () {
+			copyText( getText(), copy );
+		}, 'secondary' );
+		return card( S.reportTitle, [
+			para( S.reportIntro ),
+			h( 'div', { class: 'hrpd-actions' }, [
+				copy,
+				button( S.reportDownload, function () {
+					downloadText( getText() );
+				}, 'secondary' ),
+			] ),
+			h( 'details', { class: 'hrpd-report-wrap' }, [ h( 'summary', { text: S.reportShow } ), pre ] ),
+			para( S.reportPrivacy, 'hrpd-muted hrpd-small' ),
+		] );
+	}
+
+	function caseReport( c ) {
+		return function () {
+			if ( state.report && state.report.caseId === c.id ) {
+				return state.report.text;
+			}
+			return ( c.result && c.result.report ) || '';
+		};
+	}
+
 	function viewResult( c ) {
 		const r = c.result || {};
 		const o = state.overview;
@@ -501,7 +662,9 @@
 					}, 'secondary' ),
 				] ),
 			], 'ok' ) );
+			parts.push( backgroundCard( c ) );
 			parts.push( h( 'div', { class: 'hrpd-frame-wrap' }, [ frameTools( c.checkUrl, frame ), frame ] ) );
+			parts.push( reportCard( caseReport( c ) ) );
 			return parts;
 		}
 
@@ -545,6 +708,7 @@
 		}, 'primary' ) ) );
 
 		parts.push( card( title, body, 'warning' ) );
+		parts.push( reportCard( caseReport( c ) ) );
 		parts.push( helpCard() );
 		return parts;
 	}
@@ -562,6 +726,9 @@
 					h( 'a', { class: 'hrpd-btn hrpd-btn--secondary', href: boot.toolsUrl, text: S.backToWp } ),
 				] ),
 			], 'ok' ),
+			state.finished !== 'cancelled' && state.overview && state.overview.lastResult ? reportCard( function () {
+				return state.overview.lastResult.report || '';
+			} ) : null,
 			helpCard(),
 		];
 	}

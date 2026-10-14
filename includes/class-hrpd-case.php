@@ -242,7 +242,11 @@ final class HRPD_Case {
 		}
 
 		$culprit_file = (string) ( $record['result']['culprit'] ?? '' );
-		$installed    = '' !== $culprit_file ? self::installed_plugins() : array();
+		$installed    = self::installed_plugins();
+		$report       = '';
+		if ( self::STATUS_SOLVED === $record['status'] && class_exists( 'HRPD_Report' ) ) {
+			$report = HRPD_Report::build( $record, $installed, $keep_culprit_off ? HRPD_Report::OUTCOME_KEPT : HRPD_Report::OUTCOME_RESTORED );
+		}
 		$culprit_name = isset( $installed[ $culprit_file ]['Name'] ) ? wp_strip_all_tags( (string) $installed[ $culprit_file ]['Name'] ) : $culprit_file;
 
 		update_option(
@@ -254,6 +258,7 @@ final class HRPD_Case {
 				'culprit_name' => $culprit_name,
 				'kept_off'     => $keep_culprit_off,
 				'rounds'       => count( (array) $record['clues'] ),
+				'report'       => $report,
 			),
 			false
 		);
