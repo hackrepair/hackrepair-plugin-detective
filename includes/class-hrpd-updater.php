@@ -69,6 +69,10 @@ final class HRPD_Updater {
 
 		$this->checker->setBranch( self::BRANCH );
 
+		// The GitHub copy of the readme lists screenshot captions only. The
+		// images ship inside this plugin, so add them to the details window.
+		$this->checker->addFilter( 'pre_inject_info', array( $this, 'add_screenshots' ) );
+
 		$api = $this->checker->getVcsApi();
 
 		// A different loaded version of the update checker may lack one of the
@@ -128,6 +132,60 @@ final class HRPD_Updater {
 	}
 
 	/**
+	 * Build the Screenshots tab from the images in assets/screenshots/.
+	 *
+	 * Captions come from the readme's Screenshots list, matched by number
+	 * (screenshot-1.png is the first caption). Missing images are skipped.
+	 *
+	 * @param array $captions Captions in readme order.
+	 * @return string HTML, or an empty string when there is nothing to show.
+	 */
+	private function screenshots_html( $captions ) {
+		$html = '';
+		foreach ( array_values( (array) $captions ) as $i => $caption ) {
+			$n = $i + 1;
+			if ( ! is_readable( HRPD_DIR . 'assets/screenshots/screenshot-' . $n . '.png' ) ) {
+				continue;
+			}
+			$caption = wp_strip_all_tags( $caption );
+			$html   .= '<li><img src="' . esc_url( HRPD_URL . 'assets/screenshots/screenshot-' . $n . '.png' ) . '" alt="' . esc_attr( $caption ) . '" /><p>' . esc_html( $caption ) . '</p></li>';
+		}
+		return '' === $html ? '' : '<ol>' . $html . '</ol>';
+	}
+
+	/**
+	 * Parsed captions from the installed readme.txt.
+	 *
+	 * @return array
+	 */
+	private function local_captions() {
+		$readme_file = HRPD_DIR . 'readme.txt';
+		if ( ! is_readable( $readme_file ) || ! class_exists( 'PucReadmeParser' ) ) {
+			return array();
+		}
+		$parser = new \PucReadmeParser();
+		$readme = $parser->parse_readme( $readme_file );
+		return ! empty( $readme['screenshots'] ) ? (array) $readme['screenshots'] : array();
+	}
+
+	/**
+	 * Filter: put the shipped screenshots into the update checker's answer.
+	 *
+	 * @param object|null $info Plugin info from the update checker.
+	 * @return object|null
+	 */
+	public function add_screenshots( $info ) {
+		if ( ! is_object( $info ) || ! isset( $info->sections ) ) {
+			return $info;
+		}
+		$html = $this->screenshots_html( $this->local_captions() );
+		if ( '' !== $html ) {
+			$info->sections['screenshots'] = $html;
+		}
+		return $info;
+	}
+
+	/**
 	 * Fill the Plugins screen's "View details" window from the installed readme.txt.
 	 *
 	 * The update checker answers this window from the GitHub copy of readme.txt.
@@ -172,6 +230,11 @@ final class HRPD_Updater {
 			if ( ! empty( $readme['sections'][ $from ] ) ) {
 				$sections[ $to ] = $readme['sections'][ $from ];
 			}
+		}
+
+		$shots = $this->screenshots_html( isset( $readme['screenshots'] ) ? $readme['screenshots'] : array() );
+		if ( '' !== $shots ) {
+			$sections['screenshots'] = $shots;
 		}
 
 		$info = new \stdClass();
