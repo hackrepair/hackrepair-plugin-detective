@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -124,6 +124,10 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 2.2.1 - 2026-10-14 =
+* Tweak: Renamed to The Hack Repair Guy's Plugin Detective. Same plugin, same folder, same settings.
+* Tweak: Cleaner banner in the "View details" window, and compatibility now lists WordPress 7.1.3.
 
 = 2.2.0 - 2026-10-13 =
 * New: The "View details" window on the Plugins screen now has a banner, an icon, and the full description, installation steps, FAQ, and changelog. It works from the plugin's own readme, so it also works while the GitHub repository is private.
