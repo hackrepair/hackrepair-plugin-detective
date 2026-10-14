@@ -215,7 +215,7 @@ a:hover { color: var(--hrpd-accent-hover); }
 	.hrpd-spinner { animation: none; }
 }
 
-/* Background check and case report (2.3.0). */
+/* Background check and case report (3.0.0). */
 .hrpd-card--bad { border-left-color: #d63638; }
 .hrpd-bg__lines { list-style: none; margin: 0 0 12px; padding: 0; }
 .hrpd-bg__line { position: relative; padding: 4px 0 4px 26px; }

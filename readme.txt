@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 2.3.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -160,7 +160,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 == Changelog ==
 
-= 2.3.0 - 2026-10-14 =
+= 3.0.0 - 2026-10-14 =
 * New: Background check on the plugin it finds. Shows whether a newer version is out, whether wordpress.org has closed it, whether it's gone two years without an update, and any known security holes in the version you have, with how serious they are and whether updating fixes them.
 * New: Case report. A plain-English summary of the session, the background check, and your site details, ready to copy or download and send to a developer. The last report also stays on the Tools page.
 * New: `HRPD_NO_BACKGROUND_CHECK` setting for wp-config.php to turn the background check off.
