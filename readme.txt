@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -159,6 +159,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 3.1.0 - 2026-10-14 =
+* New: "Delete this plugin" button next to "Keep it switched off" and "Turn it back on" on the result screen. It asks first, removes the problem plugin's files, and puts everything else back. Its saved settings stay in your database so a reinstall picks up where it left off. If the files can't be removed from here, the plugin stays switched off and you're told how to delete it from the Plugins page.
 
 = 3.0.0 - 2026-10-14 =
 * New: Background check on the plugin it finds. Shows whether a newer version is out, whether wordpress.org has closed it, whether it's gone two years without an update, and any known security holes in the version you have, with how serious they are and whether updating fixes them.

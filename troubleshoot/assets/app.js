@@ -31,6 +31,7 @@
 		view: '',
 		whereUrl: boot.initialUrl || boot.home,
 		confirming: false,
+		confirmDelete: false,
 		finished: null,
 		restoreFlow: !! boot.restore,
 		bg: null,
@@ -720,6 +721,29 @@
 		};
 	}
 
+	function deleteBox( name ) {
+		if ( ! state.confirmDelete ) {
+			return null;
+		}
+		const ask = fmt( S.deleteAsk, name );
+		return h( 'div', { class: 'hrpd-confirm', role: 'alertdialog', 'aria-label': ask }, [
+			para( ask ),
+			h( 'div', { class: 'hrpd-actions' }, [
+				button( S.deleteYes, function () {
+					state.confirmDelete = false;
+					run( 'finish', { mode: 'delete' }, function ( data ) {
+						setOverview( data );
+						state.finished = 'deleted';
+					} );
+				}, 'danger' ),
+				button( S.deleteNo, function () {
+					state.confirmDelete = false;
+					render();
+				}, 'secondary' ),
+			] ),
+		] );
+	}
+
 	function viewResult( c ) {
 		const r = c.result || {};
 		const o = state.overview;
@@ -800,7 +824,7 @@
 	function viewDone() {
 		return [
 			card( S.doneTitle, [
-				para( state.finished === 'kept' ? S.doneKept : ( state.finished === 'cancelled' ? S.doneCancelled : S.doneRestored ) ),
+				para( state.finished === 'deleted' ? S.doneDeleted : ( state.finished === 'kept' ? S.doneKept : ( state.finished === 'cancelled' ? S.doneCancelled : S.doneRestored ) ) ),
 				h( 'div', { class: 'hrpd-actions' }, [
 					button( S.startAgain, function () {
 						state.finished = null;
@@ -889,7 +913,7 @@
 
 		// Keep the screen (site preview, typed input) in place while only the busy flag or messages change.
 		const c = state.overview && state.overview.case;
-		const key = [ state.signedIn, !! state.overview, state.view, state.finished, state.challenge ? 1 : 0, c ? c.status + ':' + c.answers : '-', state.confirming, state.overview ? state.overview.maintenance : '' ].join( '|' );
+		const key = [ state.signedIn, !! state.overview, state.view, state.finished, state.challenge ? 1 : 0, c ? c.status + ':' + c.answers : '-', state.confirming, state.confirmDelete, state.overview ? state.overview.maintenance : '' ].join( '|' );
 
 		if ( key === lastKey ) {
 			root.querySelectorAll( 'button' ).forEach( function ( b ) {

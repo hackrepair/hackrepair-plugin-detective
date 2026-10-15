@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.0.0-b34700?style=flat-square" alt="Version 3.0.0">
+  <img src="https://img.shields.io/badge/version-3.1.0-b34700?style=flat-square" alt="Version 3.1.0">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -77,6 +77,10 @@ flowchart LR
 - Live preview of your site in every round, plus "Open in a new tab" for logged-out or phone checks
 - Mark plugins your site can't run without (a page builder, WooCommerce) so they stay on the whole time
 - Plain-English results: the plugin that did it, "it's not a plugin," or "it takes more than one plugin"
+
+**Delete the problem plugin** (new in 3.1.0)
+- A third choice on the result screen, after "Keep it switched off" and "Turn it back on". It asks first, then removes the plugin's files and puts everything else back
+- Files only: the plugin's saved settings stay in the database. It never touches this plugin or anything outside the plugins folder. If it can't delete, the plugin stays off and you're pointed to the Plugins page
 
 **Background check on the plugin it finds** (new in 3.0.0)
 - Is there a newer version? Has wordpress.org closed it? Has it gone two years without an update?

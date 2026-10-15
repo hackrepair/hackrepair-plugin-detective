@@ -21,13 +21,14 @@ final class HRPD_Report {
 	public const OUTCOME_PENDING  = 'pending';
 	public const OUTCOME_KEPT     = 'kept';
 	public const OUTCOME_RESTORED = 'restored';
+	public const OUTCOME_DELETED  = 'deleted';
 
 	/**
 	 * Build the report for a solved case.
 	 *
 	 * @param array<string, mixed>                $record    Case data.
 	 * @param array<string, array<string, mixed>> $installed Installed plugins.
-	 * @param string                              $outcome   pending, kept or restored.
+	 * @param string                              $outcome   pending, kept, restored or deleted.
 	 * @return string
 	 */
 	public static function build( array $record, array $installed, string $outcome ): string {
@@ -147,7 +148,7 @@ final class HRPD_Report {
 	 * @param string                              $type      Result type.
 	 * @param string                              $culprit   Problem plugin file.
 	 * @param array<string, array<string, mixed>> $installed Installed plugins.
-	 * @param string                              $outcome   pending, kept or restored.
+	 * @param string                              $outcome   pending, kept, restored or deleted.
 	 * @return string
 	 */
 	private static function outcome_line( string $type, string $culprit, array $installed, string $outcome ): string {
@@ -156,6 +157,10 @@ final class HRPD_Report {
 		if ( HRPD_Detective::RESULT_CULPRIT === $type && self::OUTCOME_KEPT === $outcome ) {
 			/* translators: plugin name. */
 			return sprintf( __( 'Left as: %s is switched off. Every other plugin is back on.', 'hackrepair-plugin-detective' ), $name );
+		}
+		if ( HRPD_Detective::RESULT_CULPRIT === $type && self::OUTCOME_DELETED === $outcome ) {
+			/* translators: plugin name. */
+			return sprintf( __( 'Left as: %s was deleted. Every other plugin is back on.', 'hackrepair-plugin-detective' ), $name );
 		}
 		if ( HRPD_Detective::RESULT_CULPRIT === $type && self::OUTCOME_PENDING === $outcome ) {
 			/* translators: plugin name. */

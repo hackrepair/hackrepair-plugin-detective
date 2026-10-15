@@ -207,11 +207,12 @@ final class HRPD_Case {
 	 *
 	 * `keep`    - leave the site as it is now (culprit switched off).
 	 * `restore` - put every plugin back exactly as it was before the case.
+	 * `delete`  - remove the problem plugin's files, then put everything else back.
 	 *
-	 * @param string $mode `keep` or `restore`.
-	 * @return array<string, mixed> Summary of what was done.
+	 * @param string $mode `keep`, `restore` or `delete`.
+	 * @return array<string, mixed>|WP_Error Summary of what was done, or why the plugin couldn't be deleted.
 	 */
-	public static function finish( string $mode ): array {
+	public static function finish( string $mode ) {
 		$record = self::get();
 		if ( ! $record ) {
 			return array( 'done' => true );
@@ -228,11 +229,24 @@ final class HRPD_Case {
 			);
 		}
 
-		$keep_culprit_off = 'keep' === $mode
-			&& self::STATUS_SOLVED === $record['status']
+		$found_culprit = self::STATUS_SOLVED === $record['status']
 			&& HRPD_Detective::RESULT_CULPRIT === ( $record['result']['result'] ?? '' );
+		$delete        = 'delete' === $mode && $found_culprit;
+		$keep_culprit_off = ( 'keep' === $mode && $found_culprit ) || $delete;
 
-		if ( $keep_culprit_off ) {
+		if ( $delete ) {
+			$removed = self::delete_plugin( (string) $record['result']['culprit'] );
+			if ( is_wp_error( $removed ) ) {
+				// Leave the case open and the plugin switched off so the owner can pick again.
+				return $removed;
+			}
+		}
+
+		if ( $delete ) {
+			$culprit = (string) $record['result']['culprit'];
+			self::write_active( array_values( array_diff( (array) $record['backup'], array( $culprit ) ) ) );
+			HRPD_Log::add( 'plugin_deleted', 'Case closed. Problem plugin deleted.', array( 'plugin' => $culprit ) );
+		} elseif ( $keep_culprit_off ) {
 			$culprit = (string) $record['result']['culprit'];
 			self::write_active( array_values( array_diff( (array) $record['backup'], array( $culprit ) ) ) );
 			HRPD_Log::add( 'case_closed', 'Case closed. Problem plugin left switched off.', array( 'plugin' => $culprit ) );
@@ -245,7 +259,7 @@ final class HRPD_Case {
 		$installed    = self::installed_plugins();
 		$report       = '';
 		if ( self::STATUS_SOLVED === $record['status'] && class_exists( 'HRPD_Report' ) ) {
-			$report = HRPD_Report::build( $record, $installed, $keep_culprit_off ? HRPD_Report::OUTCOME_KEPT : HRPD_Report::OUTCOME_RESTORED );
+			$report = HRPD_Report::build( $record, $installed, $delete ? HRPD_Report::OUTCOME_DELETED : ( $keep_culprit_off ? HRPD_Report::OUTCOME_KEPT : HRPD_Report::OUTCOME_RESTORED ) );
 		}
 		$culprit_name = isset( $installed[ $culprit_file ]['Name'] ) ? wp_strip_all_tags( (string) $installed[ $culprit_file ]['Name'] ) : $culprit_file;
 
@@ -256,7 +270,8 @@ final class HRPD_Case {
 				'result'       => $record['result']['result'] ?? 'abandoned',
 				'culprit'      => $culprit_file,
 				'culprit_name' => $culprit_name,
-				'kept_off'     => $keep_culprit_off,
+				'kept_off'     => $keep_culprit_off && ! $delete,
+				'deleted'      => $delete,
 				'rounds'       => count( (array) $record['clues'] ),
 				'report'       => $report,
 			),
@@ -267,8 +282,84 @@ final class HRPD_Case {
 
 		return array(
 			'done'     => true,
-			'kept_off' => $keep_culprit_off,
+			'kept_off' => $keep_culprit_off && ! $delete,
+			'deleted'  => $delete,
 		);
+	}
+
+	/**
+	 * Delete a plugin's files.
+	 *
+	 * Removes files only. The plugin's own uninstall routine is not run, so its
+	 * settings and data stay in the database in case the owner reinstalls it.
+	 * Never touches this plugin or anything outside the plugins folder.
+	 *
+	 * @param string $file Plugin file, e.g. `folder/plugin.php`.
+	 * @return true|WP_Error
+	 */
+	private static function delete_plugin( string $file ) {
+		$failed = new WP_Error( 'hrpd_delete_failed', __( 'I couldn\'t delete that plugin from here. It is still switched off. You can delete it from the Plugins page in WordPress.', 'hackrepair-plugin-detective' ) );
+
+		$installed = self::installed_plugins();
+		if ( '' === $file || $file === self::self_basename() || ! isset( $installed[ $file ] ) || false !== strpos( $file, '..' ) ) {
+			return $failed;
+		}
+
+		$folder = dirname( $file );
+		if ( '.' !== $folder && dirname( self::self_basename() ) === $folder ) {
+			return $failed;
+		}
+
+		$root   = realpath( WP_PLUGIN_DIR );
+		$target = '.' === $folder ? WP_PLUGIN_DIR . '/' . $file : WP_PLUGIN_DIR . '/' . $folder;
+		if ( false === $root || ! file_exists( $target ) && ! is_link( $target ) ) {
+			return $failed;
+		}
+
+		if ( ! is_link( $target ) ) {
+			$real = realpath( $target );
+			if ( false === $real || 0 !== strpos( $real, $root . DIRECTORY_SEPARATOR ) ) {
+				return $failed;
+			}
+		}
+
+		if ( ! class_exists( 'WP_Filesystem_Direct' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+			require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+		}
+		$fs = new WP_Filesystem_Direct( null );
+
+		if ( ! self::remove_path( $fs, $target ) ) {
+			wp_cache_delete( 'plugins', 'plugins' );
+			return $failed;
+		}
+
+		wp_cache_delete( 'plugins', 'plugins' );
+		return true;
+	}
+
+	/**
+	 * Remove a file or folder. Symbolic links are removed, never followed.
+	 *
+	 * @param WP_Filesystem_Direct $fs   Filesystem.
+	 * @param string               $path Path.
+	 * @return bool
+	 */
+	private static function remove_path( $fs, string $path ): bool {
+		if ( is_link( $path ) || is_file( $path ) ) {
+			return (bool) $fs->delete( $path, false, 'f' );
+		}
+		if ( ! is_dir( $path ) ) {
+			return true;
+		}
+		$ok = true;
+		foreach ( (array) scandir( $path ) as $name ) {
+			if ( '.' === $name || '..' === $name ) {
+				continue;
+			}
+			$ok = self::remove_path( $fs, $path . '/' . $name ) && $ok;
+		}
+		return $ok && (bool) $fs->rmdir( $path );
 	}
 
 	/**

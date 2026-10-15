@@ -3,7 +3,7 @@
  * Plugin Name:       The Hack Repair Guy's Plugin Detective
  * Plugin URI:        https://hackrepair.com/
  * Description:       Find the plugin that broke your site in a few quick checks, even when wp-admin is down. Clears stuck maintenance mode too. By THRG (The Hack Repair Guy).
- * Version:           3.0.0
+ * Version:           3.1.0
  * Requires at least: 6.9.4
  * Requires PHP:      7.4
  * Author:            Jim Walker, The Hack Repair Guy
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'HRPD_VERSION', '3.0.0' );
+define( 'HRPD_VERSION', '3.1.0' );
 define( 'HRPD_FILE', __FILE__ );
 define( 'HRPD_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HRPD_URL', plugin_dir_url( __FILE__ ) );
