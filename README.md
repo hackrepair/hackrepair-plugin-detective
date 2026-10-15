@@ -313,6 +313,7 @@ hackrepair-plugin-detective/
 
 | Check | Result |
 |---|---|
+| Browser click-through of the delete button (three buttons show, asks first, "No" backs out, "Yes" deletes the files, done screen, report and Tools page all say deleted) | 12 / 12 |
 | Delete the problem plugin (refuses itself and path tricks, ignores unsolved cases, removes nested files, leaves symlink targets alone, single-file plugins, plugin list and report updated) | 15 / 15 |
 | Update URI "false" wording, and other hosts still named | 3 / 3 |
 | "View details" window (sections, screenshots, banners, icons, version) | 18 / 18 |
