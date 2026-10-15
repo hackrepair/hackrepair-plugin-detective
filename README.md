@@ -32,6 +32,10 @@
   <a href="#development">Development</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/hackrepair/hackrepair-plugin-detective/releases"><img src="https://img.shields.io/badge/DOWNLOAD%20PLUGIN-b34700?style=for-the-badge" alt="DOWNLOAD PLUGIN" height="64"></a>
+</p>
+
 ---
 
 Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.
