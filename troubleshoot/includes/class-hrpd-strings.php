@@ -123,7 +123,7 @@ final class HRPD_Strings {
 			'culpritNext'       => __( 'What next? Check for an update to that plugin, or contact its developer and tell them what broke. If it\'s a plugin you don\'t need, you can delete it.', 'hackrepair-plugin-detective' ),
 			'keepOff'           => __( 'Keep it switched off', 'hackrepair-plugin-detective' ),
 			'deleteIt'          => __( 'Delete this plugin', 'hackrepair-plugin-detective' ),
-			'deleteAsk'         => __( 'Delete %s for good? Its files are removed from your site. Its saved settings stay in your database, so a reinstall picks up where it left off.', 'hackrepair-plugin-detective' ),
+			'deleteAsk'         => __( 'Delete %1$s for good? Its files are removed from your site. Its saved settings stay in your database, so a reinstall picks up where it left off.', 'hackrepair-plugin-detective' ),
 			'deleteYes'         => __( 'Yes, delete it', 'hackrepair-plugin-detective' ),
 			'deleteNo'          => __( 'No, keep it', 'hackrepair-plugin-detective' ),
 			'turnBackOn'        => __( 'Turn it back on', 'hackrepair-plugin-detective' ),

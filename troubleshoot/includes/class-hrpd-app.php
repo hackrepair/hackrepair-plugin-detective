@@ -194,9 +194,10 @@ final class HRPD_App {
 				return is_wp_error( $result ) ? $result : self::overview();
 
 			case 'finish':
-				$mode = 'keep' === self::text( $request, 'mode' ) ? 'keep' : 'restore';
-				HRPD_Case::finish( $mode );
-				return self::overview();
+				$mode = self::text( $request, 'mode' );
+				$mode = in_array( $mode, array( 'keep', 'delete' ), true ) ? $mode : 'restore';
+				$done = HRPD_Case::finish( $mode );
+				return is_wp_error( $done ) ? $done : self::overview();
 
 			case 'abandon':
 				HRPD_Case::abandon();
