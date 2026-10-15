@@ -191,6 +191,7 @@
 	function setOverview( data ) {
 		state.overview = data;
 		state.confirming = false;
+		state.confirmDelete = false;
 	}
 
 	function loadOverview() {
@@ -767,7 +768,12 @@
 							state.finished = 'restored';
 						} );
 					}, 'secondary' ),
+					button( S.deleteIt, function () {
+						state.confirmDelete = true;
+						render();
+					}, 'danger' ),
 				] ),
+				deleteBox( r.culprit.name ),
 			], 'ok' ) );
 			parts.push( backgroundCard( c ) );
 			parts.push( frameWrap( c.checkUrl, frame ) );
