@@ -287,7 +287,11 @@ final class HRPD_Background {
 		if ( '' !== $update_uri ) {
 			$host = strtolower( (string) wp_parse_url( $update_uri, PHP_URL_HOST ) );
 			if ( '' === $host ) {
-				$host = strtolower( $update_uri );
+				$host = strtolower( trim( $update_uri ) );
+			}
+			// "Update URI: false" is the author's way of saying nobody should push updates to this plugin.
+			if ( in_array( $host, array( 'false', '0', 'no', 'off' ), true ) ) {
+				return array( 'state' => 'noupdates' );
 			}
 			if ( ! in_array( $host, array( 'w.org', 'wordpress.org', 'downloads.wordpress.org' ), true ) ) {
 				return array(
