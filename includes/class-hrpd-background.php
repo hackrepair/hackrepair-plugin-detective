@@ -179,11 +179,15 @@ final class HRPD_Background {
 				$lines[] = self::line( 'info', __( 'It isn\'t listed on wordpress.org, so it\'s probably a premium or custom plugin. Ask whoever sold or built it for an update.', 'hackrepair-plugin-detective' ) );
 				break;
 
+			case 'noupdates':
+				$lines[] = self::line( 'info', __( 'Its author has switched off update checks for this plugin, so WordPress won\'t tell you when a new version is out. Ask whoever supplied it whether there is one.', 'hackrepair-plugin-detective' ) );
+				break;
+
 			case 'skipped':
 				$lines[] = self::line(
 					'info',
 					/* translators: %s: the website the plugin gets its updates from. */
-					sprintf( __( 'It gets its updates from %s, not wordpress.org. Check there for a newer version.', 'hackrepair-plugin-detective' ), (string) ( $wporg['host'] ?? '' ) )
+					sprintf( __( 'Its updates come from %s, not wordpress.org. Check there for a newer version.', 'hackrepair-plugin-detective' ), (string) ( $wporg['host'] ?? '' ) )
 				);
 				break;
 
