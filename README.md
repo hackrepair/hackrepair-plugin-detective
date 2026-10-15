@@ -110,7 +110,7 @@ flowchart LR
 <table>
   <tr>
     <td width="50%"><img src=".github/screenshots/troubleshooter-home.png" alt="Troubleshooter start screen"><br><sub><b>Start.</b> Works whether or not wp-admin is up.</sub></td>
-    <td width="50%"><img src=".github/screenshots/found-it.png" alt="Found it: the problem plugin"><br><sub><b>Found it.</b> The culprit stays off while you check your site.</sub></td>
+    <td width="50%"><img src=".github/screenshots/found-it.png" alt="Found it: the problem plugin, with its background check"><br><sub><b>Found it.</b> The culprit stays off, with a background check, while you check your site.</sub></td>
   </tr>
   <tr>
     <td width="50%"><img src=".github/screenshots/two-factor.png" alt="Two-factor code step"><br><sub><b>Two-factor login.</b> HackGuard Security and Two Factor codes are enforced.</sub></td>
@@ -119,6 +119,10 @@ flowchart LR
   <tr>
     <td width="50%"><img src=".github/screenshots/tools-page.png" alt="Tools > Plugin Detective"><br><sub><b>Tools > Plugin Detective.</b> Emergency bookmark, status, and activity log.</sub></td>
     <td width="50%"><img src=".github/screenshots/safety-notice.png" alt="wp-admin safety notice"><br><sub><b>Safety notice.</b> Never forget a session with plugins switched off.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src=".github/screenshots/must-stay-on.png" alt="Step 2: tick plugins that must stay on"><br><sub><b>Must stay on.</b> Tick anything your site can't run without. Your site stays in view on the right.</sub></td>
+    <td width="50%"><img src=".github/screenshots/case-report.png" alt="The case report card"><br><sub><b>Case report.</b> Copy it or download it and send it to a developer.</sub></td>
   </tr>
 </table>
 

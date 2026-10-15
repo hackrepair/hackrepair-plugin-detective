@@ -162,17 +162,18 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 == Screenshots ==
 
-1. Tools > Plugin Detective, with the emergency bookmark and activity log.
-2. Step 1: show the troubleshooter where the problem is.
+1. Tools > Plugin Detective, with the emergency bookmark, last session and activity log.
+2. Step 1: show the troubleshooter where the problem is. Your site stays in view on the right.
 3. Step 2: tick any plugins that must stay on.
-4. Each round: is the problem still there?
-5. Found it. The problem plugin stays off while you check your site.
+4. Each round: is the problem still there? Here the test plugin's "Page not found" shows on the right.
+5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
 
 = 3.2.1 - 2026-10-14 =
 * Fix: The last result on the Tools page now says "found X and deleted it" after you delete the problem plugin, instead of "then turned it back on."
 * Tweak: The plugin's one-line description on the Plugins screen now matches this readme.
+* Tweak: Screenshots retaken in the new full-screen layout.
 * Tweak: Readme, FAQ and screens now say you can delete the problem plugin, mention the GitHub update check under outside services, and no longer promise sessions last "a few minutes."
 
 = 3.2.0 - 2026-10-14 =
