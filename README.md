@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.1.1-b34700?style=flat-square" alt="Version 3.1.1">
+  <img src="https://img.shields.io/badge/version-3.2.0-b34700?style=flat-square" alt="Version 3.2.0">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -179,6 +179,13 @@ define( 'HRPD_REQUIRE_WP_LOGIN', true );
 ## FAQ
 
 <details>
+<summary><b>How can I try it out safely?</b></summary>
+
+Download the free test plugin, [Vanishing Act (Test Plugin)](https://github.com/hackrepair/hackrepair-plugin-detective/raw/main/test-plugin/vanishing-act.zip), and install it from **Plugins > Add New > Upload Plugin**. Switch it on and your home page shows "Page not found." Your dashboard keeps working. Then run Plugin Detective and watch it track the culprit down. Delete Vanishing Act when you're done. It's a harmless test plugin, so don't leave it on a live site. A copy also ships inside this plugin's folder, in `test-plugin/vanishing-act.zip`.
+
+</details>
+
+<details>
 <summary><b>Is it safe to switch my plugins off?</b></summary>
 
 Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched. While you test, unticked plugins, including security plugins, are off for a few minutes. Keep sessions short and finish them when you're done.
@@ -242,6 +249,7 @@ hackrepair-plugin-detective/
 │       ├── class-hrpd-session.php    wp-admin cookie and troubleshooter session
 │       ├── class-hrpd-strings.php    Every word the troubleshooter shows
 │       └── class-hrpd-totp.php       Two-factor detection and code checks
+├── test-plugin/                      Vanishing Act, a harmless plugin that 404s the home page, for trying the detective
 └── assets/                           Admin CSS and mascot images
 ```
 

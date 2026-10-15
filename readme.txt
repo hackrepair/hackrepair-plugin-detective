@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.1.1
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,10 @@ From WPVulnerability, a free public database that pulls together reports from CV
 
 The problem page, the result, how many checks it took, what was left switched off, the background check, your other active plugins and their versions, and your WordPress, PHP and theme versions. It doesn't include passwords or anything from your database. It does include your site address and plugin list, so only send it to people you trust.
 
+= How can I try it out safely? =
+
+Download the free test plugin, [Vanishing Act (Test Plugin)](https://github.com/hackrepair/hackrepair-plugin-detective/raw/main/test-plugin/vanishing-act.zip), and install it from Plugins > Add New > Upload Plugin. Switch it on and your home page shows "Page not found." Your dashboard keeps working. Then run Plugin Detective and watch it track the culprit down. Delete Vanishing Act when you're done. It's a harmless test plugin, so don't leave it on a live site. A copy also ships inside this plugin's folder, in `test-plugin/vanishing-act.zip`.
+
 = How do I use it? =
 
 Go to the page where you see the problem and click "Troubleshoot" in the admin bar. Or go to Tools > Plugin Detective and click "Open the troubleshooter." Then follow the steps.
@@ -159,6 +163,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 3.2.0 - 2026-10-14 =
+* New: Vanishing Act (Test Plugin), a harmless plugin that makes your home page show "Page not found," so you can try Plugin Detective safely. Download it from this window's FAQ tab. A copy also ships in `test-plugin/vanishing-act.zip`.
 
 = 3.1.1 - 2026-10-14 =
 * Fix: The background check no longer says a plugin "gets its updates from false". When a plugin's author has switched off update checks (Update URI: false), it now says so in plain English.
