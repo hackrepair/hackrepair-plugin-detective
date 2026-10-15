@@ -100,7 +100,7 @@ final class HRPD_App {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		return array(
-			'api'          => plugins_url( 'troubleshoot/api.php', HRPD_PLUGIN_DIR . 'hackrepair-plugin-detective.php' ),
+			'api'          => plugins_url( 'fix/api.php', HRPD_PLUGIN_DIR . 'hackrepair-plugin-detective.php' ),
 			'adminUrl'     => admin_url(),
 			'toolsUrl'     => admin_url( 'tools.php?page=hackrepair-plugin-detective' ),
 			'home'         => home_url( '/' ),

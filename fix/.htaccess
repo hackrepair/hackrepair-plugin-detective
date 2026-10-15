@@ -1,6 +1,6 @@
 # The Hack Repair Guy's Plugin Detective
 # Many hardened sites block every PHP file inside wp-content/plugins/.
-# The troubleshooter must still open when the site is broken, so this
+# The Fix page must still open when the site is broken, so this
 # re-allows ONLY its two entry points. Both require an administrator
 # login before they do anything. Everything else stays blocked.
 <FilesMatch "^(index|api)\.php$">

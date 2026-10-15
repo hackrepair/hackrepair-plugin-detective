@@ -3,7 +3,7 @@
  * Plugin Detective Fix page.
  *
  * Bookmark this address. It works even when wp-admin doesn't:
- * https://example.com/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/
+ * https://example.com/wp-content/plugins/hackrepair-plugin-detective/fix/
  *
  * @package HackRepair_Plugin_Detective
  * @author  Jim Walker, The Hack Repair Guy
@@ -23,7 +23,7 @@ header(
 
 $hrpd_main_file = HRPD_PLUGIN_DIR . 'hackrepair-plugin-detective.php';
 $hrpd_asset_ver = static function ( string $relative ): string {
-	$path = HRPD_TROUBLESHOOT_DIR . $relative;
+	$path = HRPD_FIX_DIR . $relative;
 	return is_file( $path ) ? (string) filemtime( $path ) : '1';
 };
 $hrpd_boot      = HRPD_App::boot_data();
@@ -37,7 +37,7 @@ $hrpd_boot      = HRPD_App::boot_data();
 	<title><?php echo esc_html( $hrpd_boot['strings']['appName'] . ' · ' . $hrpd_boot['siteName'] ); ?></title>
 	<?php // phpcs:disable WordPress.WP.EnqueuedResources -- Standalone page rendered outside WordPress; the enqueue system does not run here. ?>
 	<link rel="icon" href="<?php echo esc_url( plugins_url( 'assets/img/hackrepair-heart-64.png', $hrpd_main_file ) ); ?>" type="image/png">
-	<link rel="stylesheet" href="<?php echo esc_url( plugins_url( 'troubleshoot/assets/app.css', $hrpd_main_file ) . '?ver=' . $hrpd_asset_ver( 'assets/app.css' ) ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( plugins_url( 'fix/assets/app.css', $hrpd_main_file ) . '?ver=' . $hrpd_asset_ver( 'assets/app.css' ) ); ?>">
 </head>
 <body>
 	<header class="hrpd-top">
@@ -54,7 +54,7 @@ $hrpd_boot      = HRPD_App::boot_data();
 		<noscript><p><?php esc_html_e( 'Plugin Detective needs JavaScript turned on in your browser.', 'hackrepair-plugin-detective' ); ?></p></noscript>
 	</main>
 	<script type="application/json" id="hrpd-boot"><?php echo wp_json_encode( $hrpd_boot, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ); ?></script>
-	<script src="<?php echo esc_url( plugins_url( 'troubleshoot/assets/app.js', $hrpd_main_file ) . '?ver=' . $hrpd_asset_ver( 'assets/app.js' ) ); ?>"></script>
+	<script src="<?php echo esc_url( plugins_url( 'fix/assets/app.js', $hrpd_main_file ) . '?ver=' . $hrpd_asset_ver( 'assets/app.js' ) ); ?>"></script>
 	<?php // phpcs:enable WordPress.WP.EnqueuedResources ?>
 </body>
 </html>

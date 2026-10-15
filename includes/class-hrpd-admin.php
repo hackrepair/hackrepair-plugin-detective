@@ -41,7 +41,7 @@ final class HRPD_Admin {
 	 * @return string
 	 */
 	public static function troubleshooter_url( string $problem_url = '' ): string {
-		$url = plugins_url( 'troubleshoot/', HRPD_FILE );
+		$url = plugins_url( 'fix/', HRPD_FILE );
 		if ( '' !== $problem_url ) {
 			$url = add_query_arg( 'url', rawurlencode( $problem_url ), $url );
 		}
@@ -96,7 +96,7 @@ final class HRPD_Admin {
 
 		$bar->add_node(
 			array(
-				'id'    => 'hrpd-troubleshoot',
+				'id'    => 'hrpd-fix',
 				'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label">' . esc_html__( 'Fix', 'hackrepair-plugin-detective' ) . '</span>',
 				'href'  => self::troubleshooter_url( $current ),
 				'meta'  => array(
@@ -138,7 +138,7 @@ final class HRPD_Admin {
 		if ( ! is_admin_bar_showing() || ! current_user_can( self::CAPABILITY ) ) {
 			return;
 		}
-		wp_add_inline_style( 'admin-bar', '#wpadminbar #wp-admin-bar-hrpd-troubleshoot .ab-icon:before{content:"\f179";top:2px}' );
+		wp_add_inline_style( 'admin-bar', '#wpadminbar #wp-admin-bar-hrpd-fix .ab-icon:before{content:"\f179";top:2px}' );
 	}
 
 	/**

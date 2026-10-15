@@ -137,7 +137,7 @@ flowchart LR
 ### Emergency address
 
 ```
-https://yoursite.com/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/
+https://yoursite.com/wp-content/plugins/hackrepair-plugin-detective/fix/
 ```
 
 Add `?restore=1` to go straight to the stuck-maintenance-mode fix.
@@ -155,7 +155,7 @@ Plugin Detective switches plugins on a live site, so it's built to be hard to mi
 | **Plugin switching** | Only installed plugins can be switched on. The original list is backed up first, and every way out restores it. |
 | **Deleting** | Only after a problem plugin is found and you confirm. Removes that plugin's files only, never runs its uninstall routine, refuses to touch this plugin or anything outside the plugins folder, and never follows symbolic links. If it can't delete, the plugin stays switched off. |
 | **Page** | Strict Content-Security-Policy, `X-Frame-Options: DENY`, no external fonts, scripts, or tracking. |
-| **Hardened hosts** | Works on sites that block PHP under `wp-content/plugins/`. A small `troubleshoot/.htaccess` re-allows only `index.php` and `api.php`; everything else stays blocked. |
+| **Hardened hosts** | Works on sites that block PHP under `wp-content/plugins/`. A small `fix/.htaccess` re-allows only `index.php` and `api.php`; everything else stays blocked. |
 | **Background check** | Runs only after a problem plugin is found, only for that plugin, and only sends its folder name. Every result is shown as text, never HTML. Turn it off with `HRPD_NO_BACKGROUND_CHECK`. |
 | **Boot** | Uses WordPress's own `SHORTINIT` startup and a short list of core files. Plugin and theme code never runs in the Fix page. |
 
@@ -240,7 +240,7 @@ No single plugin breaks it on its own, so two plugins are probably fighting each
 <details>
 <summary><b>The Fix page shows "403 Forbidden."</b></summary>
 
-Your host blocks PHP inside the plugins folder. The bundled `.htaccess` handles this on Apache and LiteSpeed. On Nginx, ask your host to allow `troubleshoot/index.php` and `troubleshoot/api.php` inside the `hackrepair-plugin-detective` folder.
+Your host blocks PHP inside the plugins folder. The bundled `.htaccess` handles this on Apache and LiteSpeed. On Nginx, ask your host to allow `fix/index.php` and `fix/api.php` inside the `hackrepair-plugin-detective` folder.
 </details>
 
 <details>
@@ -285,7 +285,7 @@ hackrepair-plugin-detective/
 │   ├── class-hrpd-report.php         Plain-text case report
 │   └── class-hrpd-updater.php        Points WordPress at this plugin's GitHub releases, details window
 ├── plugin-update-checker/            Vendored third-party library (see Standards below)
-├── troubleshoot/
+├── fix/
 │   ├── index.php                     Standalone Fix page
 │   ├── api.php                       Standalone JSON API
 │   ├── .htaccess                     Allows only the two entry points on hardened hosts
@@ -306,7 +306,7 @@ hackrepair-plugin-detective/
 - WordPress Coding Standards and PHPCompatibilityWP (`testVersion 7.4-`): `phpcs` (config in `phpcs.xml.dist`). Last run clean on 2.1.0; run it again before each release
 - PHP 7.4 floor, PHP 8.3 style where 7.4 allows it
 - No build step, no external assets or tracking in the Fix page UI
-- All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
+- All user-facing copy lives in `fix/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
 - Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts). The only other outside calls are the background check on a found plugin (wordpress.org and WPVulnerability, plugin folder name only). No telemetry
 
 ### Verified in 3.2.1

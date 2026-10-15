@@ -15,14 +15,14 @@
  * @author  Jim Walker, The Hack Repair Guy
  */
 
-// This file is included by troubleshoot/index.php and troubleshoot/api.php only.
+// This file is included by fix/index.php and fix/api.php only.
 if ( ! defined( 'HRPD_STANDALONE' ) ) {
 	http_response_code( 404 );
 	exit;
 }
 
 define( 'HRPD_PLUGIN_DIR', dirname( __DIR__, 2 ) . '/' );
-define( 'HRPD_TROUBLESHOOT_DIR', dirname( __DIR__ ) . '/' );
+define( 'HRPD_FIX_DIR', dirname( __DIR__ ) . '/' );
 
 /**
  * Find the folder that holds wp-load.php by walking up from the plugin.
@@ -235,10 +235,10 @@ require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-detective.php';
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-case.php';
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-background.php';
 require_once HRPD_PLUGIN_DIR . 'includes/class-hrpd-report.php';
-require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-totp.php';
-require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-session.php';
-require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-login.php';
-require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-strings.php';
-require_once HRPD_TROUBLESHOOT_DIR . 'includes/class-hrpd-app.php';
+require_once HRPD_FIX_DIR . 'includes/class-hrpd-totp.php';
+require_once HRPD_FIX_DIR . 'includes/class-hrpd-session.php';
+require_once HRPD_FIX_DIR . 'includes/class-hrpd-login.php';
+require_once HRPD_FIX_DIR . 'includes/class-hrpd-strings.php';
+require_once HRPD_FIX_DIR . 'includes/class-hrpd-app.php';
 
 load_plugin_textdomain( 'hackrepair-plugin-detective', false, basename( HRPD_PLUGIN_DIR ) . '/languages' ); // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Standalone boot; just-in-time loading does not run here.

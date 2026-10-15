@@ -155,7 +155,7 @@ final class HRPD_Session {
 	 * @return string
 	 */
 	public static function cookie_path(): string {
-		$path = (string) wp_parse_url( plugins_url( 'troubleshoot/', HRPD_PLUGIN_DIR . 'hackrepair-plugin-detective.php' ), PHP_URL_PATH );
+		$path = (string) wp_parse_url( plugins_url( 'fix/', HRPD_PLUGIN_DIR . 'hackrepair-plugin-detective.php' ), PHP_URL_PATH );
 		return '' !== $path ? $path : '/';
 	}
 

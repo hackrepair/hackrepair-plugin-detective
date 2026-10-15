@@ -38,7 +38,7 @@ At the end, you get a plain-English report: what the problem was, which plugin c
 
 Plugin Detective has its own Fix page that runs without loading any plugins or your theme. If a plugin takes the whole site down (white screen, "critical error," or wp-admin won't load), the Fix page still opens:
 
-`https://yoursite.com/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/`
+`https://yoursite.com/wp-content/plugins/hackrepair-plugin-detective/fix/`
 
 Bookmark it. You'll find the exact address under Tools > Plugin Detective.
 
@@ -142,7 +142,7 @@ No single plugin breaks it on its own, so two plugins are probably fighting each
 
 = The Fix page shows "403 Forbidden." =
 
-Your site or host blocks PHP files inside `wp-content/plugins/`. Plugin Detective ships a small `.htaccess` that re-allows just its own two entry points on Apache and LiteSpeed. On Nginx, ask your host to allow `troubleshoot/index.php` and `troubleshoot/api.php` inside the `hackrepair-plugin-detective` folder.
+Your site or host blocks PHP files inside `wp-content/plugins/`. Plugin Detective ships a small `.htaccess` that re-allows just its own two entry points on Apache and LiteSpeed. On Nginx, ask your host to allow `fix/index.php` and `fix/api.php` inside the `hackrepair-plugin-detective` folder.
 
 = The preview is blank. =
 
@@ -173,6 +173,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 = 3.2.1 - 2026-10-14 =
 * Fix: The "Delete this plugin" button now shows on the result screen, next to "Keep it switched off" and "Turn it back on," and it works.
 * Fix: The last result on the Tools page now says "found X and deleted it" after you delete the problem plugin, instead of "then turned it back on."
+* Tweak: Simpler names. "Troubleshoot" is now "Fix" everywhere you read it, and the emergency address is shorter: `/wp-content/plugins/hackrepair-plugin-detective/fix/`. If you bookmarked the old address, replace it with the new one from Tools > Plugin Detective.
 * Tweak: The plugin's one-line description on the Plugins screen now matches this readme.
 * Tweak: Screenshots retaken in the new full-screen layout.
 * Tweak: Readme, FAQ and screens now say you can delete the problem plugin, mention the GitHub update check under outside services, and no longer promise sessions last "a few minutes."
