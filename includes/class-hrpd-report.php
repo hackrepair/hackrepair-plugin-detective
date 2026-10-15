@@ -3,8 +3,8 @@
  * Plain-text case report: what happened, what was found, and the site details
  * a developer or support person will ask for.
  *
- * Built in one place so the troubleshooter and the Tools page show the same
- * text. Only uses functions available in the troubleshooter's lightweight
+ * Built in one place so the Fix page and the Tools page show the same
+ * text. Only uses functions available in the Fix page's lightweight
  * boot.
  *
  * @package HackRepair_Plugin_Detective
@@ -166,7 +166,7 @@ final class HRPD_Report {
 			/* translators: plugin name. */
 			return sprintf( __( 'Left as: not decided yet. %s is switched off for now; every other plugin is back on.', 'hackrepair-plugin-detective' ), $name );
 		}
-		return __( 'Left as: every plugin was put back the way it was before troubleshooting.', 'hackrepair-plugin-detective' );
+		return __( 'Left as: every plugin was put back the way it was before you started.', 'hackrepair-plugin-detective' );
 	}
 
 	/**

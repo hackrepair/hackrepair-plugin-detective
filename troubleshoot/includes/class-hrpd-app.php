@@ -1,6 +1,6 @@
 <?php
 /**
- * Troubleshooter page data and JSON API.
+ * Fix page data and JSON API.
  *
  * @package HackRepair_Plugin_Detective
  * @author  Jim Walker, The Hack Repair Guy
@@ -9,7 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Troubleshooter app.
+ * Fix page app.
  */
 final class HRPD_App {
 
@@ -55,13 +55,13 @@ final class HRPD_App {
 		}
 
 		if ( ! self::same_origin() || ! isset( $_SERVER['HTTP_X_HRPD'] ) ) {
-			self::respond( new WP_Error( 'hrpd_origin', __( 'That request didn\'t come from the troubleshooter.', 'hackrepair-plugin-detective' ) ), 403 );
+			self::respond( new WP_Error( 'hrpd_origin', __( 'That request didn\'t come from the Fix page.', 'hackrepair-plugin-detective' ) ), 403 );
 		}
 
 		$body    = (string) file_get_contents( 'php://input', false, null, 0, self::MAX_BODY );
 		$request = json_decode( $body, true );
 		if ( ! is_array( $request ) ) {
-			self::respond( new WP_Error( 'hrpd_bad_request', __( 'The troubleshooter sent something it couldn\'t read. Reload the page and try again.', 'hackrepair-plugin-detective' ) ), 400 );
+			self::respond( new WP_Error( 'hrpd_bad_request', __( 'The Fix page sent something it couldn\'t read. Reload the page and try again.', 'hackrepair-plugin-detective' ) ), 400 );
 		}
 
 		$action = isset( $request['action'] ) && is_string( $request['action'] ) ? sanitize_key( $request['action'] ) : '';
@@ -117,7 +117,7 @@ final class HRPD_App {
 	}
 
 	/**
-	 * Origins the troubleshooter may frame (the site itself).
+	 * Origins the Fix page may frame (the site itself).
 	 *
 	 * @return string[]
 	 */

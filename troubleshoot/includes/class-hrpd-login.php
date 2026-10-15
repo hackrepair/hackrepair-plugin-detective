@@ -1,11 +1,11 @@
 <?php
 /**
- * Troubleshooter login for when wp-admin is down.
+ * Fix page login for when wp-admin is down.
  *
  * - Goes through wp_authenticate(), the same check WordPress uses.
  * - One generic error for every failure, so usernames can't be probed.
  * - 5 failed tries from one address locks that address out for 15 minutes.
- * - Enforces two-factor codes the troubleshooter can check, and refuses
+ * - Enforces two-factor codes the Fix page can check, and refuses
  *   password-only login when the user has 2FA it can't check.
  *
  * Site owners can turn this login off with
@@ -28,7 +28,7 @@ final class HRPD_Login {
 	public const CHALLENGE_TRIES = 5;
 
 	/**
-	 * Whether password login on the troubleshooter is allowed on this site.
+	 * Whether password login on the Fix page is allowed on this site.
 	 *
 	 * @return bool
 	 */
@@ -45,7 +45,7 @@ final class HRPD_Login {
 	 */
 	public static function password( string $username, string $password ) {
 		if ( ! self::enabled() ) {
-			return new WP_Error( 'hrpd_login_disabled', __( 'Troubleshooter login is turned off on this site. Log in to wp-admin first, then open Plugin Detective.', 'hackrepair-plugin-detective' ) );
+			return new WP_Error( 'hrpd_login_disabled', __( 'Fix page login is turned off on this site. Log in to wp-admin first, then open Plugin Detective.', 'hackrepair-plugin-detective' ) );
 		}
 
 		$locked = self::locked_for();
@@ -67,8 +67,8 @@ final class HRPD_Login {
 		$emergency  = defined( 'HRPD_EMERGENCY_PASSWORD_LOGIN' ) && HRPD_EMERGENCY_PASSWORD_LOGIN;
 
 		if ( HRPD_Totp::UNSUPPORTED === $two_factor['status'] && ! $emergency ) {
-			HRPD_Log::add( 'login_refused_2fa', 'Troubleshooter login refused: user has two-factor login the troubleshooter cannot check.', array( 'user' => $user->user_login ) );
-			return new WP_Error( 'hrpd_2fa_unsupported', __( 'Your account uses two-factor login that the troubleshooter can\'t check. Log in to wp-admin first, then open Plugin Detective.', 'hackrepair-plugin-detective' ) );
+			HRPD_Log::add( 'login_refused_2fa', 'Fix page login refused: user has two-factor login the Fix page cannot check.', array( 'user' => $user->user_login ) );
+			return new WP_Error( 'hrpd_2fa_unsupported', __( 'Your account uses two-factor login that the Fix page can\'t check. Log in to wp-admin first, then open Plugin Detective.', 'hackrepair-plugin-detective' ) );
 		}
 
 		if ( HRPD_Totp::VERIFIABLE === $two_factor['status'] && ! $emergency ) {
@@ -80,7 +80,7 @@ final class HRPD_Login {
 
 		self::clear_failures();
 		HRPD_Session::start( $user );
-		HRPD_Log::add( 'login', 'Signed in to the troubleshooter.', array( 'user' => $user->user_login ) );
+		HRPD_Log::add( 'login', 'Signed in to the Fix page.', array( 'user' => $user->user_login ) );
 
 		return array( 'ok' => true );
 	}
@@ -114,14 +114,14 @@ final class HRPD_Login {
 				set_transient( $key, $data, self::CHALLENGE_TTL );
 			}
 			self::record_failure();
-			HRPD_Log::add( 'login_failed_2fa', 'Wrong two-factor code on the troubleshooter.', array( 'user' => $user instanceof WP_User ? $user->user_login : '' ) );
+			HRPD_Log::add( 'login_failed_2fa', 'Wrong two-factor code on the Fix page.', array( 'user' => $user instanceof WP_User ? $user->user_login : '' ) );
 			return new WP_Error( 'hrpd_bad_code', __( 'That code didn\'t work. Check your authenticator app and try again.', 'hackrepair-plugin-detective' ) );
 		}
 
 		delete_transient( $key );
 		self::clear_failures();
 		HRPD_Session::start( $user );
-		HRPD_Log::add( 'login', 'Signed in to the troubleshooter with two-factor.', array( 'user' => $user->user_login ) );
+		HRPD_Log::add( 'login', 'Signed in to the Fix page with two-factor.', array( 'user' => $user->user_login ) );
 
 		return array( 'ok' => true );
 	}
@@ -147,7 +147,7 @@ final class HRPD_Login {
 	 */
 	private static function failed( string $username ): WP_Error {
 		self::record_failure();
-		HRPD_Log::add( 'login_failed', 'Failed troubleshooter login.', array( 'user' => $username ) );
+		HRPD_Log::add( 'login_failed', 'Failed Fix page login.', array( 'user' => $username ) );
 
 		$locked = self::locked_for();
 		if ( $locked > 0 ) {
@@ -189,7 +189,7 @@ final class HRPD_Login {
 		set_transient( $key, $data, self::LOCKOUT_SECONDS );
 
 		if ( self::MAX_FAILURES === $data['count'] ) {
-			HRPD_Log::add( 'lockout', 'Troubleshooter login locked for 15 minutes after repeated failures.' );
+			HRPD_Log::add( 'lockout', 'Fix page login locked for 15 minutes after repeated failures.' );
 		}
 	}
 

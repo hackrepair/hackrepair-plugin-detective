@@ -35,7 +35,7 @@ final class HRPD_Admin {
 	}
 
 	/**
-	 * Troubleshooter address.
+	 * Fix page address.
 	 *
 	 * @param string $problem_url Optional page to start on.
 	 * @return string
@@ -73,14 +73,14 @@ final class HRPD_Admin {
 			sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'tools.php?page=' . self::PAGE_SLUG ) ),
-				esc_html__( 'Troubleshoot', 'hackrepair-plugin-detective' )
+				esc_html__( 'Fix', 'hackrepair-plugin-detective' )
 			)
 		);
 		return $links;
 	}
 
 	/**
-	 * "Troubleshoot" in the admin bar, starting on the current page.
+	 * "Fix" in the admin bar, starting on the current page.
 	 *
 	 * @param WP_Admin_Bar $bar Admin bar.
 	 */
@@ -97,7 +97,7 @@ final class HRPD_Admin {
 		$bar->add_node(
 			array(
 				'id'    => 'hrpd-troubleshoot',
-				'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label">' . esc_html__( 'Troubleshoot', 'hackrepair-plugin-detective' ) . '</span>',
+				'title' => '<span class="ab-icon" aria-hidden="true"></span><span class="ab-label">' . esc_html__( 'Fix', 'hackrepair-plugin-detective' ) . '</span>',
 				'href'  => self::troubleshooter_url( $current ),
 				'meta'  => array(
 					'title' => __( 'Find the plugin causing a problem on this page', 'hackrepair-plugin-detective' ),
@@ -161,17 +161,17 @@ final class HRPD_Admin {
 				$message = $off > 0
 					? sprintf(
 						/* translators: %d: number of plugins switched off. */
-						_n( 'Plugin Detective has %d plugin switched off for troubleshooting.', 'Plugin Detective has %d plugins switched off for troubleshooting.', $off, 'hackrepair-plugin-detective' ),
+						_n( 'Plugin Detective has %d plugin switched off for testing.', 'Plugin Detective has %d plugins switched off for testing.', $off, 'hackrepair-plugin-detective' ),
 						$off
 					)
-					: __( 'A Plugin Detective troubleshooting session is still open.', 'hackrepair-plugin-detective' );
+					: __( 'A Plugin Detective Fix session is still open.', 'hackrepair-plugin-detective' );
 
 				printf(
 					'<div class="notice notice-warning hrpd-notice"><p><strong>%1$s</strong> %2$s</p><div class="hrpd-notice__actions"><a class="button button-primary" href="%3$s">%4$s</a> %5$s</div></div>',
 					esc_html( $message ),
 					esc_html__( 'Finish the session or put everything back when you\'re done.', 'hackrepair-plugin-detective' ),
 					esc_url( self::troubleshooter_url() ),
-					esc_html__( 'Continue troubleshooting', 'hackrepair-plugin-detective' ),
+					esc_html__( 'Continue fixing', 'hackrepair-plugin-detective' ),
 					self::restore_button() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts in restore_button().
 				);
 			}
@@ -208,7 +208,7 @@ final class HRPD_Admin {
 			</div>
 
 			<?php if ( 'restored' === $done ) : ?>
-				<div class="hrpd-callout" role="status"><p><?php esc_html_e( 'Done. Every plugin is back the way it was before troubleshooting.', 'hackrepair-plugin-detective' ); ?></p></div>
+				<div class="hrpd-callout" role="status"><p><?php esc_html_e( 'Done. Every plugin is back the way it was before you started.', 'hackrepair-plugin-detective' ); ?></p></div>
 			<?php elseif ( 'cleared' === $done ) : ?>
 				<div class="hrpd-callout" role="status"><p><?php esc_html_e( 'Activity log cleared.', 'hackrepair-plugin-detective' ); ?></p></div>
 			<?php endif; ?>
@@ -216,15 +216,15 @@ final class HRPD_Admin {
 			<h2 class="hrpd-section"><?php esc_html_e( 'Find what broke your site', 'hackrepair-plugin-detective' ); ?></h2>
 			<div class="hrpd-card">
 				<p><?php esc_html_e( 'Something stopped working after an update or a new plugin? Plugin Detective switches plugins off in halves and asks you, each time, whether the problem is still there. A site with 40 plugins usually takes six or seven checks.', 'hackrepair-plugin-detective' ); ?></p>
-				<p><?php esc_html_e( 'Tip: go to the page with the problem first, then click "Troubleshoot" in the admin bar. You\'ll start right on that page.', 'hackrepair-plugin-detective' ); ?></p>
+				<p><?php esc_html_e( 'Tip: go to the page with the problem first, then click "Fix" in the admin bar. You\'ll start right on that page.', 'hackrepair-plugin-detective' ); ?></p>
 				<p>
 					<a class="button button-primary button-hero" href="<?php echo esc_url( $bookmark ); ?>">
-						<?php echo $case ? esc_html__( 'Continue troubleshooting', 'hackrepair-plugin-detective' ) : esc_html__( 'Open the troubleshooter', 'hackrepair-plugin-detective' ); ?>
+						<?php echo $case ? esc_html__( 'Continue fixing', 'hackrepair-plugin-detective' ) : esc_html__( 'Open Fix', 'hackrepair-plugin-detective' ); ?>
 					</a>
 				</p>
 				<?php if ( $case ) : ?>
 					<div class="hrpd-callout hrpd-callout--warning">
-						<p><strong><?php esc_html_e( 'A troubleshooting session is open.', 'hackrepair-plugin-detective' ); ?></strong>
+						<p><strong><?php esc_html_e( 'A Fix session is open.', 'hackrepair-plugin-detective' ); ?></strong>
 						<?php
 						printf(
 							/* translators: %s: how long ago the session started. */
@@ -263,14 +263,14 @@ final class HRPD_Admin {
 			<h2 class="hrpd-section"><?php esc_html_e( 'Bookmark this for emergencies', 'hackrepair-plugin-detective' ); ?></h2>
 			<div class="hrpd-card">
 				<p><?php esc_html_e( 'If a plugin ever takes your whole site down (white screen, critical error, or wp-admin won\'t load), this address still works. Sign in there with your WordPress username and password.', 'hackrepair-plugin-detective' ); ?></p>
-				<p><input type="text" class="large-text code" readonly value="<?php echo esc_attr( $bookmark ); ?>" aria-label="<?php esc_attr_e( 'Emergency troubleshooter address', 'hackrepair-plugin-detective' ); ?>"></p>
+				<p><input type="text" class="large-text code" readonly value="<?php echo esc_attr( $bookmark ); ?>" aria-label="<?php esc_attr_e( 'Emergency Fix page address', 'hackrepair-plugin-detective' ); ?>"></p>
 				<p class="hrpd-muted"><?php esc_html_e( 'If your account uses two-factor login through HackGuard Security or the Two Factor plugin, you\'ll be asked for your code there too. Other two-factor plugins: log in to wp-admin first.', 'hackrepair-plugin-detective' ); ?></p>
 			</div>
 
 			<h2 class="hrpd-section"><?php esc_html_e( 'Maintenance mode', 'hackrepair-plugin-detective' ); ?></h2>
 			<div class="hrpd-card">
 				<?php if ( $maintenance ) : ?>
-					<p><span class="hrpd-chip hrpd-chip--warn"><?php esc_html_e( 'Stuck', 'hackrepair-plugin-detective' ); ?></span> <?php esc_html_e( 'A .maintenance file is sitting in your site\'s main folder. If visitors see "Briefly unavailable for scheduled maintenance," open the troubleshooter to remove it.', 'hackrepair-plugin-detective' ); ?></p>
+					<p><span class="hrpd-chip hrpd-chip--warn"><?php esc_html_e( 'Stuck', 'hackrepair-plugin-detective' ); ?></span> <?php esc_html_e( 'A .maintenance file is sitting in your site\'s main folder. If visitors see "Briefly unavailable for scheduled maintenance," open the Fix page to remove it.', 'hackrepair-plugin-detective' ); ?></p>
 					<p><a class="button" href="<?php echo esc_url( add_query_arg( 'restore', '1', $bookmark ) ); ?>"><?php esc_html_e( 'Fix maintenance mode', 'hackrepair-plugin-detective' ); ?></a></p>
 				<?php else : ?>
 					<p><span class="hrpd-chip hrpd-chip--ok"><?php esc_html_e( 'All clear', 'hackrepair-plugin-detective' ); ?></span> <?php esc_html_e( 'Your site isn\'t stuck in maintenance mode.', 'hackrepair-plugin-detective' ); ?></p>
@@ -280,7 +280,7 @@ final class HRPD_Admin {
 			<h2 class="hrpd-section"><?php esc_html_e( 'Recent activity', 'hackrepair-plugin-detective' ); ?></h2>
 			<div class="hrpd-card">
 				<?php if ( empty( $log ) ) : ?>
-					<p class="hrpd-muted"><?php esc_html_e( 'Nothing yet. Sessions, plugin changes and troubleshooter sign-ins will show up here.', 'hackrepair-plugin-detective' ); ?></p>
+					<p class="hrpd-muted"><?php esc_html_e( 'Nothing yet. Sessions, plugin changes and Fix page sign-ins will show up here.', 'hackrepair-plugin-detective' ); ?></p>
 				<?php else : ?>
 					<table class="widefat striped hrpd-log">
 						<thead>

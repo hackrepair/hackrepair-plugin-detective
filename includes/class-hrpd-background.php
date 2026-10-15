@@ -13,8 +13,8 @@
  * Turn the whole check off with `define( 'HRPD_NO_BACKGROUND_CHECK', true );`
  * in wp-config.php.
  *
- * Shared by wp-admin and the standalone troubleshooter, so it only uses
- * functions available in both. The troubleshooter loads the HTTP API on
+ * Shared by wp-admin and the standalone Fix page, so it only uses
+ * functions available in both. The Fix page loads the HTTP API on
  * demand before calling run().
  *
  * @package HackRepair_Plugin_Detective
@@ -711,7 +711,7 @@ final class HRPD_Background {
 	}
 
 	/**
-	 * This plugin's version, in wp-admin or the troubleshooter.
+	 * This plugin's version, in wp-admin or the Fix page.
 	 *
 	 * @return string
 	 */

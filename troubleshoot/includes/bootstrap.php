@@ -1,11 +1,11 @@
 <?php
 /**
- * Standalone troubleshooter boot.
+ * Standalone Fix page boot.
  *
  * Starts WordPress in its lightweight SHORTINIT mode through the site's own
- * wp-load.php, then loads only the core files the troubleshooter needs.
+ * wp-load.php, then loads only the core files the Fix page needs.
  * Must-use plugins, regular plugins and the theme are never loaded, so none
- * of them can crash the troubleshooter while it is fixing them.
+ * of them can crash the Fix page while it is fixing them.
  *
  * Maintenance note: when a WordPress release adds, renames or moves one of
  * the core files in hrpd_core_files(), update the list and note it in
@@ -96,7 +96,7 @@ function hrpd_core_files(): array {
 }
 
 /**
- * Core files for WordPress's HTTP API, loaded only when the troubleshooter
+ * Core files for WordPress's HTTP API, loaded only when the Fix page
  * needs to go online (the background check on a problem plugin).
  *
  * @return string[] Paths relative to wp-includes/.
@@ -143,8 +143,8 @@ if ( '' === $hrpd_wp_root ) {
 
 /*
  * Hooks registered before WordPress loads (core turns these into real hooks):
- * - Skip a stuck .maintenance file so the troubleshooter can remove it.
- * - Skip the page-cache drop-in; the troubleshooter must never be served from cache.
+ * - Skip a stuck .maintenance file so the Fix page can remove it.
+ * - Skip the page-cache drop-in; the Fix page must never be served from cache.
  */
 // phpcs:disable WordPress.WP.GlobalVariablesOverride.Prohibited -- Pre-seeding core's hook table before plugin.php loads is the documented way to add early hooks.
 $GLOBALS['wp_filter']['enable_maintenance_mode'][10][]              = array(
@@ -192,7 +192,7 @@ if ( class_exists( 'WP_Textdomain_Registry' ) ) {
 }
 
 /*
- * default-filters.php hooks up functions from core files the troubleshooter
+ * default-filters.php hooks up functions from core files the Fix page
  * doesn't load (REST API, cron, and so on). Drop those hooks so firing an
  * action like `auth_cookie_malformed` can't call a missing function.
  */
@@ -215,7 +215,7 @@ unset( $hrpd_hook_name, $hrpd_hook, $hrpd_priority, $hrpd_callbacks, $hrpd_callb
 remove_filter( 'pre_kses', 'wp_pre_kses_block_attributes', 10 );
 
 /*
- * The theme and init stages never run in the troubleshooter. Mark them as
+ * The theme and init stages never run in the Fix page. Mark them as
  * done so core's translation loader doesn't treat every string as "too early".
  */
 // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Core action counter; see note above.

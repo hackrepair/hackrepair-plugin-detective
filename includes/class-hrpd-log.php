@@ -1,10 +1,10 @@
 <?php
 /**
- * Small activity log shared by the admin screens and the standalone troubleshooter.
+ * Small activity log shared by the admin screens and the standalone Fix page.
  *
  * Keeps the most recent entries in one non-autoloaded option so a site owner
  * can see who opened a case, which plugins were switched, and any failed
- * troubleshooter logins. Never stores passwords, codes, or cookies.
+ * Fix page logins. Never stores passwords, codes, or cookies.
  *
  * @package HackRepair_Plugin_Detective
  * @author  Jim Walker, The Hack Repair Guy

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Detective troubleshooter API.
+ * Plugin Detective Fix page API.
  *
  * Runs outside the normal WordPress request (no plugins, no theme) so it
  * keeps working when a plugin has taken the site down.

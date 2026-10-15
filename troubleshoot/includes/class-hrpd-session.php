@@ -1,12 +1,12 @@
 <?php
 /**
- * Who is using the troubleshooter, and the request-forgery token.
+ * Who is using the Fix page, and the request-forgery token.
  *
  * Two ways in:
  * 1. Already logged in to wp-admin: the normal WordPress login cookie is
  *    recognized, so the user has already passed any 2FA.
- * 2. Logged in on the troubleshooter itself (when wp-admin is down): a
- *    short-lived, signed, HttpOnly cookie scoped to the troubleshooter folder.
+ * 2. Logged in on the Fix page itself (when wp-admin is down): a
+ *    short-lived, signed, HttpOnly cookie scoped to the Fix page folder.
  *
  * Either way the user must still be able to manage plugins on every request.
  *
@@ -17,12 +17,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Troubleshooter session.
+ * Fix page session.
  */
 final class HRPD_Session {
 
 	/**
-	 * Cookie name for troubleshooter logins.
+	 * Cookie name for Fix page logins.
 	 */
 	public const COOKIE = 'hrpd_session';
 
@@ -32,7 +32,7 @@ final class HRPD_Session {
 	public const TTL = 7200;
 
 	/**
-	 * Capability required for everything in the troubleshooter.
+	 * Capability required for everything in the Fix page.
 	 */
 	public const CAPABILITY = 'activate_plugins';
 
@@ -44,7 +44,7 @@ final class HRPD_Session {
 	private static ?WP_User $user = null;
 
 	/**
-	 * How the current user signed in: `wp`, `troubleshooter`, or empty.
+	 * How the current user signed in: `wp`, `Fix page`, or empty.
 	 *
 	 * @var string
 	 */
@@ -79,7 +79,7 @@ final class HRPD_Session {
 			}
 		}
 
-		// 2. Troubleshooter's own session cookie.
+		// 2. Fix page's own session cookie.
 		$raw = isset( $_COOKIE[ self::COOKIE ] ) ? sanitize_text_field( wp_unslash( $_COOKIE[ self::COOKIE ] ) ) : '';
 		$uid = self::verify_cookie( $raw );
 		if ( $uid > 0 ) {
@@ -92,7 +92,7 @@ final class HRPD_Session {
 	/**
 	 * How the current user signed in.
 	 *
-	 * @return string `wp`, `troubleshooter`, or `none`.
+	 * @return string `wp`, `Fix page`, or `none`.
 	 */
 	public static function source(): string {
 		self::user();
@@ -100,7 +100,7 @@ final class HRPD_Session {
 	}
 
 	/**
-	 * Start a troubleshooter session after a successful login.
+	 * Start a Fix page session after a successful login.
 	 *
 	 * @param WP_User $user Logged-in user.
 	 */
@@ -117,7 +117,7 @@ final class HRPD_Session {
 	}
 
 	/**
-	 * End the troubleshooter session.
+	 * End the Fix page session.
 	 */
 	public static function end(): void {
 		self::set_cookie( '', time() - YEAR_IN_SECONDS );
@@ -150,7 +150,7 @@ final class HRPD_Session {
 	}
 
 	/**
-	 * Path the troubleshooter cookie is limited to.
+	 * Path the Fix page cookie is limited to.
 	 *
 	 * @return string
 	 */
@@ -179,7 +179,7 @@ final class HRPD_Session {
 	}
 
 	/**
-	 * Check a troubleshooter cookie and return its user ID.
+	 * Check a Fix page cookie and return its user ID.
 	 *
 	 * @param string $raw Cookie value.
 	 * @return int User ID, or 0.
@@ -219,7 +219,7 @@ final class HRPD_Session {
 	}
 
 	/**
-	 * Set or clear the troubleshooter cookie.
+	 * Set or clear the Fix page cookie.
 	 *
 	 * @param string $value   Cookie value.
 	 * @param int    $expires Expiry timestamp.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Detective troubleshooter page.
+ * Plugin Detective Fix page.
  *
  * Bookmark this address. It works even when wp-admin doesn't:
  * https://example.com/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/

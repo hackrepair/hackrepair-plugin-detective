@@ -2,7 +2,7 @@
 /**
  * Clean up when the plugin is deleted.
  *
- * If a troubleshooting session is still open, plugins are put back first so
+ * If a Fix session is still open, plugins are put back first so
  * deleting Plugin Detective never leaves a site with plugins switched off.
  *
  * @package HackRepair_Plugin_Detective

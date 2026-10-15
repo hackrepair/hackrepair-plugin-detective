@@ -1,9 +1,9 @@
 <?php
 /**
- * Troubleshooting case: storage, plugin switching, and every way back out.
+ * Fix case: storage, plugin switching, and every way back out.
  *
- * Shared by the wp-admin screens and the standalone troubleshooter. Only
- * calls WordPress functions that are available in the troubleshooter's
+ * Shared by the wp-admin screens and the standalone Fix page. Only
+ * calls WordPress functions that are available in the Fix page's
  * lightweight (SHORTINIT) boot.
  *
  * @package HackRepair_Plugin_Detective
@@ -126,7 +126,7 @@ final class HRPD_Case {
 		);
 
 		self::save( $record );
-		HRPD_Log::add( 'case_opened', 'Troubleshooting case opened.', array( 'active_plugins' => count( $backup ) ) );
+		HRPD_Log::add( 'case_opened', 'Fix case opened.', array( 'active_plugins' => count( $backup ) ) );
 
 		return $record;
 	}

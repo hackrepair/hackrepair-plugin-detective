@@ -1,5 +1,5 @@
 /**
- * The Hack Repair Guy's Plugin Detective troubleshooter.
+ * The Hack Repair Guy's Plugin Detective Fix page.
  *
  * Plain JavaScript, no build step, no outside libraries. All text comes from
  * the server (translatable). Site data is only ever inserted as text, never

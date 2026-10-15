@@ -1,6 +1,6 @@
 <?php
 /**
- * Every word the troubleshooter shows, in one place.
+ * Every word the Fix page shows, in one place.
  *
  * Voice: The Hack Repair Guy. Short, calm, plain English. Say what happened,
  * what it means, and what to do next. No blame.
@@ -14,7 +14,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Troubleshooter copy.
+ * Fix page copy.
  */
 final class HRPD_Strings {
 
@@ -50,7 +50,7 @@ final class HRPD_Strings {
 			'username'          => __( 'Username or email', 'hackrepair-plugin-detective' ),
 			'password'          => __( 'Password', 'hackrepair-plugin-detective' ),
 			'signIn'            => __( 'Sign in', 'hackrepair-plugin-detective' ),
-			'loginDisabled'     => __( 'Troubleshooter sign-in is turned off on this site. Log in to wp-admin first, then open Plugin Detective from the Tools menu.', 'hackrepair-plugin-detective' ),
+			'loginDisabled'     => __( 'Fix page sign-in is turned off on this site. Log in to wp-admin first, then open Plugin Detective from the Tools menu.', 'hackrepair-plugin-detective' ),
 			'goToLogin'         => __( 'Go to the WordPress login', 'hackrepair-plugin-detective' ),
 			'codeTitle'         => __( 'Two-factor code', 'hackrepair-plugin-detective' ),
 			'codeIntro'         => __( 'Your account has two-factor login turned on. Enter the 6-digit code from your authenticator app, or one of your recovery codes.', 'hackrepair-plugin-detective' ),
@@ -64,7 +64,7 @@ final class HRPD_Strings {
 			'homeHow'           => __( 'How it works: you show me where the problem is, I switch some plugins off, and you tell me if the problem is still there. Repeat a few times and we\'ve got our answer. When we\'re done, everything goes back the way it was, unless you decide to keep the problem plugin off or delete it.', 'hackrepair-plugin-detective' ),
 			/* translators: number of active plugins. */
 			'homePluginCount'   => __( 'Active plugins on this site: %1$s', 'hackrepair-plugin-detective' ),
-			'startCase'         => __( 'Start troubleshooting', 'hackrepair-plugin-detective' ),
+			'startCase'         => __( 'Start fixing', 'hackrepair-plugin-detective' ),
 			'noPlugins'         => __( 'There are no other active plugins on this site, so there\'s nothing to test. If something is broken, it\'s coming from the theme, WordPress itself, or the server.', 'hackrepair-plugin-detective' ),
 			/* translators: short result summary. */
 			'lastResult'        => __( 'Last result: %1$s', 'hackrepair-plugin-detective' ),

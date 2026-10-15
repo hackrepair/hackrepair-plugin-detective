@@ -1,8 +1,8 @@
 <?php
 /**
- * Two-factor checks for the troubleshooter's own login.
+ * Two-factor checks for the Fix page's own login.
  *
- * Plugins are not loaded in the troubleshooter, so a 2FA plugin cannot run
+ * Plugins are not loaded in the Fix page, so a 2FA plugin cannot run
  * its own login challenge here. This class reads the user's 2FA setup from
  * the database and checks the code itself for the plugins it understands:
  *

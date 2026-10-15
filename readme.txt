@@ -36,7 +36,7 @@ At the end, you get a plain-English report: what the problem was, which plugin c
 
 = Works when your site doesn't =
 
-Plugin Detective has its own troubleshooter page that runs without loading any plugins or your theme. If a plugin takes the whole site down (white screen, "critical error," or wp-admin won't load), the troubleshooter still opens:
+Plugin Detective has its own Fix page that runs without loading any plugins or your theme. If a plugin takes the whole site down (white screen, "critical error," or wp-admin won't load), the Fix page still opens:
 
 `https://yoursite.com/wp-content/plugins/hackrepair-plugin-detective/troubleshoot/`
 
@@ -44,17 +44,17 @@ Bookmark it. You'll find the exact address under Tools > Plugin Detective.
 
 = Stuck in maintenance mode? =
 
-If an update got interrupted and visitors see "Briefly unavailable for scheduled maintenance," open the troubleshooter with `?restore=1` on the end of the address and click the button to remove the leftover file.
+If an update got interrupted and visitors see "Briefly unavailable for scheduled maintenance," open the Fix page with `?restore=1` on the end of the address and click the button to remove the leftover file.
 
 = Built with security in mind =
 
-* If you're already logged in to wp-admin, the troubleshooter recognizes you. No second login.
-* The troubleshooter's own login uses WordPress's normal password check, gives one generic error for every failure, and locks an address out for 15 minutes after 5 failed tries.
-* Two-factor login is enforced. If your account uses HackGuard Security or the Two Factor plugin, you'll be asked for your authenticator or recovery code. If it uses a 2FA plugin the troubleshooter can't check, you'll be sent to wp-admin instead, so 2FA is never skipped.
+* If you're already logged in to wp-admin, the Fix page recognizes you. No second login.
+* The Fix page's own login uses WordPress's normal password check, gives one generic error for every failure, and locks an address out for 15 minutes after 5 failed tries.
+* Two-factor login is enforced. If your account uses HackGuard Security or the Two Factor plugin, you'll be asked for your authenticator or recovery code. If it uses a 2FA plugin the Fix page can't check, you'll be sent to wp-admin instead, so 2FA is never skipped.
 * Every change requires an administrator who can manage plugins, plus a per-session security token.
 * No outside fonts, scripts, or tracking. The only outside lookups are the background check and the update check, both described under "External services" below.
-* An activity log on the Tools page shows every session, plugin change, and troubleshooter sign-in.
-* Works on hardened sites that block PHP inside the plugins folder: a small `.htaccess` in the troubleshooter folder re-allows only its two entry points (both require an administrator login). Everything else stays blocked.
+* An activity log on the Tools page shows every session, plugin change, and Fix page sign-in.
+* Works on hardened sites that block PHP inside the plugins folder: a small `.htaccess` in the Fix page folder re-allows only its two entry points (both require an administrator login). Everything else stays blocked.
 
 = Safety net =
 
@@ -66,7 +66,7 @@ The idea for The Hack Repair Guy's Plugin Detective came from [Plugin Detective 
 
 This is an independent rebuild with new code, design, and copy, and it isn't affiliated with or endorsed by NSquared. What it adds:
 
-* Two-factor enforcement on the troubleshooter's own login, plus rate limiting and an activity log.
+* Two-factor enforcement on the Fix page's own login, plus rate limiting and an activity log.
 * A wp-admin safety notice with a one-click "Put my plugins back."
 * A plain warning that plugins switched off during a session are off for everyone visiting your site.
 * Works on hardened hosts that block PHP inside the plugins folder.
@@ -81,17 +81,17 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 2. Activate it.
 3. Go to Tools > Plugin Detective and bookmark the emergency address.
 
-If your site is already down, upload the folder with your host's file manager or FTP. You don't need to activate it. Go straight to the troubleshooter address above and sign in.
+If your site is already down, upload the folder with your host's file manager or FTP. You don't need to activate it. Go straight to the Fix page address above and sign in.
 
 = Settings for wp-config.php (optional) =
 
-* `define( 'HRPD_REQUIRE_WP_LOGIN', true );` turns off the troubleshooter's own login. Only people already logged in to wp-admin can use it.
+* `define( 'HRPD_REQUIRE_WP_LOGIN', true );` turns off the Fix page's own login. Only people already logged in to wp-admin can use it.
 * `define( 'HRPD_NO_BACKGROUND_CHECK', true );` turns off the background check, so the plugin never contacts wordpress.org or WPVulnerability.
-* `define( 'HRPD_EMERGENCY_PASSWORD_LOGIN', true );` lets the troubleshooter accept a password without a two-factor code. Only for a real emergency when your 2FA plugin is what's broken. Remove it as soon as you're back in.
+* `define( 'HRPD_EMERGENCY_PASSWORD_LOGIN', true );` lets the Fix page accept a password without a two-factor code. Only for a real emergency when your 2FA plugin is what's broken. Remove it as soon as you're back in.
 
 == External services ==
 
-When the troubleshooter finds a problem plugin, it runs a background check on that one plugin. It sends only the plugin's folder name (for example `svg-support`). No site address, user, or other data is sent, and answers are kept for 12 hours so the same plugin isn't looked up again and again.
+When the Fix page finds a problem plugin, it runs a background check on that one plugin. It sends only the plugin's folder name (for example `svg-support`). No site address, user, or other data is sent, and answers are kept for 12 hours so the same plugin isn't looked up again and again.
 
 * **wordpress.org Plugin Directory API** (`api.wordpress.org`): the newest version, when it was last updated, and whether it has been closed. The same service WordPress itself uses to check for plugin updates. [Terms](https://wordpress.org/about/privacy/)
 * **WPVulnerability** (`www.wpvulnerability.net`): known security problems, gathered from CVE, Wordfence, Patchstack, WPScan and others. Free, no account, data released under CC0. [Terms and license](https://www.wpvulnerability.com/license/)
@@ -120,7 +120,7 @@ Download the free test plugin, [Vanishing Act (Test Plugin)](https://github.com/
 
 = How do I use it? =
 
-Go to the page where you see the problem and click "Troubleshoot" in the admin bar. Or go to Tools > Plugin Detective and click "Open the troubleshooter." Then follow the steps.
+Go to the page where you see the problem and click "Fix" in the admin bar. Or go to Tools > Plugin Detective and click "Open Fix." Then follow the steps.
 
 = What does "must stay on" mean? =
 
@@ -140,7 +140,7 @@ The problem was still there with the plugins off. The usual suspects are your th
 
 No single plugin breaks it on its own, so two plugins are probably fighting each other. It can also mean the problem comes and goes, or an answer got mixed up. Clear your caches and try again.
 
-= The troubleshooter shows "403 Forbidden." =
+= The Fix page shows "403 Forbidden." =
 
 Your site or host blocks PHP files inside `wp-content/plugins/`. Plugin Detective ships a small `.htaccess` that re-allows just its own two entry points on Apache and LiteSpeed. On Nginx, ask your host to allow `troubleshoot/index.php` and `troubleshoot/api.php` inside the `hackrepair-plugin-detective` folder.
 
@@ -163,7 +163,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 == Screenshots ==
 
 1. Tools > Plugin Detective, with the emergency bookmark, last session and activity log.
-2. Step 1: show the troubleshooter where the problem is. Your site stays in view on the right.
+2. Step 1: show the Fix page where the problem is. Your site stays in view on the right.
 3. Step 2: tick any plugins that must stay on.
 4. Each round: is the problem still there? Here the test plugin's "Page not found" shows on the right.
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
@@ -190,7 +190,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * New: Background check on the plugin it finds. Shows whether a newer version is out, whether wordpress.org has closed it, whether it's gone two years without an update, and any known security holes in the version you have, with how serious they are and whether updating fixes them.
 * New: Case report. A plain-English summary of the session, the background check, and your site details, ready to copy or download and send to a developer. The last report also stays on the Tools page.
 * New: `HRPD_NO_BACKGROUND_CHECK` setting for wp-config.php to turn the background check off.
-* New: Full-screen troubleshooter. What to do next fills the left two-thirds of the window and your live site fills the right third, on every screen from the first one, so you can see the site while you answer. The left side scrolls on its own and the site stays put. The site is shown at a normal desktop width, shrunk to fit; "Fit to panel" switches that off. On a narrow window the two stack.
+* New: Full-screen Fix page. What to do next fills the left two-thirds of the window and your live site fills the right third, on every screen from the first one, so you can see the site while you answer. The left side scrolls on its own and the site stays put. The site is shown at a normal desktop width, shrunk to fit; "Fit to panel" switches that off. On a narrow window the two stack.
 * Tweak: The "View details" window now has a Screenshots tab.
 
 = 2.2.1 - 2026-10-14 =
@@ -220,22 +220,22 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 = 2.0.0 - 2026-10-08 =
 * New: First release from Jim Walker, The Hack Repair Guy. Rebuilt from the ground up; no earlier code, artwork, or copy carried forward.
-* New: Tools > Plugin Detective screen with open/continue troubleshooting, the emergency bookmark address, maintenance-mode status, last result, and an activity log.
+* New: Tools > Plugin Detective screen with open/continue fixing, the emergency bookmark address, maintenance-mode status, last result, and an activity log.
 * New: Safety notice in wp-admin while plugins are switched off, with one-click "Put my plugins back."
 * New: "Undo my last answer" during testing.
 * New: When a problem plugin is found, it stays off and everything else comes back on, so you can check your site before deciding.
-* New: Activity log (last 50 entries) of sessions, plugin changes, troubleshooter sign-ins, failed logins, and lockouts.
-* New: Two-factor login on the troubleshooter for HackGuard Security (authenticator and recovery codes) and the Two Factor plugin (authenticator codes). Accounts using WP 2FA or Wordfence Login Security are sent to wp-admin, so 2FA is never skipped.
+* New: Activity log (last 50 entries) of sessions, plugin changes, Fix page sign-ins, failed logins, and lockouts.
+* New: Two-factor login on the Fix page for HackGuard Security (authenticator and recovery codes) and the Two Factor plugin (authenticator codes). Accounts using WP 2FA or Wordfence Login Security are sent to wp-admin, so 2FA is never skipped.
 * New: `HRPD_REQUIRE_WP_LOGIN` and `HRPD_EMERGENCY_PASSWORD_LOGIN` settings for wp-config.php.
-* New: HackRepair heart-and-wrench mascot in the plugin screens and as the troubleshooter's browser-tab icon.
-* Tweak: Troubleshooter screens rebuilt in plain JavaScript, with no outside fonts, scripts, or tracking.
+* New: HackRepair heart-and-wrench mascot in the plugin screens and as the Fix page's browser-tab icon.
+* Tweak: Fix page screens rebuilt in plain JavaScript, with no outside fonts, scripts, or tracking.
 * Tweak: Faster, predictable search: switch everything off once, then test in halves, then confirm the last suspect on its own.
 * Tweak: Stuck maintenance mode fix now asks before removing the file.
-* Tweak: Works on hardened sites that block PHP inside the plugins folder (Apache and LiteSpeed). Only the troubleshooter's two entry points are allowed through.
+* Tweak: Works on hardened sites that block PHP inside the plugins folder (Apache and LiteSpeed). Only the Fix page's two entry points are allowed through.
 * Tweak: Requires PHP 7.4 and WordPress 6.9.4. Tested up to WordPress 7.1.
-* Security: Troubleshooter starts with WordPress's own lightweight startup and never loads plugins, must-use plugins, or the theme.
+* Security: Fix page starts with WordPress's own lightweight startup and never loads plugins, must-use plugins, or the theme.
 * Security: Login uses WordPress's normal password check, gives one generic error, and locks an address out for 15 minutes after 5 failed tries.
-* Security: Signed, short-lived, HttpOnly troubleshooter session. Nothing secret appears in page addresses.
+* Security: Signed, short-lived, HttpOnly Fix page session. Nothing secret appears in page addresses.
 * Security: Every change requires an administrator who can manage plugins, plus a per-session token. Only installed plugins can be switched on.
 * Security: Problem-page addresses are limited to your own site.
 * Fix: Uninstall puts plugins back if a session is open, then removes all plugin data.
