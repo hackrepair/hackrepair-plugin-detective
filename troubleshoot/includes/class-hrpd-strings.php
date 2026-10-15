@@ -39,6 +39,8 @@ final class HRPD_Strings {
 			'helpLink'          => __( 'Get help from The Hack Repair Guy', 'hackrepair-plugin-detective' ),
 			'openNewTab'        => __( 'Open in a new tab', 'hackrepair-plugin-detective' ),
 			'reload'            => __( 'Reload', 'hackrepair-plugin-detective' ),
+			'viewDesktop'       => __( 'Desktop view', 'hackrepair-plugin-detective' ),
+			'viewNarrow'        => __( 'Fit to panel', 'hackrepair-plugin-detective' ),
 			'frameNote'         => __( 'Page blank or won\'t show here? Some sites block being shown inside another page. Use "Open in a new tab" instead. It works the same way.', 'hackrepair-plugin-detective' ),
 
 			// Sign in.
@@ -117,7 +119,7 @@ final class HRPD_Strings {
 			/* translators: plugin name. */
 			'culpritTitle'      => __( 'Found it: %1$s', 'hackrepair-plugin-detective' ),
 			/* translators: plugin name. */
-			'culpritText'       => __( 'Your problem goes away when %1$s is off. I\'ve left it switched off and turned every other plugin back on. Check your site below to make sure everything looks right.', 'hackrepair-plugin-detective' ),
+			'culpritText'       => __( 'Your problem goes away when %1$s is off. I\'ve left it switched off and turned every other plugin back on. Check your site on the right to make sure everything looks right.', 'hackrepair-plugin-detective' ),
 			'culpritNext'       => __( 'What next? Check for an update to that plugin, or contact its developer and tell them what broke. If it\'s a plugin you don\'t need, you can delete it.', 'hackrepair-plugin-detective' ),
 			'keepOff'           => __( 'Keep it switched off', 'hackrepair-plugin-detective' ),
 			'turnBackOn'        => __( 'Turn it back on', 'hackrepair-plugin-detective' ),

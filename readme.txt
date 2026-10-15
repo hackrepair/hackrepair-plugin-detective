@@ -164,6 +164,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 * New: Background check on the plugin it finds. Shows whether a newer version is out, whether wordpress.org has closed it, whether it's gone two years without an update, and any known security holes in the version you have, with how serious they are and whether updating fixes them.
 * New: Case report. A plain-English summary of the session, the background check, and your site details, ready to copy or download and send to a developer. The last report also stays on the Tools page.
 * New: `HRPD_NO_BACKGROUND_CHECK` setting for wp-config.php to turn the background check off.
+* New: Full-screen troubleshooter. What to do next fills the left two-thirds of the window and your live site fills the right third, on every screen from the first one, so you can see the site while you answer. The left side scrolls on its own and the site stays put. The site is shown at a normal desktop width, shrunk to fit; "Fit to panel" switches that off. On a narrow window the two stack.
 * Tweak: The "View details" window now has a Screenshots tab.
 
 = 2.2.1 - 2026-10-14 =

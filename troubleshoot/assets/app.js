@@ -35,7 +35,25 @@
 		restoreFlow: !! boot.restore,
 		bg: null,
 		report: null,
+		desktop: readPref( 'hrpd-desktop', true ),
 	};
+
+	function readPref( key, fallback ) {
+		try {
+			const v = window.localStorage.getItem( key );
+			return v === null ? fallback : v === '1';
+		} catch ( e ) {
+			return fallback;
+		}
+	}
+
+	function savePref( key, value ) {
+		try {
+			window.localStorage.setItem( key, value ? '1' : '0' );
+		} catch ( e ) {
+			// Private window or blocked storage: the choice just isn't remembered.
+		}
+	}
 
 	/* ---------- helpers ---------- */
 
@@ -307,6 +325,7 @@
 		}
 		parts.push( card( S.homeTitle, body ) );
 		parts.push( helpCard() );
+		parts.push( sitePreview( boot.home ) );
 		return parts;
 	}
 
@@ -324,8 +343,45 @@
 		return frame;
 	}
 
-	function frameTools( url, frame ) {
+	// Desktop layout: the page is drawn at a normal desktop width and shrunk to
+	// fit the panel, so a problem that only shows on wide screens still shows.
+	const DESKTOP_WIDTH = 1280;
+	let frameObserver = null;
+
+	function fitFrame( box, frame ) {
+		const w = box.clientWidth;
+		const hgt = box.clientHeight;
+		if ( ! w || ! hgt ) {
+			return;
+		}
+		if ( state.desktop && w < DESKTOP_WIDTH ) {
+			const scale = w / DESKTOP_WIDTH;
+			frame.style.width = DESKTOP_WIDTH + 'px';
+			frame.style.height = Math.ceil( hgt / scale ) + 'px';
+			frame.style.transform = 'scale(' + scale + ')';
+		} else {
+			frame.style.width = '100%';
+			frame.style.height = '100%';
+			frame.style.transform = '';
+		}
+	}
+
+	function frameTools( url, frame, box ) {
+		const toggle = h( 'button', {
+			type: 'button',
+			class: 'hrpd-btn hrpd-btn--link',
+			'aria-pressed': state.desktop ? 'true' : 'false',
+			text: state.desktop ? S.viewNarrow : S.viewDesktop,
+			onclick: function () {
+				state.desktop = ! state.desktop;
+				savePref( 'hrpd-desktop', state.desktop );
+				toggle.textContent = state.desktop ? S.viewNarrow : S.viewDesktop;
+				toggle.setAttribute( 'aria-pressed', state.desktop ? 'true' : 'false' );
+				fitFrame( box, frame );
+			},
+		} );
 		return h( 'div', { class: 'hrpd-frame-tools' }, [
+			h( 'strong', { class: 'hrpd-frame-tools__title', text: S.checkSite } ),
 			h( 'a', { href: url, target: '_blank', rel: 'noopener', class: 'hrpd-btn hrpd-btn--link', text: S.openNewTab } ),
 			button( S.reload, function () {
 				try {
@@ -334,8 +390,34 @@
 					frame.src = url;
 				}
 			}, 'link' ),
-			h( 'span', { class: 'hrpd-muted hrpd-small', text: S.frameNote } ),
+			toggle,
 		] );
+	}
+
+	function frameWrap( url, frame ) {
+		const box = h( 'div', { class: 'hrpd-frame-box' }, frame );
+		if ( frameObserver ) {
+			frameObserver.disconnect();
+		}
+		if ( window.ResizeObserver ) {
+			frameObserver = new ResizeObserver( function () {
+				fitFrame( box, frame );
+			} );
+			frameObserver.observe( box );
+		} else {
+			window.addEventListener( 'resize', function () {
+				fitFrame( box, frame );
+			} );
+		}
+		return h( 'div', { class: 'hrpd-frame-wrap' }, [
+			frameTools( url, frame, box ),
+			box,
+			h( 'p', { class: 'hrpd-frame-note hrpd-muted hrpd-small', text: S.frameNote } ),
+		] );
+	}
+
+	function sitePreview( url ) {
+		return frameWrap( url, siteFrame( url ) );
 	}
 
 	function viewWhere() {
@@ -371,7 +453,7 @@
 					}, 'link' ),
 				] ),
 			] ),
-			h( 'div', { class: 'hrpd-frame-wrap' }, [ frameTools( state.whereUrl, frame ), frame ] ),
+			frameWrap( state.whereUrl, frame ),
 		];
 	}
 
@@ -407,6 +489,7 @@
 					}, 'link' ),
 				] ),
 			] ),
+			sitePreview( c.url ),
 		];
 	}
 
@@ -474,7 +557,7 @@
 				] ),
 				confirmBox(),
 			] ),
-			h( 'div', { class: 'hrpd-frame-wrap' }, [ frameTools( c.checkUrl, frame ), frame ] ),
+			frameWrap( c.checkUrl, frame ),
 		];
 	}
 
@@ -663,7 +746,7 @@
 				] ),
 			], 'ok' ) );
 			parts.push( backgroundCard( c ) );
-			parts.push( h( 'div', { class: 'hrpd-frame-wrap' }, [ frameTools( c.checkUrl, frame ), frame ] ) );
+			parts.push( frameWrap( c.checkUrl, frame ) );
 			parts.push( reportCard( caseReport( c ) ) );
 			return parts;
 		}
@@ -710,6 +793,7 @@
 		parts.push( card( title, body, 'warning' ) );
 		parts.push( reportCard( caseReport( c ) ) );
 		parts.push( helpCard() );
+		parts.push( sitePreview( c.url ) );
 		return parts;
 	}
 
@@ -730,6 +814,7 @@
 				return state.overview.lastResult.report || '';
 			} ) : null,
 			helpCard(),
+			sitePreview( boot.home ),
 		];
 	}
 
@@ -817,13 +902,28 @@
 
 		root.textContent = '';
 		root.classList.toggle( 'is-busy', state.busy );
-		root.appendChild( h( 'div', { id: 'hrpd-messages' } ) );
+
+		// Two panels: what to do next on the left, the live site on the right.
+		const work = h( 'div', { class: 'hrpd-pane hrpd-pane--work' }, h( 'div', { id: 'hrpd-messages' } ) );
+		const site = h( 'aside', { class: 'hrpd-pane hrpd-pane--site', 'aria-label': S.checkSite } );
 		const view = currentView();
 		( Array.isArray( view ) ? view : [ view ] ).forEach( function ( el ) {
-			if ( el ) {
-				root.appendChild( el );
+			if ( ! el ) {
+				return;
 			}
+			( el.classList && el.classList.contains( 'hrpd-frame-wrap' ) ? site : work ).appendChild( el );
 		} );
+		const split = site.childNodes.length > 0;
+		root.classList.toggle( 'hrpd-split', split );
+		root.appendChild( work );
+		if ( split ) {
+			root.appendChild( site );
+			const box = site.querySelector( '.hrpd-frame-box' );
+			const frame = site.querySelector( '.hrpd-frame' );
+			if ( box && frame ) {
+				fitFrame( box, frame );
+			}
+		}
 		renderMessages();
 	}
 

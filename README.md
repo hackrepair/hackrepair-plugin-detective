@@ -83,6 +83,10 @@ flowchart LR
 - Known security holes in the version you have, how serious they are, and whether updating fixes them, with links to the details
 - Data from wordpress.org and [WPVulnerability](https://www.wpvulnerability.com/) (free, CC0, gathers CVE, Wordfence, Patchstack and WPScan). Only the plugin's folder name is sent; answers are cached for 12 hours
 
+**Full-screen workspace** (new in 3.0.0)
+- What to do next on the left two-thirds, your live site on the right third, on every screen. The left side scrolls by itself and the site stays put
+- The site is drawn at desktop width and shrunk to fit; "Fit to panel" switches that off. Narrow windows stack the two
+
 **Case report you can send** (new in 3.0.0)
 - Plain-English summary: the problem page, the result, how many checks it took, what was left switched off, the background check, other active plugins, and WordPress, PHP and theme versions
 - Copy or download as a `.txt`; the last report also stays on the Tools page
@@ -252,6 +256,7 @@ hackrepair-plugin-detective/
 | Background check and case report logic (version ranges, live lookups, closed and missing plugins, report text) | 33 / 33 |
 | Background check from the lightweight troubleshooter boot (HTTP loaded on demand) | Pass |
 | Browser click-through: find a plugin with known holes, background card, report copy/download, keep off, Tools page report | 16 / 16 |
+| Browser layout check (2/3 and 1/3 split, fits the window, left side scrolls alone, desktop scaling, narrow-window stacking) | 18 / 19 (the one miss was a test threshold, not the page) |
 | API end-to-end (unchanged suite) | 52 / 52 |
 
 ### Verified in 2.1.1
