@@ -10,12 +10,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.2.0-b34700?style=flat-square" alt="Version 3.2.0">
+  <img src="https://img.shields.io/badge/version-3.2.1-b34700?style=flat-square" alt="Version 3.2.1">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
   <img src="https://img.shields.io/badge/license-GPLv2%2B-2e7d32?style=flat-square" alt="License GPLv2 or later">
-  <img src="https://img.shields.io/badge/PHPCS-WordPress%20%E2%9C%93-2e7d32?style=flat-square" alt="WordPress Coding Standards passing">
 </p>
 
 <p align="center">
@@ -37,7 +36,7 @@
 
 Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.
 
-**Plugin Detective does it in halves.** You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks. When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off.
+**Plugin Detective does it in halves.** You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks. When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off or delete it.
 
 And if a plugin has taken the whole site down, white screen and all, the troubleshooter still opens.
 
@@ -78,7 +77,7 @@ flowchart LR
 - Mark plugins your site can't run without (a page builder, WooCommerce) so they stay on the whole time
 - Plain-English results: the plugin that did it, "it's not a plugin," or "it takes more than one plugin"
 
-**Delete the problem plugin** (new in 3.1.0)
+**Keep it off, turn it back on, or delete it** (delete is new in 3.1.0)
 - A third choice on the result screen, after "Keep it switched off" and "Turn it back on". It asks first, then removes the plugin's files and puts everything else back
 - Files only: the plugin's saved settings stay in the database. It never touches this plugin or anything outside the plugins folder. If it can't delete, the plugin stays off and you're pointed to the Plugins page
 
@@ -92,7 +91,7 @@ flowchart LR
 - The site is drawn at desktop width and shrunk to fit; "Fit to panel" switches that off. Narrow windows stack the two
 
 **Case report you can send** (new in 3.0.0)
-- Plain-English summary: the problem page, the result, how many checks it took, what was left switched off, the background check, other active plugins, and WordPress, PHP and theme versions
+- Plain-English summary: the problem page, the result, how many checks it took, what was left switched off or deleted, the background check, other active plugins, and WordPress, PHP and theme versions
 - Copy or download as a `.txt`; the last report also stays on the Tools page
 
 **Works when your site doesn't**
@@ -150,6 +149,7 @@ Plugin Detective switches plugins on a live site, so it's built to be hard to mi
 | **Session** | Signed, HttpOnly, SameSite=Strict cookie scoped to the troubleshooter folder; 2-hour life; ends when the password changes. Nothing secret appears in a URL. |
 | **Requests** | POST only, same-origin check, session-bound CSRF header, and `activate_plugins` re-checked on every request. |
 | **Plugin switching** | Only installed plugins can be switched on. The original list is backed up first, and every way out restores it. |
+| **Deleting** | Only after a problem plugin is found and you confirm. Removes that plugin's files only, never runs its uninstall routine, refuses to touch this plugin or anything outside the plugins folder, and never follows symbolic links. If it can't delete, the plugin stays switched off. |
 | **Page** | Strict Content-Security-Policy, `X-Frame-Options: DENY`, no external fonts, scripts, or tracking. |
 | **Hardened hosts** | Works on sites that block PHP under `wp-content/plugins/`. A small `troubleshoot/.htaccess` re-allows only `index.php` and `api.php`; everything else stays blocked. |
 | **Background check** | Runs only after a problem plugin is found, only for that plugin, and only sends its folder name. Every result is shown as text, never HTML. Turn it off with `HRPD_NO_BACKGROUND_CHECK`. |
@@ -186,9 +186,39 @@ Download the free test plugin, [Vanishing Act (Test Plugin)](https://github.com/
 </details>
 
 <details>
+<summary><b>How do I use it?</b></summary>
+
+Go to the page where you see the problem and click "Troubleshoot" in the admin bar. Or go to **Tools > Plugin Detective** and click "Open the troubleshooter." Then follow the steps.
+</details>
+
+<details>
+<summary><b>What does "must stay on" mean?</b></summary>
+
+Some sites can't work at all without a certain plugin, like the page builder a page is built with, or WooCommerce on a store. Tick those, and they stay on the whole time. If you're not sure, leave everything unticked.
+</details>
+
+<details>
 <summary><b>Is it safe to switch my plugins off?</b></summary>
 
-Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched. While you test, unticked plugins, including security plugins, are off for a few minutes. Keep sessions short and finish them when you're done.
+Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched. Every way out of a session puts your plugin list back. While you test, unticked plugins, including security plugins, are off for everyone visiting your site until you finish or stop. Keep sessions short.
+</details>
+
+<details>
+<summary><b>What does "Delete this plugin" do?</b></summary>
+
+It removes the problem plugin's files from your site, after asking you first, and turns every other plugin back on. It doesn't run the plugin's own uninstall routine, so the plugin's saved settings and data stay in your database, and a reinstall picks up where it left off. It never touches Plugin Detective itself or anything outside the plugins folder. If the files can't be removed from here, the plugin stays switched off and you can delete it from the Plugins page.
+</details>
+
+<details>
+<summary><b>Where does the security information come from?</b></summary>
+
+From [WPVulnerability](https://www.wpvulnerability.com/), a free public database that pulls together reports from CVE, Wordfence, Patchstack, WPScan and others. It lists problems by plugin and version, so Plugin Detective only shows the ones that affect the version you have. If a premium or custom plugin happens to share a folder name with a different plugin, the results may not match; the links let you check.
+</details>
+
+<details>
+<summary><b>What's in the case report?</b></summary>
+
+The problem page, the result, how many checks it took, what was left switched off or deleted, the background check, your other active plugins and their versions, and your WordPress, PHP and theme versions. It doesn't include passwords or anything from your database. It does include your site address and plugin list, so only send it to people you trust.
 </details>
 
 <details>
@@ -216,9 +246,21 @@ Some sites block being shown inside another page. Use "Open in a new tab." It wo
 </details>
 
 <details>
-<summary><b>What happens when I delete it?</b></summary>
+<summary><b>Does it work on multisite?</b></summary>
+
+Not yet. On a multisite network it stays hidden and changes nothing.
+</details>
+
+<details>
+<summary><b>What happens when I delete Plugin Detective?</b></summary>
 
 If a session is open, your plugins are put back first. Then Plugin Detective removes its own settings, activity log, and temporary data.
+</details>
+
+<details>
+<summary><b>How do updates work?</b></summary>
+
+This plugin isn't on the WordPress.org repository, so it checks its own GitHub releases. When a new version is published there, the Plugins screen shows an "update available" notice and offers a one-click update. The only outbound request this adds is the periodic check against GitHub for a newer release; nothing about your site's content, users, or configuration is sent.
 </details>
 
 ## Development
@@ -232,10 +274,12 @@ hackrepair-plugin-detective/
 ├── readme.txt                        WordPress readme and changelog
 ├── includes/
 │   ├── class-hrpd-admin.php          Tools page, admin bar link, safety notice
-│   ├── class-hrpd-case.php           Case storage, plugin switching, restore
+│   ├── class-hrpd-background.php     Background check: wordpress.org and WPVulnerability lookups
+│   ├── class-hrpd-case.php           Case storage, plugin switching, restore, delete
 │   ├── class-hrpd-detective.php      Search logic (no WordPress calls)
 │   ├── class-hrpd-log.php            Activity log
-│   └── class-hrpd-updater.php        Points WordPress at this plugin's GitHub releases
+│   ├── class-hrpd-report.php         Plain-text case report
+│   └── class-hrpd-updater.php        Points WordPress at this plugin's GitHub releases, details window
 ├── plugin-update-checker/            Vendored third-party library (see Standards below)
 ├── troubleshoot/
 │   ├── index.php                     Standalone troubleshooter page
@@ -250,16 +294,25 @@ hackrepair-plugin-detective/
 │       ├── class-hrpd-strings.php    Every word the troubleshooter shows
 │       └── class-hrpd-totp.php       Two-factor detection and code checks
 ├── test-plugin/                      Vanishing Act, a harmless plugin that 404s the home page, for trying the detective
-└── assets/                           Admin CSS and mascot images
+└── assets/                           Admin CSS and JS, mascot images, details-window screenshots and banners
 ```
 
 ### Standards
 
-- WordPress Coding Standards and PHPCompatibilityWP (`testVersion 7.4-`) with zero violations: `phpcs`
+- WordPress Coding Standards and PHPCompatibilityWP (`testVersion 7.4-`): `phpcs` (config in `phpcs.xml.dist`). Last run clean on 2.1.0; run it again before each release
 - PHP 7.4 floor, PHP 8.3 style where 7.4 allows it
 - No build step, no external assets or tracking in the troubleshooter UI
 - All user-facing copy lives in `troubleshoot/includes/class-hrpd-strings.php` and `includes/class-hrpd-admin.php`, translatable under `hackrepair-plugin-detective`
 - Updates are checked against this plugin's own GitHub releases (`hackrepair/hackrepair-plugin-detective`), the same way WordPress checks wordpress.org for everything else, using the vendored [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) library (MIT licensed, by Janis Elsts). The only other outside calls are the background check on a found plugin (wordpress.org and WPVulnerability, plugin folder name only). No telemetry
+
+### Verified in 3.2.0
+
+| Check | Result |
+|---|---|
+| Delete the problem plugin (refuses itself and path tricks, ignores unsolved cases, removes nested files, leaves symlink targets alone, single-file plugins, plugin list and report updated) | 15 / 15 |
+| Update URI "false" wording, and other hosts still named | 3 / 3 |
+| "View details" window (sections, screenshots, banners, icons, version) | 18 / 18 |
+| Vanishing Act test plugin: installs and activates cleanly, home page 404, login still 200, back to 200 when off | Pass |
 
 ### Verified in 3.0.0
 
@@ -280,7 +333,7 @@ hackrepair-plugin-detective/
 | White-screen recovery (crashing plugin, site and wp-admin returning 500) | Found in 7 checks, site back to 200 |
 | `php -l` on PHP 8.3 | Clean |
 
-PHP 7.4 lint and PHPCS (WordPress + PHPCompatibilityWP) were clean on 2.1.0 and are re-run before each release.
+PHP 7.4 lint and PHPCS (WordPress + PHPCompatibilityWP) were clean on 2.1.0. PHPCS has not been re-run since 3.0.0.
 
 ## Credit
 

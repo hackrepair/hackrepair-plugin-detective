@@ -376,6 +376,10 @@ final class HRPD_Admin {
 				$plugins = HRPD_Case::installed_plugins();
 				$file    = (string) ( $last['culprit'] ?? '' );
 				$name    = isset( $plugins[ $file ]['Name'] ) ? wp_strip_all_tags( (string) $plugins[ $file ]['Name'] ) : (string) ( $last['culprit_name'] ?? $file );
+				if ( ! empty( $last['deleted'] ) ) {
+					/* translators: %s: plugin name. */
+					return sprintf( __( 'found %s and deleted it', 'hackrepair-plugin-detective' ), $name );
+				}
 				return empty( $last['kept_off'] )
 					/* translators: %s: plugin name. */
 					? sprintf( __( 'found %s, then turned it back on', 'hackrepair-plugin-detective' ), $name )

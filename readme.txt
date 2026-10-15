@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ Something stopped working after an update or a new plugin. The usual advice is t
 
 **Plugin Detective does it in halves.** You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks.
 
-When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off.
+When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off or delete it.
 
 = A background check on the plugin it finds =
 
@@ -32,7 +32,7 @@ A plugin that breaks your site and has a known security hole is worth taking ser
 
 = A case report you can send =
 
-At the end, you get a plain-English report: what the problem was, which plugin caused it, the background check, what was left switched off, and the WordPress, PHP and theme details a developer will ask for. Copy it or download it, then send it to the plugin's developer, your web person, or The Hack Repair Guy. The last report also stays on the Tools page.
+At the end, you get a plain-English report: what the problem was, which plugin caused it, the background check, what was left switched off or deleted, and the WordPress, PHP and theme details a developer will ask for. Copy it or download it, then send it to the plugin's developer, your web person, or The Hack Repair Guy. The last report also stays on the Tools page.
 
 = Works when your site doesn't =
 
@@ -52,7 +52,7 @@ If an update got interrupted and visitors see "Briefly unavailable for scheduled
 * The troubleshooter's own login uses WordPress's normal password check, gives one generic error for every failure, and locks an address out for 15 minutes after 5 failed tries.
 * Two-factor login is enforced. If your account uses HackGuard Security or the Two Factor plugin, you'll be asked for your authenticator or recovery code. If it uses a 2FA plugin the troubleshooter can't check, you'll be sent to wp-admin instead, so 2FA is never skipped.
 * Every change requires an administrator who can manage plugins, plus a per-session security token.
-* No outside fonts, scripts, or tracking. The only outside lookups are the background check described under "External services" below.
+* No outside fonts, scripts, or tracking. The only outside lookups are the background check and the update check, both described under "External services" below.
 * An activity log on the Tools page shows every session, plugin change, and troubleshooter sign-in.
 * Works on hardened sites that block PHP inside the plugins folder: a small `.htaccess` in the troubleshooter folder re-allows only its two entry points (both require an administrator login). Everything else stays blocked.
 
@@ -70,7 +70,7 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 * A wp-admin safety notice with a one-click "Put my plugins back."
 * A plain warning that plugins switched off during a session are off for everyone visiting your site.
 * Works on hardened hosts that block PHP inside the plugins folder.
-* The problem plugin stays off and everything else comes back on, so you can check your site before deciding.
+* The problem plugin stays off and everything else comes back on, so you can check your site before deciding. Then keep it off, turn it back on, or delete it.
 * A background check on the plugin it finds: newer version, closed on wordpress.org, and known security holes.
 * A case report you can copy or download and send to a developer.
 * No outside fonts, scripts, or tracking. Updates come from this plugin's own GitHub releases.
@@ -96,6 +96,8 @@ When the troubleshooter finds a problem plugin, it runs a background check on th
 * **wordpress.org Plugin Directory API** (`api.wordpress.org`): the newest version, when it was last updated, and whether it has been closed. The same service WordPress itself uses to check for plugin updates. [Terms](https://wordpress.org/about/privacy/)
 * **WPVulnerability** (`www.wpvulnerability.net`): known security problems, gathered from CVE, Wordfence, Patchstack, WPScan and others. Free, no account, data released under CC0. [Terms and license](https://www.wpvulnerability.com/license/)
 
+Separately, WordPress checks this plugin's own GitHub releases for updates (`api.github.com`), the same way it checks wordpress.org for other plugins. Nothing about your site is sent.
+
 Turn the background check off with `define( 'HRPD_NO_BACKGROUND_CHECK', true );` in wp-config.php.
 
 == Frequently Asked Questions ==
@@ -107,6 +109,10 @@ From WPVulnerability, a free public database that pulls together reports from CV
 = What's in the case report? =
 
 The problem page, the result, how many checks it took, what was left switched off, the background check, your other active plugins and their versions, and your WordPress, PHP and theme versions. It doesn't include passwords or anything from your database. It does include your site address and plugin list, so only send it to people you trust.
+
+= What does "Delete this plugin" do? =
+
+It removes the problem plugin's files from your site, after asking you first, and turns every other plugin back on. It doesn't run the plugin's own uninstall routine, so the plugin's saved settings and data stay in your database, and a reinstall picks up where it left off. It never touches Plugin Detective itself or anything outside the plugins folder. If the files can't be removed from here, the plugin stays switched off and you can delete it from the Plugins page.
 
 = How can I try it out safely? =
 
@@ -124,7 +130,7 @@ Some sites can't work at all without a certain plugin, like the page builder a p
 
 Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched. Every way out of a session puts your plugin list back.
 
-While you test, unticked plugins, including security plugins, are off for a few minutes. Keep sessions short and finish them when you're done.
+While you test, unticked plugins, including security plugins, are off for everyone visiting your site until you finish or stop. Keep sessions short.
 
 = It says "It's not one of your plugins." Now what? =
 
@@ -163,6 +169,11 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off while you check your site.
 
 == Changelog ==
+
+= 3.2.1 - 2026-10-14 =
+* Fix: The last result on the Tools page now says "found X and deleted it" after you delete the problem plugin, instead of "then turned it back on."
+* Tweak: The plugin's one-line description on the Plugins screen now matches this readme.
+* Tweak: Readme, FAQ and screens now say you can delete the problem plugin, mention the GitHub update check under outside services, and no longer promise sessions last "a few minutes."
 
 = 3.2.0 - 2026-10-14 =
 * New: Vanishing Act (Test Plugin), a harmless plugin that makes your home page show "Page not found," so you can try Plugin Detective safely. Download it from this window's FAQ tab. A copy also ships in `test-plugin/vanishing-act.zip`.

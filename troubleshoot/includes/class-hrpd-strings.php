@@ -61,7 +61,7 @@ final class HRPD_Strings {
 			// Home.
 			'homeTitle'         => __( 'Let\'s find what broke your site', 'hackrepair-plugin-detective' ),
 			'homeIntro'         => __( 'When a site breaks after an update or a new plugin, the usual advice is to switch every plugin off and back on, one at a time. That works, but it takes forever. Plugin Detective does it in halves, so even a site with 40 plugins usually takes six or seven checks.', 'hackrepair-plugin-detective' ),
-			'homeHow'           => __( 'How it works: you show me where the problem is, I switch some plugins off, and you tell me if the problem is still there. Repeat a few times and we\'ve got our answer. When we\'re done, everything goes back the way it was, unless you decide to keep the problem plugin off.', 'hackrepair-plugin-detective' ),
+			'homeHow'           => __( 'How it works: you show me where the problem is, I switch some plugins off, and you tell me if the problem is still there. Repeat a few times and we\'ve got our answer. When we\'re done, everything goes back the way it was, unless you decide to keep the problem plugin off or delete it.', 'hackrepair-plugin-detective' ),
 			/* translators: number of active plugins. */
 			'homePluginCount'   => __( 'Active plugins on this site: %1$s', 'hackrepair-plugin-detective' ),
 			'startCase'         => __( 'Start troubleshooting', 'hackrepair-plugin-detective' ),

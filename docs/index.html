@@ -96,7 +96,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted)
     <section>
       <h2>Goodbye, whack-a-mole</h2>
       <p>Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.</p>
-      <p><strong>Plugin Detective does it in halves.</strong> You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks. When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off.</p>
+      <p><strong>Plugin Detective does it in halves.</strong> You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks. When you're done, every plugin goes back the way it was, unless you decide to keep the problem plugin switched off or delete it.</p>
     </section>
 
     <section id="how">
@@ -105,7 +105,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted)
         <li><strong>Show it the problem.</strong> Click "Troubleshoot" in the admin bar on the broken page, or start from Tools &gt; Plugin Detective.</li>
         <li><strong>Mark what must stay on.</strong> Tick only the plugins your site can't run without, like WooCommerce or your page builder. Ticked plugins stay on the whole time, which also means they can't be checked.</li>
         <li><strong>Answer "Problem's gone" or "Still broken."</strong> It switches plugins off in halves and narrows the suspects each round.</li>
-        <li><strong>Found it.</strong> The problem plugin stays off, everything else comes back on, and you check your site before deciding what to do.</li>
+        <li><strong>Found it.</strong> The problem plugin stays off, everything else comes back on, and you check your site on the right before deciding: keep it off, turn it back on, or delete it.</li>
       </ol>
       <table>
         <thead><tr><th>Active plugins</th><th>Usually</th><th>At most</th></tr></thead>
@@ -123,6 +123,16 @@ footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted)
     </section>
 
     <section>
+      <h2>More than just "this one"</h2>
+      <div class="grid">
+        <div class="card"><h3>A background check</h3><p>Once it finds the plugin, it looks it up: is there a newer version, has wordpress.org closed it, has it gone two years without an update, and does your version carry known security holes? You see how many, how serious, and whether updating fixes them.</p></div>
+        <div class="card"><h3>A report you can send</h3><p>A plain-English summary of the session, the background check and your site details. Copy it or download it and send it to the plugin's developer, your web person, or The Hack Repair Guy.</p></div>
+        <div class="card"><h3>Full-screen workspace</h3><p>What to do next sits on the left two-thirds, your live site on the right third, so you can see the site while you answer.</p></div>
+        <div class="card"><h3>Delete it if you don't need it</h3><p>One button, after it asks first. It removes the problem plugin's files and turns everything else back on. Its saved settings stay in your database.</p></div>
+      </div>
+    </section>
+
+    <section>
       <h2>Works when your site doesn't</h2>
       <div class="grid">
         <div class="card"><h3>Emergency recovery link</h3><p>The troubleshooter runs without loading any plugins or your theme. White screen, "critical error," or a locked-out wp-admin: it still opens. You'll find the address under Tools &gt; Plugin Detective. Bookmark it.</p></div>
@@ -136,7 +146,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted)
       <div class="grid">
         <div class="card"><h3>Real logins, real 2FA</h3><p>Already logged in to wp-admin? No second login. Otherwise it uses WordPress's normal password check and enforces two-factor codes for HackGuard Security and the Two Factor plugin.</p></div>
         <div class="card"><h3>Locked down</h3><p>Every change needs an administrator who can manage plugins plus a per-session token. An address is locked out for 15 minutes after 5 failed tries.</p></div>
-        <div class="card"><h3>Nothing leaves your server</h3><p>No outside fonts, scripts or tracking. The only outside request is the periodic check for a newer release on GitHub.</p></div>
+        <div class="card"><h3>Almost nothing leaves your server</h3><p>No outside fonts, scripts or tracking. The only outside requests are the periodic check for a newer release on GitHub and, after it finds a problem plugin, the background check, which sends only that plugin's folder name. You can turn the background check off.</p></div>
         <div class="card"><h3>A safety net</h3><p>While a session is open, wp-admin shows how many plugins are off with a one-click "Put my plugins back."</p></div>
       </div>
       <p style="margin-top:16px"><strong>One thing to know:</strong> while you test, unticked plugins, including security and spam protection, are off for everyone visiting your site until you finish or stop. Keep sessions short.</p>
@@ -158,6 +168,8 @@ footer{border-top:1px solid var(--border);padding:26px 0 44px;color:var(--muted)
       <div class="grid">
         <div class="card"><h3>Is it safe to switch my plugins off?</h3><p>Plugin Detective only changes which plugins are switched on. It doesn't run their deactivation routines, so their settings and data aren't touched.</p></div>
         <div class="card"><h3>"It's not one of your plugins."</h3><p>The problem was still there with the plugins off. Look at your theme, caching, must-use plugins, or something on the site that shouldn't be there. A hacked site can look a lot like a plugin conflict.</p></div>
+        <div class="card"><h3>How can I try it out safely?</h3><p>Download the free test plugin, <a href="https://github.com/hackrepair/hackrepair-plugin-detective/raw/main/test-plugin/vanishing-act.zip">Vanishing Act (Test Plugin)</a>, and install it. Switch it on and your home page shows "Page not found." Then run Plugin Detective and watch it track the culprit down. Delete it when you're done, and don't leave it on a live site.</p></div>
+        <div class="card"><h3>Where does the security information come from?</h3><p>From WPVulnerability, a free public database that pulls together reports from CVE, Wordfence, Patchstack, WPScan and others. Plugin Detective only shows the ones that affect your version.</p></div>
         <div class="card"><h3>Do updates work?</h3><p>Yes. It checks its own GitHub releases and offers one-click updates on the Plugins screen.</p></div>
       </div>
     </section>
