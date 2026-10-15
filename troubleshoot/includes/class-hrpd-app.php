@@ -308,7 +308,6 @@ final class HRPD_App {
 			'id'         => $record['id'],
 			'status'     => $record['status'],
 			'url'        => $record['url'],
-			'openedAt'   => (int) $record['opened_at'],
 			'candidates' => $candidates,
 			'required'   => $names( (array) $record['required'] ),
 			'answers'    => count( (array) $record['clues'] ),
@@ -324,7 +323,6 @@ final class HRPD_App {
 				'round'      => (int) ( $step['round'] ?? 1 ),
 				'testing'    => $names( (array) ( $step['test'] ?? array() ) ),
 				'remaining'  => count( (array) ( $step['remaining'] ?? array() ) ),
-				'suspects'   => count( (array) $record['suspects'] ),
 				'roundsLeft' => HRPD_Detective::rounds_left( count( (array) ( $step['remaining'] ?? array() ) ) ),
 			);
 		}

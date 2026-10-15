@@ -66,10 +66,6 @@ final class HRPD_Strings {
 			'homePluginCount'   => __( 'Active plugins on this site: %1$s', 'hackrepair-plugin-detective' ),
 			'startCase'         => __( 'Start troubleshooting', 'hackrepair-plugin-detective' ),
 			'noPlugins'         => __( 'There are no other active plugins on this site, so there\'s nothing to test. If something is broken, it\'s coming from the theme, WordPress itself, or the server.', 'hackrepair-plugin-detective' ),
-			'openCaseTitle'     => __( 'You have a troubleshooting session in progress', 'hackrepair-plugin-detective' ),
-			'openCaseText'      => __( 'Some plugins may be switched off right now. Pick up where you left off, or put everything back and start fresh.', 'hackrepair-plugin-detective' ),
-			'continueCase'      => __( 'Pick up where I left off', 'hackrepair-plugin-detective' ),
-			'abandonCase'       => __( 'Put my plugins back', 'hackrepair-plugin-detective' ),
 			/* translators: short result summary. */
 			'lastResult'        => __( 'Last result: %1$s', 'hackrepair-plugin-detective' ),
 
