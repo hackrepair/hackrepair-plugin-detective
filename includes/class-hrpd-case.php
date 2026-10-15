@@ -234,6 +234,9 @@ final class HRPD_Case {
 		$delete        = 'delete' === $mode && $found_culprit;
 		$keep_culprit_off = ( 'keep' === $mode && $found_culprit ) || $delete;
 
+		// Names and versions are needed for the report after the plugin's files are gone.
+		$installed_before = self::installed_plugins();
+
 		if ( $delete ) {
 			$removed = self::delete_plugin( (string) $record['result']['culprit'] );
 			if ( is_wp_error( $removed ) ) {
@@ -256,7 +259,7 @@ final class HRPD_Case {
 		}
 
 		$culprit_file = (string) ( $record['result']['culprit'] ?? '' );
-		$installed    = self::installed_plugins();
+		$installed    = $delete ? $installed_before : self::installed_plugins();
 		$report       = '';
 		if ( self::STATUS_SOLVED === $record['status'] && class_exists( 'HRPD_Report' ) ) {
 			$report = HRPD_Report::build( $record, $installed, $delete ? HRPD_Report::OUTCOME_DELETED : ( $keep_culprit_off ? HRPD_Report::OUTCOME_KEPT : HRPD_Report::OUTCOME_RESTORED ) );
