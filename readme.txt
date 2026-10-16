@@ -173,6 +173,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 = 3.3.1 - 2026-10-16 =
 * Tweak: "It's not one of your plugins" now lists your PHP version among the usual suspects and shows the version your site is running. If your host just changed PHP, an older theme or must-use plugin that can't handle it breaks a site just like a plugin conflict. Switch PHP back in your hosting control panel and look again.
 * Tweak: On that same screen, "hacked site" now links to hackrepair.com, with a "Contact Jim Now?" tooltip.
+* Tweak: Every link now has a tooltip that says what a click does, on the Fix page and in wp-admin.
 
 = 3.3.0 - 2026-10-15 =
 * New: Simpler names. "Troubleshoot" is now "Fix" everywhere you read it, and the emergency address is shorter: `/wp-content/plugins/hackrepair-plugin-detective/fix/`. If you bookmarked the old address, replace it with the new one from Tools > Plugin Detective.

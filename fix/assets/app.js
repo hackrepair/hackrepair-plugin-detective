@@ -204,7 +204,7 @@
 		if ( ! boot.loginEnabled ) {
 			return card( S.loginTitle, [
 				para( S.loginDisabled ),
-				h( 'p', {}, h( 'a', { class: 'hrpd-btn hrpd-btn--primary', href: boot.adminUrl, text: S.goToLogin } ) ),
+				h( 'p', {}, h( 'a', { class: 'hrpd-btn hrpd-btn--primary', href: boot.adminUrl, title: S.tipGoToLogin, text: S.goToLogin } ) ),
 			] );
 		}
 
@@ -225,7 +225,7 @@
 						state.challenge = '';
 						state.error = '';
 						render();
-					}, 'link' ),
+					}, 'link', { title: S.tipStartOverLogin } ),
 				] ),
 			] );
 			setTimeout( function () {
@@ -374,24 +374,26 @@
 			class: 'hrpd-btn hrpd-btn--link',
 			'aria-pressed': state.desktop ? 'true' : 'false',
 			text: state.desktop ? S.viewNarrow : S.viewDesktop,
+			title: state.desktop ? S.tipViewNarrow : S.tipViewDesktop,
 			onclick: function () {
 				state.desktop = ! state.desktop;
 				savePref( 'hrpd-desktop', state.desktop );
 				toggle.textContent = state.desktop ? S.viewNarrow : S.viewDesktop;
+				toggle.title = state.desktop ? S.tipViewNarrow : S.tipViewDesktop;
 				toggle.setAttribute( 'aria-pressed', state.desktop ? 'true' : 'false' );
 				fitFrame( box, frame );
 			},
 		} );
 		return h( 'div', { class: 'hrpd-frame-tools' }, [
 			h( 'strong', { class: 'hrpd-frame-tools__title', text: S.checkSite } ),
-			h( 'a', { href: url, target: '_blank', rel: 'noopener', class: 'hrpd-btn hrpd-btn--link', text: S.openNewTab } ),
+			h( 'a', { href: url, target: '_blank', rel: 'noopener', class: 'hrpd-btn hrpd-btn--link', title: S.tipOpenNewTab, text: S.openNewTab } ),
 			button( S.reload, function () {
 				try {
 					frame.contentWindow.location.reload();
 				} catch ( e ) {
 					frame.src = url;
 				}
-			}, 'link' ),
+			}, 'link', { title: S.tipReload } ),
 			toggle,
 		] );
 	}
@@ -452,7 +454,7 @@
 					button( S.cancel, function () {
 						state.view = '';
 						render();
-					}, 'link' ),
+					}, 'link', { title: S.tipCancel } ),
 				] ),
 			] ),
 			frameWrap( state.whereUrl, frame ),
@@ -488,7 +490,7 @@
 							setOverview( data );
 							state.finished = 'cancelled';
 						} );
-					}, 'link' ),
+					}, 'link', { title: S.tipCancelSetup } ),
 				] ),
 			] ),
 			sitePreview( c.url ),
@@ -499,7 +501,7 @@
 		return button( S.stopTesting, function () {
 			state.confirming = true;
 			render();
-		}, 'link' );
+		}, 'link', { title: S.tipStopTesting } );
 	}
 
 	function confirmBox() {
@@ -554,7 +556,7 @@
 				h( 'div', { class: 'hrpd-actions' }, [
 					c.answers > 0 ? button( S.undo, function () {
 						run( 'undo', {}, setOverview );
-					}, 'link' ) : null,
+					}, 'link', { title: S.tipUndo } ) : null,
 					stopButton(),
 				] ),
 				confirmBox(),
@@ -599,22 +601,32 @@
 			box.appendChild( h( 'h3', { text: S.bgKnownHoles } ) );
 			box.appendChild( h( 'ul', { class: 'hrpd-list hrpd-bg__items' }, data.items.map( function ( item ) {
 				const label = item.severity ? item.title + ' (' + item.severity + ')' : item.title;
-				return h( 'li', {}, item.link ? h( 'a', { href: item.link, target: '_blank', rel: 'noopener noreferrer', text: label } ) : label );
+				return h( 'li', {}, item.link ? h( 'a', { href: item.link, target: '_blank', rel: 'noopener noreferrer', title: holeTip( item.link ), text: label } ) : label );
 			} ) ) );
 		}
 
 		if ( data.tone === 'bad' ) {
 			box.appendChild( h( 'p', {}, [
 				document.createTextNode( S.bgBadNews + ' ' ),
-				h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', text: S.helpLink } ),
+				h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', title: S.tipHelp, text: S.helpLink } ),
 			] ) );
 		}
 
 		const foot = [ document.createTextNode( data.credit || '' ) ];
 		if ( data.link ) {
-			foot.push( document.createTextNode( ' ' ), h( 'a', { href: data.link, target: '_blank', rel: 'noopener noreferrer', text: S.bgPluginPage } ) );
+			foot.push( document.createTextNode( ' ' ), h( 'a', { href: data.link, target: '_blank', rel: 'noopener noreferrer', title: S.tipPluginPage, text: S.bgPluginPage } ) );
 		}
 		box.appendChild( h( 'p', { class: 'hrpd-muted hrpd-small' }, foot ) );
+	}
+
+	// Tooltip for a security report link: name the site it opens, if we can tell.
+	function holeTip( link ) {
+		try {
+			const host = new URL( link ).hostname.replace( /^www\./, '' );
+			return host ? fmt( S.tipHoleLink, host ) : S.tipHoleLinkPlain;
+		} catch ( e ) {
+			return S.tipHoleLinkPlain;
+		}
 	}
 
 	function backgroundCard( c ) {
@@ -848,7 +860,7 @@
 						state.view = '';
 						render();
 					}, 'primary' ),
-					h( 'a', { class: 'hrpd-btn hrpd-btn--secondary', href: boot.toolsUrl, text: S.backToWp } ),
+					h( 'a', { class: 'hrpd-btn hrpd-btn--secondary', href: boot.toolsUrl, title: S.tipBackToWp, text: S.backToWp } ),
 				] ),
 			], 'ok' ),
 			state.finished !== 'cancelled' && state.overview && state.overview.lastResult ? reportCard( function () {
@@ -865,7 +877,7 @@
 			h( 'p', {}, [
 				h( 'strong', { text: S.helpTitle + ' ' } ),
 				document.createTextNode( S.helpText + ' ' ),
-				h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', text: S.helpLink } ),
+				h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', title: S.tipHelp, text: S.helpLink } ),
 			] ),
 		] );
 	}
@@ -878,11 +890,12 @@
 		if ( o && o.user && o.user.name ) {
 			nav.appendChild( h( 'span', { class: 'hrpd-top__user', text: fmt( S.signedInAs, o.user.name ) } ) );
 		}
-		nav.appendChild( h( 'a', { href: boot.toolsUrl, text: S.backToWp } ) );
+		nav.appendChild( h( 'a', { href: boot.toolsUrl, title: S.tipBackToWp, text: S.backToWp } ) );
 		if ( state.signedIn && o && o.user && o.user.source === 'troubleshooter' ) {
 			nav.appendChild( h( 'button', {
 				type: 'button',
 				class: 'hrpd-linkbtn',
+				title: S.tipSignOut,
 				text: S.signOut,
 				onclick: function () {
 					run( 'logout', {}, function () {

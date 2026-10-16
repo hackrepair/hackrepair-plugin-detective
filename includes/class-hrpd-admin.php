@@ -71,8 +71,9 @@ final class HRPD_Admin {
 		array_unshift(
 			$links,
 			sprintf(
-				'<a href="%s">%s</a>',
+				'<a href="%1$s" title="%2$s">%3$s</a>',
 				esc_url( admin_url( 'tools.php?page=' . self::PAGE_SLUG ) ),
+				esc_attr__( 'Open Plugin Detective to find which plugin broke your site', 'hackrepair-plugin-detective' ),
 				esc_html__( 'Fix', 'hackrepair-plugin-detective' )
 			)
 		);
@@ -167,12 +168,13 @@ final class HRPD_Admin {
 					: __( 'A Plugin Detective Fix session is still open.', 'hackrepair-plugin-detective' );
 
 				printf(
-					'<div class="notice notice-warning hrpd-notice"><p><strong>%1$s</strong> %2$s</p><div class="hrpd-notice__actions"><a class="button button-primary" href="%3$s">%4$s</a> %5$s</div></div>',
+					'<div class="notice notice-warning hrpd-notice"><p><strong>%1$s</strong> %2$s</p><div class="hrpd-notice__actions"><a class="button button-primary" href="%3$s" title="%6$s">%4$s</a> %5$s</div></div>',
 					esc_html( $message ),
 					esc_html__( 'Finish the session or put everything back when you\'re done.', 'hackrepair-plugin-detective' ),
 					esc_url( self::troubleshooter_url() ),
 					esc_html__( 'Continue fixing', 'hackrepair-plugin-detective' ),
-					self::restore_button() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts in restore_button().
+					self::restore_button(), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts in restore_button().
+					esc_attr__( 'Go back to your open Fix session', 'hackrepair-plugin-detective' )
 				);
 			}
 		}
@@ -218,7 +220,7 @@ final class HRPD_Admin {
 				<p><?php esc_html_e( 'Something stopped working after an update or a new plugin? Plugin Detective switches plugins off in halves and asks you, each time, whether the problem is still there. A site with 40 plugins usually takes six or seven checks.', 'hackrepair-plugin-detective' ); ?></p>
 				<p><?php esc_html_e( 'Tip: go to the page with the problem first, then click "Fix" in the admin bar. You\'ll start right on that page.', 'hackrepair-plugin-detective' ); ?></p>
 				<p>
-					<a class="button button-primary button-hero" href="<?php echo esc_url( $bookmark ); ?>">
+					<a class="button button-primary button-hero" href="<?php echo esc_url( $bookmark ); ?>" title="<?php echo $case ? esc_attr__( 'Pick up your open Fix session where you left off', 'hackrepair-plugin-detective' ) : esc_attr__( 'Open the Fix page and start finding what broke your site', 'hackrepair-plugin-detective' ); ?>">
 						<?php echo $case ? esc_html__( 'Continue fixing', 'hackrepair-plugin-detective' ) : esc_html__( 'Open Fix', 'hackrepair-plugin-detective' ); ?>
 					</a>
 				</p>
@@ -253,7 +255,7 @@ final class HRPD_Admin {
 							<textarea id="hrpd-report-text" class="large-text code hrpd-report" rows="16" readonly><?php echo esc_textarea( $last['report'] ); ?></textarea>
 							<p>
 								<button type="button" class="button" data-hrpd-copy="hrpd-report-text"><?php esc_html_e( 'Copy report', 'hackrepair-plugin-detective' ); ?></button>
-								<a class="button" download="<?php echo esc_attr( 'plugin-detective-report-' . gmdate( 'Y-m-d', (int) $last['closed_at'] ) . '.txt' ); ?>" href="<?php echo esc_attr( 'data:text/plain;charset=utf-8,' . rawurlencode( $last['report'] ) ); ?>"><?php esc_html_e( 'Download (.txt)', 'hackrepair-plugin-detective' ); ?></a>
+								<a class="button" title="<?php esc_attr_e( 'Save this report as a text file', 'hackrepair-plugin-detective' ); ?>" download="<?php echo esc_attr( 'plugin-detective-report-' . gmdate( 'Y-m-d', (int) $last['closed_at'] ) . '.txt' ); ?>" href="<?php echo esc_attr( 'data:text/plain;charset=utf-8,' . rawurlencode( $last['report'] ) ); ?>"><?php esc_html_e( 'Download (.txt)', 'hackrepair-plugin-detective' ); ?></a>
 							</p>
 						</details>
 					<?php endif; ?>
@@ -271,7 +273,7 @@ final class HRPD_Admin {
 			<div class="hrpd-card">
 				<?php if ( $maintenance ) : ?>
 					<p><span class="hrpd-chip hrpd-chip--warn"><?php esc_html_e( 'Stuck', 'hackrepair-plugin-detective' ); ?></span> <?php esc_html_e( 'A .maintenance file is sitting in your site\'s main folder. If visitors see "Briefly unavailable for scheduled maintenance," open the Fix page to remove it.', 'hackrepair-plugin-detective' ); ?></p>
-					<p><a class="button" href="<?php echo esc_url( add_query_arg( 'restore', '1', $bookmark ) ); ?>"><?php esc_html_e( 'Fix maintenance mode', 'hackrepair-plugin-detective' ); ?></a></p>
+					<p><a class="button" href="<?php echo esc_url( add_query_arg( 'restore', '1', $bookmark ) ); ?>" title="<?php esc_attr_e( 'Open the Fix page to remove the stuck .maintenance file. It asks first.', 'hackrepair-plugin-detective' ); ?>"><?php esc_html_e( 'Fix maintenance mode', 'hackrepair-plugin-detective' ); ?></a></p>
 				<?php else : ?>
 					<p><span class="hrpd-chip hrpd-chip--ok"><?php esc_html_e( 'All clear', 'hackrepair-plugin-detective' ); ?></span> <?php esc_html_e( 'Your site isn\'t stuck in maintenance mode.', 'hackrepair-plugin-detective' ); ?></p>
 				<?php endif; ?>
@@ -305,7 +307,7 @@ final class HRPD_Admin {
 					<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="hrpd-inline-form">
 						<input type="hidden" name="action" value="hrpd_clear_log">
 						<?php wp_nonce_field( 'hrpd_clear_log' ); ?>
-						<button type="submit" class="button-link"><?php esc_html_e( 'Clear the activity log', 'hackrepair-plugin-detective' ); ?></button>
+						<button type="submit" class="button-link" title="<?php esc_attr_e( 'Erase the log of sessions, plugin changes and sign-ins. This can\'t be undone.', 'hackrepair-plugin-detective' ); ?>"><?php esc_html_e( 'Clear the activity log', 'hackrepair-plugin-detective' ); ?></button>
 					</form>
 				<?php endif; ?>
 			</div>
@@ -314,7 +316,7 @@ final class HRPD_Admin {
 				<img class="hrpd-mascot" src="<?php echo esc_url( HRPD_URL . 'assets/img/hackrepair-heart.png' ); ?>" alt="" width="44" height="44">
 				<p><strong><?php esc_html_e( 'Still stuck?', 'hackrepair-plugin-detective' ); ?></strong>
 				<?php esc_html_e( 'Some problems aren\'t plugin problems. A hacked site can look a lot like a plugin conflict.', 'hackrepair-plugin-detective' ); ?>
-				<a href="https://hackrepair.com/" target="_blank" rel="noopener"><?php esc_html_e( 'The Hack Repair Guy can help.', 'hackrepair-plugin-detective' ); ?></a></p>
+				<a href="https://hackrepair.com/" target="_blank" rel="noopener" title="<?php esc_attr_e( 'Ask Jim to take a look. Opens hackrepair.com in a new tab.', 'hackrepair-plugin-detective' ); ?>"><?php esc_html_e( 'The Hack Repair Guy can help.', 'hackrepair-plugin-detective' ); ?></a></p>
 			</div>
 		</div>
 		<?php

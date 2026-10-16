@@ -62,7 +62,7 @@ function hrpd_boot_fail( string $message ): void {
 	echo '<!doctype html><meta charset="utf-8"><title>Plugin Detective</title>';
 	echo '<div style="font:16px/1.5 system-ui,sans-serif;max-width:640px;margin:10vh auto;padding:0 16px">';
 	echo '<h1 style="font-size:22px">Plugin Detective can\'t start</h1><p>' . htmlspecialchars( $message, ENT_QUOTES, 'UTF-8' ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WordPress is not loaded yet; htmlspecialchars() escapes the message.
-	echo '<p>Still stuck? <a href="https://hackrepair.com/">The Hack Repair Guy can help.</a></p></div>';
+	echo '<p>Still stuck? <a href="https://hackrepair.com/" title="Ask Jim to take a look. Opens hackrepair.com.">The Hack Repair Guy can help.</a></p></div>';
 	exit;
 }
 

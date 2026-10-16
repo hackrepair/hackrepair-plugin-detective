@@ -41,6 +41,24 @@ final class HRPD_Strings {
 			'reload'            => __( 'Reload', 'hackrepair-plugin-detective' ),
 			'viewDesktop'       => __( 'Desktop view', 'hackrepair-plugin-detective' ),
 			'viewNarrow'        => __( 'Fit to panel', 'hackrepair-plugin-detective' ),
+			// Tooltips for links and link-style buttons. Say what a click does; never repeat the label.
+			'tipBackToWp'       => __( 'Back to Tools > Plugin Detective in wp-admin', 'hackrepair-plugin-detective' ),
+			'tipSignOut'        => __( 'End your Fix page session. Your WordPress login isn\'t affected.', 'hackrepair-plugin-detective' ),
+			'tipGoToLogin'      => __( 'Log in to wp-admin first, then come back to this page', 'hackrepair-plugin-detective' ),
+			'tipStartOverLogin' => __( 'Go back and sign in again', 'hackrepair-plugin-detective' ),
+			'tipOpenNewTab'     => __( 'Open your site in its own tab. Handy when the preview stays blank.', 'hackrepair-plugin-detective' ),
+			'tipReload'         => __( 'Reload the preview to see how your site looks now', 'hackrepair-plugin-detective' ),
+			'tipViewDesktop'    => __( 'Show the site at full desktop width. Scroll to see all of it.', 'hackrepair-plugin-detective' ),
+			'tipViewNarrow'     => __( 'Shrink the site to fit this panel', 'hackrepair-plugin-detective' ),
+			'tipCancel'         => __( 'Go back. Nothing has been changed.', 'hackrepair-plugin-detective' ),
+			'tipCancelSetup'    => __( 'Cancel this session. Nothing has been switched off yet, so nothing changes.', 'hackrepair-plugin-detective' ),
+			'tipUndo'           => __( 'Take back your last answer and repeat that check', 'hackrepair-plugin-detective' ),
+			'tipStopTesting'    => __( 'Stop testing and switch all your plugins back on. I\'ll ask you to confirm first.', 'hackrepair-plugin-detective' ),
+			/* translators: %1$s: the website the report is on, such as wordfence.com. */
+			'tipHoleLink'       => __( 'Read the full report on %1$s. Opens in a new tab.', 'hackrepair-plugin-detective' ),
+			'tipHoleLinkPlain'  => __( 'Read the full report. Opens in a new tab.', 'hackrepair-plugin-detective' ),
+			'tipPluginPage'     => __( 'See this plugin\'s page on wordpress.org. Opens in a new tab.', 'hackrepair-plugin-detective' ),
+			'tipHelp'           => __( 'Ask Jim to take a look. Opens hackrepair.com in a new tab.', 'hackrepair-plugin-detective' ),
 			'frameNote'         => __( 'Page blank or won\'t show here? Some sites block being shown inside another page. Use "Open in a new tab" instead. It works the same way.', 'hackrepair-plugin-detective' ),
 
 			// Sign in.
