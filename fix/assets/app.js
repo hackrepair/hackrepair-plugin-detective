@@ -790,6 +790,9 @@
 			if ( o.theme ) {
 				items.push( fmt( S.suspectTheme, o.theme ) );
 			}
+			if ( o.phpVersion ) {
+				items.push( fmt( S.suspectPhp, o.phpVersion ) );
+			}
 			if ( ( c.required || [] ).length ) {
 				items.push( S.suspectRequired );
 			}
@@ -799,9 +802,17 @@
 			if ( ( o.dropins || [] ).length ) {
 				items.push( fmt( S.suspectDropins, o.dropins.join( ', ' ) ) );
 			}
-			items.push( S.suspectCache, S.suspectHack );
+			const hackParts = String( S.suspectHack ).split( '%1$s' );
+			items.push(
+				S.suspectCache,
+				[
+					hackParts[ 0 ],
+					h( 'a', { href: boot.helpUrl, target: '_blank', rel: 'noopener', title: S.suspectHackTip, text: S.suspectHackLink } ),
+					hackParts[ 1 ] || '',
+				]
+			);
 			body.push( h( 'ul', { class: 'hrpd-list' }, items.map( function ( t ) {
-				return h( 'li', { text: t } );
+				return typeof t === 'string' ? h( 'li', { text: t } ) : h( 'li', {}, t );
 			} ) ) );
 		} else if ( r.result === 'combination' ) {
 			title = S.comboTitle;

@@ -237,6 +237,7 @@ final class HRPD_App {
 			'csrf'        => HRPD_Session::csrf_token(),
 			'plugins'     => self::plugin_list( $installed, HRPD_Case::active_plugins() ),
 			'theme'       => $theme->exists() ? $theme->get( 'Name' ) : '',
+			'phpVersion'  => PHP_VERSION,
 			'muPlugins'   => array_values( wp_list_pluck( get_mu_plugins(), 'Name' ) ),
 			'dropins'     => array_keys( get_dropins() ),
 			'maintenance' => is_file( ABSPATH . '.maintenance' ),

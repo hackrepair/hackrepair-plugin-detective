@@ -127,13 +127,18 @@ final class HRPD_Strings {
 			'notPluginText'     => __( 'The problem was still there with the plugins switched off, so the cause is somewhere else. I\'ve put all your plugins back. The usual suspects:', 'hackrepair-plugin-detective' ),
 			/* translators: theme name. */
 			'suspectTheme'      => __( 'Your theme (%1$s). Try switching to a default WordPress theme for a moment.', 'hackrepair-plugin-detective' ),
+			/* translators: PHP version, such as 8.3.12. */
+			'suspectPhp'        => __( 'Your PHP version. This site is running PHP %1$s. Did your host just change it? A theme or must-use plugin that can\'t handle that PHP version breaks a site just like a plugin conflict does. Switch it back in your hosting control panel, then look again.', 'hackrepair-plugin-detective' ),
 			'suspectRequired'   => __( 'One of the plugins you said must stay on.', 'hackrepair-plugin-detective' ),
 			/* translators: list of must-use plugins. */
 			'suspectMu'         => __( 'Must-use plugins, which always run: %1$s', 'hackrepair-plugin-detective' ),
 			/* translators: list of drop-in files. */
 			'suspectDropins'    => __( 'Drop-ins (special files in wp-content): %1$s', 'hackrepair-plugin-detective' ),
 			'suspectCache'      => __( 'Caching. Clear your cache plugin, your host\'s cache, and any CDN, then look again.', 'hackrepair-plugin-detective' ),
-			'suspectHack'       => __( 'Something on the site that shouldn\'t be there. A hacked site can look a lot like a plugin conflict.', 'hackrepair-plugin-detective' ),
+			/* translators: %1$s is the link text, "hacked site". */
+			'suspectHack'       => __( 'Something on the site that shouldn\'t be there. A %1$s can look a lot like a plugin conflict.', 'hackrepair-plugin-detective' ),
+			'suspectHackLink'   => __( 'hacked site', 'hackrepair-plugin-detective' ),
+			'suspectHackTip'    => __( 'Contact Jim Now?', 'hackrepair-plugin-detective' ),
 			'comboTitle'        => __( 'It takes more than one plugin to cause this', 'hackrepair-plugin-detective' ),
 			'comboText'         => __( 'No single plugin breaks it on its own. Usually that means two plugins are fighting with each other. It can also mean the problem comes and goes, or an answer got mixed up. I\'ve put all your plugins back.', 'hackrepair-plugin-detective' ),
 			'comboList'         => __( 'The problem showed up with this group switched on:', 'hackrepair-plugin-detective' ),

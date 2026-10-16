@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -134,7 +134,7 @@ While you test, unticked plugins, including security plugins, are off for everyo
 
 = It says "It's not one of your plugins." Now what? =
 
-The problem was still there with the plugins off. The usual suspects are your theme, a plugin you marked "must stay on," must-use plugins, caching, or something on the site that shouldn't be there. A hacked site can look a lot like a plugin conflict. If you're stuck, [The Hack Repair Guy can help](https://hackrepair.com/).
+The problem was still there with the plugins off. The usual suspects are your theme, your PHP version (did your host just change it?), a plugin you marked "must stay on," must-use plugins, caching, or something on the site that shouldn't be there. If your host just changed the PHP version, an older theme or must-use plugin may not support the new one. That breaks a site just like a plugin conflict. Switch PHP back in your hosting control panel and look again. A [hacked site](https://hackrepair.com/) can look a lot like a plugin conflict. If you're stuck, [The Hack Repair Guy can help](https://hackrepair.com/).
 
 = It says it takes more than one plugin. What does that mean? =
 
@@ -169,6 +169,10 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
+
+= 3.3.1 - 2026-10-16 =
+* Tweak: "It's not one of your plugins" now lists your PHP version among the usual suspects and shows the version your site is running. If your host just changed PHP, an older theme or must-use plugin that can't handle it breaks a site just like a plugin conflict. Switch PHP back in your hosting control panel and look again.
+* Tweak: On that same screen, "hacked site" now links to hackrepair.com, with a "Contact Jim Now?" tooltip.
 
 = 3.3.0 - 2026-10-15 =
 * New: Simpler names. "Troubleshoot" is now "Fix" everywhere you read it, and the emergency address is shorter: `/wp-content/plugins/hackrepair-plugin-detective/fix/`. If you bookmarked the old address, replace it with the new one from Tools > Plugin Detective.

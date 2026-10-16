@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.3.0-b34700?style=flat-square" alt="Version 3.3.0">
+  <img src="https://img.shields.io/badge/version-3.3.1-b34700?style=flat-square" alt="Version 3.3.1">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
@@ -232,7 +232,7 @@ The problem page, the result, how many checks it took, what was left switched of
 <details>
 <summary><b>It says "It's not one of your plugins." Now what?</b></summary>
 
-The problem was still there with the plugins off. The usual suspects are your theme, a plugin you marked "must stay on," must-use plugins, caching, or something on the site that shouldn't be there. A hacked site can look a lot like a plugin conflict. If you're stuck, <a href="https://hackrepair.com/">The Hack Repair Guy can help</a>.
+The problem was still there with the plugins off. The usual suspects are your theme, your PHP version (did your host just change it?), a plugin you marked "must stay on," must-use plugins, caching, or something on the site that shouldn't be there. If your host just changed the PHP version, an older theme or must-use plugin may not support the new one. That breaks a site just like a plugin conflict. Switch PHP back in your hosting control panel and look again. A [hacked site](https://hackrepair.com/ "Contact Jim Now?") can look a lot like a plugin conflict. If you're stuck, <a href="https://hackrepair.com/">The Hack Repair Guy can help</a>.
 </details>
 
 <details>
