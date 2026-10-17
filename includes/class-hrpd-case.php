@@ -229,9 +229,9 @@ final class HRPD_Case {
 			);
 		}
 
-		$found_culprit = self::STATUS_SOLVED === $record['status']
+		$found_culprit    = self::STATUS_SOLVED === $record['status']
 			&& HRPD_Detective::RESULT_CULPRIT === ( $record['result']['result'] ?? '' );
-		$delete        = 'delete' === $mode && $found_culprit;
+		$delete           = 'delete' === $mode && $found_culprit;
 		$keep_culprit_off = ( 'keep' === $mode && $found_culprit ) || $delete;
 
 		// Names and versions are needed for the report after the plugin's files are gone.
@@ -304,7 +304,7 @@ final class HRPD_Case {
 		$failed = new WP_Error( 'hrpd_delete_failed', __( 'I couldn\'t delete that plugin from here. It is still switched off. You can delete it from the Plugins page in WordPress.', 'hackrepair-plugin-detective' ) );
 
 		$installed = self::installed_plugins();
-		if ( '' === $file || $file === self::self_basename() || ! isset( $installed[ $file ] ) || false !== strpos( $file, '..' ) ) {
+		if ( '' === $file || self::self_basename() === $file || ! isset( $installed[ $file ] ) || false !== strpos( $file, '..' ) ) {
 			return $failed;
 		}
 
@@ -315,7 +315,7 @@ final class HRPD_Case {
 
 		$root   = realpath( WP_PLUGIN_DIR );
 		$target = '.' === $folder ? WP_PLUGIN_DIR . '/' . $file : WP_PLUGIN_DIR . '/' . $folder;
-		if ( false === $root || ! file_exists( $target ) && ! is_link( $target ) ) {
+		if ( false === $root || ( ! file_exists( $target ) && ! is_link( $target ) ) ) {
 			return $failed;
 		}
 

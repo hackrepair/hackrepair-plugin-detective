@@ -41,6 +41,8 @@ final class HRPD_Updater {
 	const ASSET_PATTERN  = '/^hackrepair-plugin-detective\.[0-9]+(?:\.[0-9]+){2}\.zip$/';
 
 	/**
+	 * Underlying Plugin Update Checker instance.
+	 *
 	 * @var \YahnisElsts\PluginUpdateChecker\v5\Vcs\Api|null
 	 */
 	private $checker = null;

@@ -62,7 +62,7 @@ final class HRPD_Report {
 				break;
 
 			case HRPD_Detective::RESULT_COMBINATION:
-				$out[] = __( 'Result: More than one plugin is involved. No single plugin breaks the site on its own.', 'hackrepair-plugin-detective' );
+				$out[]  = __( 'Result: More than one plugin is involved. No single plugin breaks the site on its own.', 'hackrepair-plugin-detective' );
 				$broken = (array) ( $result['last_broken'] ?? array() );
 				if ( $broken ) {
 					$out[] = __( 'The problem showed up with this group switched on:', 'hackrepair-plugin-detective' );
