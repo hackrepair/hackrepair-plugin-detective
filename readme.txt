@@ -75,6 +75,8 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 * A case report you can copy or download and send to a developer.
 * No outside fonts, scripts, or tracking. Updates come from this plugin's own GitHub releases.
 
+Update checks use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker "Plugin Update Checker on GitHub") by Jānis Elsts (MIT license), included unmodified.
+
 == Installation ==
 
 1. Upload the `hackrepair-plugin-detective` folder to `/wp-content/plugins/`, or upload the ZIP under Plugins > Add New > Upload Plugin.

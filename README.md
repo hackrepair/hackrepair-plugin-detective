@@ -358,6 +358,10 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 - A background check on the plugin it finds, including known security holes, and a case report you can send
 - No outside fonts, scripts, or tracking; updates come from this plugin's own GitHub releases
 
+## Third-party code
+
+Update checks use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker "Plugin Update Checker on GitHub") by Jānis Elsts (MIT license), included unmodified in `plugin-update-checker/`.
+
 ## Changelog
 
 See the **Changelog** section of [`readme.txt`](readme.txt).
