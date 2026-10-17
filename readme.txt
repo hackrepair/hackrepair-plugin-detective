@@ -172,6 +172,7 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 
 = 3.3.3 - 2026-10-16 =
 * Tweak: Tools > Plugin Detective is now quiet. Notices from other plugins and themes no longer show on our page, so you can read it without the noise. They still show everywhere else in wp-admin.
+* Tweak: A Copy button now sits next to the emergency address under "Bookmark this for emergencies".
 
 = 3.3.2 - 2026-10-16 =
 * Fix: Release packaging. The download now uses normal file permissions (folders 755, files 644), so images and scripts no longer return a 403 error on hosts that keep a ZIP's permissions when they unpack it.

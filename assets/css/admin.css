@@ -36,3 +36,7 @@
 .tools_page_hackrepair-plugin-detective #wpbody-content div.updated,
 .tools_page_hackrepair-plugin-detective #wpbody-content div.error,
 .tools_page_hackrepair-plugin-detective #wpbody-content .update-nag{display:none!important}
+
+.hrpd-copyrow{display:flex;gap:8px;align-items:center;max-width:72ch;margin:1em 0}
+.hrpd-copyrow input{flex:1 1 auto;min-width:0;width:auto;margin:0}
+.hrpd-copyrow .button{flex:0 0 auto}

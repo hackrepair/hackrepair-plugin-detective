@@ -284,7 +284,10 @@ final class HRPD_Admin {
 			<h2 class="hrpd-section"><?php esc_html_e( 'Bookmark this for emergencies', 'hackrepair-plugin-detective' ); ?></h2>
 			<div class="hrpd-card">
 				<p><?php esc_html_e( 'If a plugin ever takes your whole site down (white screen, critical error, or wp-admin won\'t load), this address still works. Sign in there with your WordPress username and password.', 'hackrepair-plugin-detective' ); ?></p>
-				<p><input type="text" class="large-text code" readonly value="<?php echo esc_attr( $bookmark ); ?>" aria-label="<?php esc_attr_e( 'Emergency Fix page address', 'hackrepair-plugin-detective' ); ?>"></p>
+				<div class="hrpd-copyrow">
+					<input type="text" id="hrpd-bookmark-url" class="large-text code" readonly value="<?php echo esc_attr( $bookmark ); ?>" aria-label="<?php esc_attr_e( 'Emergency Fix page address', 'hackrepair-plugin-detective' ); ?>">
+					<button type="button" class="button" data-hrpd-copy="hrpd-bookmark-url" title="<?php esc_attr_e( 'Copy this address so you can paste it into a bookmark or a note', 'hackrepair-plugin-detective' ); ?>"><?php esc_html_e( 'Copy', 'hackrepair-plugin-detective' ); ?></button>
+				</div>
 				<p class="hrpd-muted"><?php esc_html_e( 'If your account uses two-factor login through HackGuard Security or the Two Factor plugin, you\'ll be asked for your code there too. Other two-factor plugins: log in to wp-admin first.', 'hackrepair-plugin-detective' ); ?></p>
 			</div>
 
