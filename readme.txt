@@ -171,7 +171,8 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 == Changelog ==
 
 = 3.3.2 - 2026-10-16 =
-* Tweak: Version bump only, to test that updates reach your sites from GitHub. Nothing else changed.
+* Fix: Release packaging. The download now uses normal file permissions (folders 755, files 644), so images and scripts no longer return a 403 error on hosts that keep a ZIP's permissions when they unpack it.
+* Fix: The 3.3.1 release was tagged before its code reached the main branch, so sites never saw it as an update. 3.3.2 brings 3.3.1 and this release together, so WordPress offers the update the normal way.
 
 = 3.3.1 - 2026-10-16 =
 * Tweak: "It's not one of your plugins" now lists your PHP version among the usual suspects and shows the version your site is running. If your host just changed PHP, an older theme or must-use plugin that can't handle it breaks a site just like a plugin conflict. Switch PHP back in your hosting control panel and look again.
