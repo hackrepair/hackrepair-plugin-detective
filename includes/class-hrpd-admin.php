@@ -26,6 +26,7 @@ final class HRPD_Admin {
 		}
 
 		add_action( 'admin_menu', array( __CLASS__, 'register_page' ) );
+		add_action( 'in_admin_header', array( __CLASS__, 'quiet_notices' ), PHP_INT_MAX );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar' ), 1000 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_admin_bar_style' ) );
@@ -59,6 +60,24 @@ final class HRPD_Admin {
 			self::PAGE_SLUG,
 			array( __CLASS__, 'render_page' )
 		);
+	}
+
+	/**
+	 * Keep other plugins' and themes' notices off our page.
+	 *
+	 * Runs just before WordPress prints the notices. Anyone who needs those
+	 * notices still sees them on every other wp-admin screen. Our own page
+	 * already shows an open Fix session in its main button.
+	 */
+	public static function quiet_notices(): void {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || 'tools_page_' . self::PAGE_SLUG !== $screen->id ) {
+			return;
+		}
+
+		foreach ( array( 'admin_notices', 'all_admin_notices', 'user_admin_notices', 'network_admin_notices' ) as $hook ) {
+			remove_all_actions( $hook );
+		}
 	}
 
 	/**

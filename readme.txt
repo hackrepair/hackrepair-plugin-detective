@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.3.2
+Stable tag: 3.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
+
+= 3.3.3 - 2026-10-16 =
+* Tweak: Tools > Plugin Detective is now quiet. Notices from other plugins and themes no longer show on our page, so you can read it without the noise. They still show everywhere else in wp-admin.
 
 = 3.3.2 - 2026-10-16 =
 * Fix: Release packaging. The download now uses normal file permissions (folders 755, files 644), so images and scripts no longer return a 403 error on hosts that keep a ZIP's permissions when they unpack it.
