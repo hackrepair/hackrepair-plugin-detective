@@ -2,3 +2,6 @@
 *.log
 /.dev/shots/
 node_modules/
+
+# Generated release artifacts.
+/dist/

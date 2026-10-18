@@ -358,10 +358,6 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 - A background check on the plugin it finds, including known security holes, and a case report you can send
 - No outside fonts, scripts, or tracking; updates come from this plugin's own GitHub releases
 
-## Third-party code
-
-Update checks use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker "Plugin Update Checker on GitHub") by Jānis Elsts (MIT license), included unmodified in `plugin-update-checker/`.
-
 ## Changelog
 
 See the **Changelog** section of [`readme.txt`](readme.txt).
@@ -377,3 +373,15 @@ GPLv2 or later. See [`LICENSE`](LICENSE).
 <p align="center">
   <sub>Made by <a href="https://hackrepair.com/">Jim Walker, The Hack Repair Guy</a></sub>
 </p>
+
+## 3.4.0
+
+View Details now includes **Other THRG Plugins**, a guide to the three companion tools with descriptions and project links.
+
+## 3.4.1
+
+Corrected release packaging to retain the complete bundled updater, including the View Details parser dependencies.
+
+## 3.4.2
+
+View Details uses the approved compact companion-plugin cards, with content contained beside the sidebar and the installed version displayed.

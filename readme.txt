@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.3.3
+Stable tag: 3.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,8 +74,6 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 * A background check on the plugin it finds: newer version, closed on wordpress.org, and known security holes.
 * A case report you can copy or download and send to a developer.
 * No outside fonts, scripts, or tracking. Updates come from this plugin's own GitHub releases.
-
-Update checks use [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker "Plugin Update Checker on GitHub") by Jānis Elsts (MIT license), included unmodified.
 
 == Installation ==
 
@@ -171,6 +169,16 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
+
+= 3.4.2 =
+* Match the compact companion-plugin cards and sidebar layout used by Disable Other Plugin Notices.
+* Display the installed version in View Details.
+
+= 3.4.1 =
+* Restore bundled updater parser dependencies required by View Details.
+
+= 3.4.0 =
+* Added an Other THRG Plugins tab to View Details with companion tools and project links.
 
 = 3.3.3 - 2026-10-16 =
 * Tweak: Tools > Plugin Detective is now quiet. Notices from other plugins and themes no longer show on our page, so you can read it without the noise. They still show everywhere else in wp-admin.
