@@ -385,3 +385,7 @@ Corrected release packaging to retain the complete bundled updater, including th
 ## 3.4.2
 
 View Details uses the approved compact companion-plugin cards, with content contained beside the sidebar and the installed version displayed.
+
+## 3.4.3
+
+Update-check failures now use plain language and clarify that plugin features continue to work. Confirmed GitHub rate limits include a retry time in the site timezone. Technical diagnostics are collapsed. This changes reporting; retry scheduling is unchanged.

@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.4.2
+Stable tag: 3.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -169,6 +169,10 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
+
+= 3.4.3 =
+* Explain temporary update-check failures clearly and move diagnostic errors into Technical details.
+* Show a retry time for confirmed GitHub rate limits.
 
 = 3.4.2 =
 * Match the compact companion-plugin cards and sidebar layout used by Disable Other Plugin Notices.

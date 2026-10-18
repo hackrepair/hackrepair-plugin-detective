@@ -86,6 +86,9 @@ final class HRPD_Updater {
 			return;
 		}
 
+		require_once __DIR__ . '/class-hrpd-update-notices.php';
+		new HRPD_Update_Notices( $this->checker );
+
 		$api->enableReleaseAssets( self::ASSET_PATTERN, Api::REQUIRE_RELEASE_ASSETS );
 
 		// The library normally tries a tag and then a branch when a release is
