@@ -373,21 +373,3 @@ GPLv2 or later. See [`LICENSE`](LICENSE).
 <p align="center">
   <sub>Made by <a href="https://hackrepair.com/">Jim Walker, The Hack Repair Guy</a></sub>
 </p>
-
-## 3.4.0
-
-View Details now includes **Other THRG Plugins**, a guide to the three companion tools with descriptions and project links.
-
-## 3.4.1
-
-Corrected release packaging to retain the complete bundled updater, including the View Details parser dependencies.
-
-## 3.4.2
-
-View Details uses the approved compact companion-plugin cards, with content contained beside the sidebar and the installed version displayed.
-
-## 3.4.3
-
-Update-check failures now use plain language and clarify that plugin features continue to work. Confirmed GitHub rate limits include a retry time in the site timezone. Technical diagnostics are collapsed. This changes reporting; retry scheduling is unchanged.
-
-Release 3.4.4: refreshed 2026 THRG heart branding, two heartbeat cycles on opening, reduced-motion/print support, and a wrapping native View Details banner. Assets are bundled locally. Consider the Codex Security review reminder before future changes.
