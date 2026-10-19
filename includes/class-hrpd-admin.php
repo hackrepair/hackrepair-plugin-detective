@@ -224,7 +224,7 @@ final class HRPD_Admin {
 			<div class="hrpd-head">
 				<img class="hrpd-mascot thrg-brand-heart" src="<?php echo esc_url( HRPD_URL . 'assets/brand/thrg-heart-128.png' ); ?>" alt="" width="56" height="56">
 				<div>
-					<h1><?php esc_html_e( 'Plugin Detective', 'hackrepair-plugin-detective' ); ?></h1>
+					<h1><?php esc_html_e( 'Plugin Detective', 'hackrepair-plugin-detective' ); ?> <span class="hrpd-version">v<?php echo esc_html( HRPD_VERSION ); ?></span></h1>
 					<p class="hrpd-byline"><?php esc_html_e( 'by Jim Walker, The Hack Repair Guy', 'hackrepair-plugin-detective' ); ?></p>
 				</div>
 			</div>
