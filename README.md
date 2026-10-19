@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/img/hackrepair-heart.png" alt="The Hack Repair Guy's Plugin Detective" width="120" height="120">
+  <img src=".github/branding/thrg-heart-animated.gif" alt="The Hack Repair Guy heart and wrench logo" width="144" height="144">
 </p>
 
 <h1 align="center">The Hack Repair Guy's Plugin Detective</h1>
@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-3.3.3-b34700?style=flat-square" alt="Version 3.3.3">
+  <img src="https://img.shields.io/badge/version-3.4.4-b34700?style=flat-square" alt="Version 3.4.4">
   <img src="https://img.shields.io/badge/WordPress-6.9.4%2B-21759b?style=flat-square&logo=wordpress&logoColor=white" alt="WordPress 6.9.4+">
   <img src="https://img.shields.io/badge/tested%20up%20to-7.1.3-21759b?style=flat-square" alt="Tested up to WordPress 7.1.3">
   <img src="https://img.shields.io/badge/PHP-7.4%2B-777bb4?style=flat-square&logo=php&logoColor=white" alt="PHP 7.4+">
