@@ -139,6 +139,7 @@ final class HRPD_Admin {
 			return;
 		}
 
+		wp_enqueue_style( 'hrpd-brand', HRPD_URL . 'assets/brand/thrg-brand.css', array(), HRPD_VERSION );
 		wp_enqueue_style( 'hrpd-admin', HRPD_URL . 'assets/css/admin.css', array(), self::asset_version( 'assets/css/admin.css' ) );
 
 		if ( 'tools_page_' . self::PAGE_SLUG === $hook_suffix ) {
@@ -221,7 +222,7 @@ final class HRPD_Admin {
 		?>
 		<div class="wrap hrpd-wrap">
 			<div class="hrpd-head">
-				<img class="hrpd-mascot" src="<?php echo esc_url( HRPD_URL . 'assets/img/hackrepair-heart.png' ); ?>" alt="" width="56" height="56">
+				<img class="hrpd-mascot thrg-brand-heart" src="<?php echo esc_url( HRPD_URL . 'assets/brand/thrg-heart-128.png' ); ?>" alt="" width="56" height="56">
 				<div>
 					<h1><?php esc_html_e( 'Plugin Detective', 'hackrepair-plugin-detective' ); ?></h1>
 					<p class="hrpd-byline"><?php esc_html_e( 'by Jim Walker, The Hack Repair Guy', 'hackrepair-plugin-detective' ); ?></p>
@@ -335,7 +336,7 @@ final class HRPD_Admin {
 			</div>
 
 			<div class="hrpd-help">
-				<img class="hrpd-mascot" src="<?php echo esc_url( HRPD_URL . 'assets/img/hackrepair-heart.png' ); ?>" alt="" width="44" height="44">
+				<img class="hrpd-mascot" src="<?php echo esc_url( HRPD_URL . 'assets/brand/thrg-heart-128.png' ); ?>" alt="" width="44" height="44">
 				<p><strong><?php esc_html_e( 'Still stuck?', 'hackrepair-plugin-detective' ); ?></strong>
 				<?php esc_html_e( 'Some problems aren\'t plugin problems. A hacked site can look a lot like a plugin conflict.', 'hackrepair-plugin-detective' ); ?>
 				<a href="https://hackrepair.com/" target="_blank" rel="noopener" title="<?php esc_attr_e( 'Ask Jim to take a look. Opens hackrepair.com in a new tab.', 'hackrepair-plugin-detective' ); ?>"><?php esc_html_e( 'The Hack Repair Guy can help.', 'hackrepair-plugin-detective' ); ?></a></p>
