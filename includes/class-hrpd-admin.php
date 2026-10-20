@@ -335,6 +335,12 @@ final class HRPD_Admin {
 				<?php endif; ?>
 			</div>
 
+			<h2 class="hrpd-section" id="support"><?php esc_html_e( 'Support', 'hackrepair-plugin-detective' ); ?></h2>
+			<div class="hrpd-card">
+				<p>&#9749; <?php echo wp_kses_post( __( 'If you found this plugin helpful, please <a href="https://hackrepair.com/donations/buy-jim-a-coffee" target="_blank" rel="noopener">buy Jim a cup of coffee?</a>', 'hackrepair-plugin-detective' ) ); ?></p>
+				<p><span class="dashicons dashicons-editor-help" aria-hidden="true"></span> <?php echo wp_kses_post( __( 'Questions and Feedback: For questions, ideas, or help with the plugin, <a href="https://github.com/hackrepair/hackrepair-plugin-detective/discussions" target="_blank" rel="noopener">visit GitHub Discussions</a>.', 'hackrepair-plugin-detective' ) ); ?></p>
+			</div>
+
 			<div class="hrpd-help">
 				<img class="hrpd-mascot" src="<?php echo esc_url( HRPD_URL . 'assets/brand/thrg-heart-128.png' ); ?>" alt="" width="44" height="44">
 				<p><strong><?php esc_html_e( 'Still stuck?', 'hackrepair-plugin-detective' ); ?></strong>

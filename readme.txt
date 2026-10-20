@@ -5,7 +5,7 @@ Tags: troubleshoot, plugin conflict, white screen, maintenance mode, debug
 Requires at least: 6.9.4
 Tested up to: 7.1.3
 Requires PHP: 7.4
-Stable tag: 3.4.5
+Stable tag: 3.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Support link: https://github.com/hackrepair/hackrepair-plugin-detective/discussions
@@ -180,6 +180,9 @@ This plugin is not distributed on the WordPress.org repository, so it checks its
 5. Found it. The problem plugin stays off, with its background check and a case report, while you check your site.
 
 == Changelog ==
+
+= 3.5.0 =
+* Added a Support container at the bottom of the Tools > Plugin Detective screen: a link to buy Jim a cup of coffee and a link to GitHub Discussions for questions, ideas and help.
 
 = 3.4.5 =
 * Normalize all packaged file permissions to 0644 so assets remain readable on hosting with separate PHP and web-server users.
