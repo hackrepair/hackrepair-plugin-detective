@@ -8,6 +8,7 @@ Requires PHP: 7.4
 Stable tag: 3.4.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Support link: https://github.com/hackrepair/hackrepair-plugin-detective/discussions
 
 Find the plugin that broke your site in a few quick checks, even when wp-admin is down. By Jim Walker, The Hack Repair Guy.
 
@@ -99,6 +100,16 @@ When the Fix page finds a problem plugin, it runs a background check on that one
 Separately, WordPress checks this plugin's own GitHub releases for updates (`api.github.com`), the same way it checks wordpress.org for other plugins. Nothing about your site is sent.
 
 Turn the background check off with `define( 'HRPD_NO_BACKGROUND_CHECK', true );` in wp-config.php.
+
+== Support ==
+
+For questions, ideas and community support, visit GitHub Discussions:
+https://github.com/hackrepair/hackrepair-plugin-detective/discussions
+
+Report reproducible bugs through Issues:
+https://github.com/hackrepair/hackrepair-plugin-detective/issues
+
+Report security concerns privately to Jim Walker at jim@hackrepair.com. Do not include credentials or sensitive site information in public posts.
 
 == Frequently Asked Questions ==
 
