@@ -362,9 +362,13 @@ This is an independent rebuild with new code, design, and copy, and it isn't aff
 
 See the **Changelog** section of [`readme.txt`](readme.txt).
 
-## Support
+## Author and support
 
-Found a problem plugin and need a hand with the next step? Or the Fix page says it isn't a plugin at all? **[The Hack Repair Guy can help.](https://hackrepair.com/)**
+**[Jim Walker](https://hackrepair.com/)** — The Hack Repair Guy — author and maintainer.
+
+[Report a bug or request a feature](https://github.com/hackrepair/hackrepair-plugin-detective/issues) · [Security reporting](mailto:jim%40hackrepair%2Ecom) · [Buy Jim a coffee](https://hackrepair.com/donations/buy-jim-a-coffee)
+
+Found a problem plugin and need a hand with the next step? Or the Fix page says it isn't a plugin at all? [The Hack Repair Guy can help.](https://hackrepair.com/)
 
 ## License
 
