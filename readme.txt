@@ -14,6 +14,8 @@ Find the plugin that broke your site in a few quick checks, even when wp-admin i
 
 == Description ==
 
+The native View Details window includes an Other THRG Plugins guide to five other tools from The Hack Repair Guy.
+
 Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.
 
 **Plugin Detective does it in halves.** You show it where the problem is, it switches some plugins off, and you tell it whether the problem is still there. A site with 40 plugins usually takes six or seven checks.
