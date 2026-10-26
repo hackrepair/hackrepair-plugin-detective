@@ -16,3 +16,8 @@ User approved packaging and publication for the five GitHub-updated plugins. Plu
 ## 3.5.1 published and verified — October 25, 2026
 
 Published: https://github.com/hackrepair/hackrepair-plugin-detective/releases/tag/v3.5.1. Version metadata, ZIP and published digest agree. Real Zendogs updater discovery/install, retained settings/activation, installed file hashes and native View Details verified. All local checks passed; CI scope and hashes are recorded in `docs/release-verification-3.5.1.md`. Older packages/releases retained. Plugin Archiver was excluded from this release pass.
+
+
+## Security reporting standard — October 26, 2026
+
+Added the common SECURITY.md policy, repository-specific private reporting destination, fallback email, qualified response targets and product limits. GitHub private reporting is enabled and API-verified. The reusable verifier and `docs/security-reporting-verification.md` describe repeat checks and separate API, browser, inbox and application-security evidence. Current browser verification is blocked by an SSL error; mailbox delivery was not tested. See `docs/security-reporting-verification-2026-10-26.md`. This updates repository policy/docs and packaging exclusions only; no plugin version or release changes.
