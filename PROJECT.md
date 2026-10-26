@@ -11,3 +11,8 @@ Verification: shared PHPCS and `php tests/companion-plugins.php` pass for this c
 ## 3.5.1 release preparation — October 25, 2026
 
 User approved packaging and publication for the five GitHub-updated plugins. Plugin Archiver is explicitly excluded from this release pass. Version headers/constants, stable tag, README and release notes are aligned at 3.5.1. Release checks and publication results follow below.
+
+
+## 3.5.1 published and verified — October 25, 2026
+
+Published: https://github.com/hackrepair/hackrepair-plugin-detective/releases/tag/v3.5.1. Version metadata, ZIP and published digest agree. Real Zendogs updater discovery/install, retained settings/activation, installed file hashes and native View Details verified. All local checks passed; CI scope and hashes are recorded in `docs/release-verification-3.5.1.md`. Older packages/releases retained. Plugin Archiver was excluded from this release pass.
