@@ -14,7 +14,7 @@ Find the plugin that broke your site in a few quick checks, even when wp-admin i
 
 == Description ==
 
-The native View Details window includes an Other THRG Plugins guide to six other tools from The Hack Repair Guy.
+The native View Details window includes an Other THRG Plugins guide to seven other tools from The Hack Repair Guy.
 
 Something stopped working after an update or a new plugin. The usual advice is to switch every plugin off, then turn them back on one at a time, checking the site after each one. It works. It also takes forever.
 
