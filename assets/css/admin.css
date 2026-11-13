@@ -32,12 +32,36 @@
 .hrpd-notice .button-primary:hover,.hrpd-notice .button-primary:focus{background:#9a3c00;border-color:#9a3c00;color:#fff}
 .hrpd-report-wrap{margin:8px 0 4px}.hrpd-report-wrap summary{cursor:pointer;color:var(--hrpd-accent);font-weight:600}textarea.hrpd-report{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f6f7f7}
 
-/* Notices that arrive late (printed by script or in the footer) stay off our page too. */
-.tools_page_hackrepair-plugin-detective #wpbody-content .notice,
-.tools_page_hackrepair-plugin-detective #wpbody-content div.updated,
-.tools_page_hackrepair-plugin-detective #wpbody-content div.error,
-.tools_page_hackrepair-plugin-detective #wpbody-content .update-nag{display:none!important}
 
 .hrpd-copyrow{display:flex;gap:8px;align-items:center;max-width:72ch;margin:1em 0}
 .hrpd-copyrow input{flex:1 1 auto;min-width:0;width:auto;margin:0}
 .hrpd-copyrow .button{flex:0 0 auto}
+
+/* Tuck other plugins' admin notices away on this plugin's screens (shown again with the Show link). Needs JavaScript so the notices stay visible without it. */
+body.js.hrpd-screen:not(.hrpd-notices-shown) #wpbody-content > .notice:not(.hrpd-own):not(.settings-error),
+body.js.hrpd-screen:not(.hrpd-notices-shown) #wpbody-content > .update-nag,
+body.js.hrpd-screen:not(.hrpd-notices-shown) .wrap.hrpd-wrap > .notice:not(.hrpd-own):not(.settings-error),
+body.js.hrpd-screen:not(.hrpd-notices-shown) .wrap.hrpd-wrap > .updated:not(.hrpd-own):not(.settings-error),
+body.js.hrpd-screen:not(.hrpd-notices-shown) .wrap.hrpd-wrap > .error:not(.hrpd-own):not(.settings-error) {
+	display: none !important;
+}
+
+.hrpd-notice-bar {
+	margin: 0 0 16px;
+	padding: 8px 14px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #ff9933;
+	border-radius: 4px;
+	color: #50575e;
+	font-size: 13px;
+}
+
+.hrpd-notice-bar[hidden] {
+	display: none;
+}
+
+.hrpd-notice-bar .button-link {
+	margin-left: 6px;
+	font-weight: 600;
+}

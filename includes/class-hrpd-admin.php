@@ -26,7 +26,7 @@ final class HRPD_Admin {
 		}
 
 		add_action( 'admin_menu', array( __CLASS__, 'register_page' ) );
-		add_action( 'in_admin_header', array( __CLASS__, 'quiet_notices' ), PHP_INT_MAX );
+		add_filter( 'admin_body_class', array( __CLASS__, 'body_class' ) );
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar' ), 1000 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_admin_bar_style' ) );
@@ -63,21 +63,20 @@ final class HRPD_Admin {
 	}
 
 	/**
-	 * Keep other plugins' and themes' notices off our page.
+	 * Mark our screen so the stylesheet can tuck other plugins' notices away.
 	 *
-	 * Runs just before WordPress prints the notices. Anyone who needs those
-	 * notices still sees them on every other wp-admin screen. Our own page
-	 * already shows an open Fix session in its main button.
+	 * Nothing is removed from WordPress: the notices still print and a small
+	 * bar under the header shows them again with one click.
+	 *
+	 * @param string $classes Space-separated body classes.
+	 * @return string
 	 */
-	public static function quiet_notices(): void {
+	public static function body_class( $classes ): string {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-		if ( ! $screen || 'tools_page_' . self::PAGE_SLUG !== $screen->id ) {
-			return;
+		if ( $screen && 'tools_page_' . self::PAGE_SLUG === $screen->id ) {
+			$classes .= ' hrpd-screen';
 		}
-
-		foreach ( array( 'admin_notices', 'all_admin_notices', 'user_admin_notices', 'network_admin_notices' ) as $hook ) {
-			remove_all_actions( $hook );
-		}
+		return $classes;
 	}
 
 	/**
@@ -149,6 +148,18 @@ final class HRPD_Admin {
 				'hrpdAdmin',
 				array( 'copied' => __( 'Copied', 'hackrepair-plugin-detective' ) )
 			);
+			wp_enqueue_script( 'hrpd-notices', HRPD_URL . 'assets/js/hrpd-notices.js', array(), self::asset_version( 'assets/js/hrpd-notices.js' ), true );
+			wp_localize_script(
+				'hrpd-notices',
+				'hrpdNotices',
+				array(
+					'noticesOne'  => __( '1 notice from another plugin or WordPress is hidden on this page.', 'hackrepair-plugin-detective' ),
+					/* translators: %d: number of hidden notices */
+					'noticesMany' => __( '%d notices from other plugins or WordPress are hidden on this page.', 'hackrepair-plugin-detective' ),
+					'show'        => __( 'Show', 'hackrepair-plugin-detective' ),
+					'hide'        => __( 'Hide', 'hackrepair-plugin-detective' ),
+				)
+			);
 		}
 	}
 
@@ -175,7 +186,8 @@ final class HRPD_Admin {
 			return;
 		}
 
-		$case = HRPD_Case::get();
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		$case   = ( $screen && 'tools_page_' . self::PAGE_SLUG === $screen->id ) ? null : HRPD_Case::get(); // Our own page already shows an open Fix session.
 		if ( $case ) {
 			$off = count( array_diff( (array) $case['backup'], HRPD_Case::active_plugins() ) );
 			if ( HRPD_Case::STATUS_SETUP === $case['status'] || $off > 0 ) {
@@ -188,7 +200,7 @@ final class HRPD_Admin {
 					: __( 'A Plugin Detective Fix session is still open.', 'hackrepair-plugin-detective' );
 
 				printf(
-					'<div class="notice notice-warning hrpd-notice"><p><strong>%1$s</strong> %2$s</p><div class="hrpd-notice__actions"><a class="button button-primary" href="%3$s" title="%6$s">%4$s</a> %5$s</div></div>',
+					'<div class="hrpd-own notice notice-warning hrpd-notice"><p><strong>%1$s</strong> %2$s</p><div class="hrpd-notice__actions"><a class="button button-primary" href="%3$s" title="%6$s">%4$s</a> %5$s</div></div>',
 					esc_html( $message ),
 					esc_html__( 'Finish the session or put everything back when you\'re done.', 'hackrepair-plugin-detective' ),
 					esc_url( self::troubleshooter_url() ),
@@ -228,6 +240,7 @@ final class HRPD_Admin {
 					<p class="hrpd-byline"><?php esc_html_e( 'by Jim Walker, The Hack Repair Guy', 'hackrepair-plugin-detective' ); ?></p>
 				</div>
 			</div>
+			<hr class="wp-header-end" />
 
 			<?php if ( 'restored' === $done ) : ?>
 				<div class="hrpd-callout" role="status"><p><?php esc_html_e( 'Done. Every plugin is back the way it was before you started.', 'hackrepair-plugin-detective' ); ?></p></div>
@@ -448,7 +461,7 @@ final class HRPD_Admin {
 	 * @param string $message Message.
 	 */
 	private static function notice( string $type, string $message ): void {
-		printf( '<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>', esc_attr( $type ), esc_html( $message ) );
+		printf( '<div class="hrpd-own notice notice-%1$s is-dismissible"><p>%2$s</p></div>', esc_attr( $type ), esc_html( $message ) );
 	}
 
 	/**
